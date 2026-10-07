@@ -1,0 +1,48 @@
+package com.ssja.smarttutor.sessions;
+import com.ssja.smarttutor.repository.*;import com.ssja.smarttutor.enumarates.BookingStatus;
+import org.springframework.stereotype.Service;import org.springframework.transaction.annotation.Transactional;import java.util.*;import java.time.*;
+@Service public class SessionService {
+ private final ScheduledSessionRepository sessions;private final SessionEnrollmentRepository enrollments;private final SessionNotificationRepository notifications;private final CourseRepository courses;private final TutorRepository tutors;private final BookingRepository bookings;private final StudentRepository students;
+ public SessionService(ScheduledSessionRepository s,SessionEnrollmentRepository e,SessionNotificationRepository n,CourseRepository c,TutorRepository t,BookingRepository b,StudentRepository st){sessions=s;enrollments=e;notifications=n;courses=c;tutors=t;bookings=b;students=st;}
+ private void check(boolean c,String m){if(!c)throw new IllegalArgumentException(m);}
+ private boolean overlaps(ScheduledSession a,ScheduledSession b){return a.getDate().equals(b.getDate()) && a.getStartTime().compareTo(b.getEndTime())<0 && b.getStartTime().compareTo(a.getEndTime())<0;}
+ private boolean future(ScheduledSession s){return LocalDateTime.of(LocalDate.parse(s.getDate()),LocalTime.parse(s.getStartTime())).isAfter(LocalDateTime.now(ZoneId.of("Asia/Kolkata")));}
+ @Transactional public ScheduledSession publish(Long tutorId,ScheduledSession s){
+  tutors.lockForSession(tutorId).orElseThrow(()->new IllegalArgumentException("Tutor not found"));check(s.getId()==null,"New session must not contain an ID");
+  check(s.getTitle()!=null && !s.getTitle().isBlank() && s.getTitle().length()<=200,"Title required (max 200 characters)");check(Set.of("ONLINE","OFFLINE").contains(Objects.toString(s.getMode(),"")),"Choose online/offline");check(Set.of("ONE_TO_ONE","GROUP").contains(Objects.toString(s.getKind(),"")),"Choose session type");if("OFFLINE".equals(s.getMode()) && "ONE_TO_ONE".equals(s.getKind()))s.setDetails("Tutor visits the student location provided at booking.");else check(s.getDetails()!=null && !s.getDetails().isBlank() && s.getDetails().length()<=2000,"Meeting link or address required (max 2000 characters)");
+  try{s.setDate(LocalDate.parse(s.getDate()).toString());s.setStartTime(LocalTime.parse(s.getStartTime()).toString());s.setEndTime(LocalTime.parse(s.getEndTime()).toString());check(future(s),"Choose a future date/time (India time)");}catch(java.time.DateTimeException|NullPointerException ex){throw new IllegalArgumentException("Valid date and times required");}
+  check(s.getStartTime().compareTo(s.getEndTime())<0,"End time must be after start time");
+  if(s.getCourseId()!=null){var c=courses.findById(s.getCourseId()).orElseThrow(()->new IllegalArgumentException("Course not found"));check(c.getTutor().getId().equals(tutorId),"Choose your own course");}check(!"GROUP".equals(s.getKind()) || s.getCourseId()!=null,"Group session needs a course");
+  for(var old:sessions.findByTutorIdOrderByDateAscStartTimeAsc(tutorId))check(old.getCancelled() || !overlaps(old,s),"You have another session during this time");s.setTutorId(tutorId);s.setCancelled(false);return sessions.save(s);
+ }
+ @Transactional(readOnly=true) public List<Map<String,Object>> list(SessionAuth.User u){
+  var rows=new ArrayList<Map<String,Object>>();var source=u.role().equals("TUTOR")?sessions.findByTutorIdOrderByDateAscStartTimeAsc(u.id()):sessions.findAll();
+  for(var s:source){var r=new LinkedHashMap<String,Object>();r.put("session",s);r.put("tutorName",tutors.findById(s.getTutorId()).map(t->t.getFullName()).orElse("Tutor"));var e=enrollments.findBySessionIdAndCancelledFalse(s.getId());boolean mine=u.role().equals("STUDENT") && e.stream().anyMatch(x->x.getStudentId().equals(u.id()));var own=e.stream().filter(x->u.role().equals("TUTOR") || x.getStudentId().equals(u.id())).findFirst();own.ifPresent(x->r.put("approvalStatus",Objects.toString(x.getApprovalStatus(),"CONFIRMED")));
+  if(u.role().equals("TUTOR"))own.ifPresent(x->r.put("enrollmentId",x.getId()));r.put("count",e.size());r.put("mine",mine);r.put("available",!s.getCancelled() && future(s) && (!s.getKind().equals("ONE_TO_ONE") || e.isEmpty()));
+  if("OFFLINE".equals(s.getMode()) && "ONE_TO_ONE".equals(s.getKind()) && (u.role().equals("TUTOR") || mine)){r.put("studentAddress",e.stream().findFirst().map(SessionEnrollment::getStudentAddress).orElse(""));}
+  if(u.role().equals("STUDENT") && !mine){var copy=new ScheduledSession();copy.setTutorId(s.getTutorId());copy.setCourseId(s.getCourseId());copy.setTitle(s.getTitle());copy.setDate(s.getDate());copy.setStartTime(s.getStartTime());copy.setEndTime(s.getEndTime());copy.setMode(s.getMode());copy.setKind(s.getKind());copy.setCancelled(s.getCancelled());copy.setDetails("Details are shown after booking");copy.setId(s.getId());r.put("session",copy);}rows.add(r);}
+  rows.sort(Comparator.comparing(r->((ScheduledSession)r.get("session")).getDate()+((ScheduledSession)r.get("session")).getStartTime()));return rows;
+ }
+ @Transactional public SessionEnrollment enroll(Long id,Long studentId){return enroll(id,studentId,null);}
+ @Transactional public SessionEnrollment enroll(Long id,Long studentId,String studentAddress){
+  students.lockForSession(studentId).orElseThrow(()->new IllegalArgumentException("Student not found"));var s=sessions.lock(id).orElseThrow(()->new IllegalArgumentException("Session not found"));check(!s.getCancelled() && future(s),"Session cancelled or already started");check(!enrollments.existsBySessionIdAndStudentIdAndCancelledFalse(id,studentId),"Already booked");check(!s.getKind().equals("ONE_TO_ONE") || enrollments.findBySessionIdAndCancelledFalse(id).isEmpty(),"Slot already booked");
+  if(s.getKind().equals("GROUP"))check(bookings.findByStudentIdAndStatus(studentId,BookingStatus.BOOKED).stream().anyMatch(b->b.getCourse().getId().equals(s.getCourseId())),"Enroll in this course first");
+  for(var e:enrollments.findByStudentIdAndCancelledFalse(studentId)){var old=sessions.findById(e.getSessionId()).orElseThrow();check(old.getCancelled() || !overlaps(s,old),"You booked another session during this time");}
+  boolean homeVisit="OFFLINE".equals(s.getMode()) && "ONE_TO_ONE".equals(s.getKind());
+  if(homeVisit)check(studentAddress!=null && !studentAddress.isBlank() && studentAddress.trim().length()<=2000,"Enter your full address for the tutor visit (max 2000 characters)");
+  var e=new SessionEnrollment();e.setApprovalStatus(homeVisit?"PENDING":"CONFIRMED");if(homeVisit)e.setStudentAddress(studentAddress.trim());e.setSessionId(id);e.setStudentId(studentId);return enrollments.save(e);
+ }
+ @Transactional public void decide(Long sessionId,Long tutorId,boolean accept){
+  var s=sessions.lock(sessionId).orElseThrow(()->new IllegalArgumentException("Session not found"));check(s.getTutorId().equals(tutorId),"You can only manage your own sessions");check(!s.getCancelled() && future(s),"Session cancelled or already started");check("OFFLINE".equals(s.getMode()) && "ONE_TO_ONE".equals(s.getKind()),"Approval applies to offline personal sessions");
+  var e=enrollments.findBySessionIdAndCancelledFalse(sessionId).stream().findFirst().orElseThrow(()->new IllegalArgumentException("Request not found"));check("PENDING".equals(e.getApprovalStatus()),"Request already processed");e.setApprovalStatus(accept?"CONFIRMED":"REJECTED");if(!accept)e.setCancelled(true);enrollments.save(e);
+  var n=new SessionNotification();n.setStudentId(e.getStudentId());n.setSessionId(sessionId);n.setCreatedAt(OffsetDateTime.now(ZoneId.of("Asia/Kolkata")).toString());n.setMessage((accept?"Tutor accepted your home visit request: ":"Tutor declined your home visit request: ")+s.getTitle()+" | "+s.getDate()+" "+s.getStartTime()+" IST");notifications.save(n);
+ }
+ @Transactional public void release(Long id,Long studentId){sessions.lock(id).orElseThrow(()->new IllegalArgumentException("Session not found"));var e=enrollments.findBySessionIdAndCancelledFalse(id).stream().filter(x->x.getStudentId().equals(studentId)).findFirst().orElseThrow(()->new IllegalArgumentException("Your booking not found"));e.setCancelled(true);enrollments.save(e);}
+ @Transactional public int announce(Long id,Long tutorId,String message,boolean cancel){
+  var s=sessions.lock(id).orElseThrow(()->new IllegalArgumentException("Session not found"));check(s.getTutorId().equals(tutorId),"You can only update your own sessions");check(!s.getCancelled(),"Already cancelled");check(message!=null && !message.isBlank() && message.length()<=1500,"Reason required (max 1500 characters)");var recipients=new HashSet<Long>();for(var e:enrollments.findBySessionIdAndCancelledFalse(id))recipients.add(e.getStudentId());
+  if(s.getKind().equals("GROUP"))for(var b:bookings.findByCourseIdAndStatus(s.getCourseId(),BookingStatus.BOOKED))recipients.add(b.getStudent().getId());
+  for(Long student:recipients){var n=new SessionNotification();n.setStudentId(student);n.setSessionId(id);n.setCreatedAt(OffsetDateTime.now(ZoneId.of("Asia/Kolkata")).toString());n.setMessage((cancel?"Session cancelled: ":"Session update: ")+s.getTitle()+" | "+s.getDate()+" "+s.getStartTime()+" IST | "+message.trim());notifications.save(n);}if(cancel){s.setCancelled(true);sessions.save(s);}return recipients.size();
+ }
+ public List<SessionNotification> inbox(Long id){return notifications.findByStudentIdOrderByIdDesc(id);}
+ @Transactional public void markRead(Long id,Long studentId){var n=notifications.findById(id).orElseThrow(()->new IllegalArgumentException("Notification not found"));check(n.getStudentId().equals(studentId),"This notification belongs to another student");n.setRead(true);notifications.save(n);}
+}
