@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration — SmartTutor</title>
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Google Fonts: Outfit (Headings) + Plus Jakarta Sans (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/theme.css">
+  
+  <style>
+    :root {
+      --bg-page: #f8fafc;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --text-heading: #002e5e;
+      --text-body: #334155;
+      --text-muted: #64748b;
+      --primary-btn: #f5a623;
+      --primary-btn-hover: #d97706;
+      --amity-navy: #002e5e;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      margin: 0;
+    }
+
+    .site-nav {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      padding: 14px 0;
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--text-heading);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.025em;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background: #5a4bda;
+      color: #ffffff;
+      border-radius: 9px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 10px rgba(90, 75, 218, 0.25);
+    }
+
+    .nav-link-subtle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .nav-link-subtle:hover {
+      color: var(--text-heading);
+      background: #f1f5f9;
+    }
+
+    .auth-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 36px 32px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 6px 16px -4px rgba(0, 0, 0, 0.02);
+    }
+
+    .section-title {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #64748b;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .field-label {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: #334155;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .clean-input, .form-select {
+      height: 40px;
+      font-size: 0.875rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      color: #0f172a;
+      background-color: #ffffff;
+      padding: 8px 12px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .clean-input:focus, .form-select:focus {
+      border-color: #002e5e;
+      box-shadow: 0 0 0 3px rgba(0, 46, 94, 0.1);
+      outline: none;
+    }
+
+    .submit-btn {
+      width: 100%;
+      height: 46px;
+      background: linear-gradient(135deg, var(--amity-navy) 0%, #1a325d 100%);
+      color: #ffffff;
+      border: 1px solid var(--amity-navy);
+      border-radius: 8px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.15s ease;
+      box-shadow: 0 4px 14px rgba(0, 46, 94, 0.22);
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(135deg, #1a325d 0%, #001c3d 100%);
+      border-color: #1a325d;
+      box-shadow: 0 6px 18px rgba(0, 46, 94, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .goal-chip {
+      font-size: 0.82rem;
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #475569;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+
+    .goal-chip:hover {
+      background: #fffbeb;
+      border-color: #fde68a;
+      color: #d97706;
+    }
+
+    .goal-chip.active {
+      background: #002e5e;
+      color: #ffffff;
+      border-color: #002e5e;
+      box-shadow: 0 2px 6px rgba(0, 46, 94, 0.25);
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--border-color);
+      background: #ffffff;
+      padding: 16px 0;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body class="site-theme">
+
+  <!-- Navigation -->
+  <header class="site-nav">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a href="index.html" class="brand-title">
+        <span class="brand-icon"><i class="bi bi-mortarboard-fill"></i></span>
+        <span>SmartTutor</span>
+      </a>
+      <div class="d-flex align-items-center gap-2">
+        <span class="text-muted" style="font-size: 0.84rem;">Already have an account?</span>
+        <a href="login.html" class="nav-link-subtle" style="border: 1px solid #e2e8f0;">Sign In</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container py-5 flex-grow-1 d-flex align-items-center justify-content-center">
+    <div class="row justify-content-center w-100">
+      <div class="col-12 col-lg-9 col-xl-8">
+
+        <div class="auth-card">
+          
+          <!-- Header with autofill -->
+          <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 pb-3 border-bottom mb-4">
+            <div>
+              <h1 style="font-size: 1.4rem; font-weight: 600; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 4px;">
+                Create Student Account
+              </h1>
+              <p style="font-size: 0.875rem; color: #64748b; margin: 0;">
+                Learn any subject, practice coding, and connect with peer mentors.
+              </p>
+            </div>
+            <button type="button" class="btn btn-sm btn-light border text-secondary fw-medium py-1 px-3" onclick="fillStudentDemoData()" style="font-size: 0.8rem;">
+              Autofill demo data
+            </button>
+          </div>
+
+          <!-- Form -->
+          <form id="studentSignupForm">
+            <div id="studentSignupError" class="alert alert-danger d-none" role="alert" aria-live="polite"></div>
+
+            <!-- Section 1: Contact Details -->
+            <div class="mb-4">
+              <div class="section-title">
+                <span>01</span> Personal &amp; Contact Details
+              </div>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="field-label" for="stuName">Full name</label>
+                  <input type="text" id="stuName" class="form-control clean-input" placeholder="e.g. Priya Sharma" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="field-label" for="stuEmail">Email address</label>
+                  <input type="email" id="stuEmail" class="form-control clean-input" placeholder="priya@example.com" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="field-label" for="stuPhone">Phone number</label>
+                  <input type="tel" id="stuPhone" class="form-control clean-input" placeholder="+91 9876543210" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="field-label" for="stuLevel">Current education stage</label>
+                  <select id="stuLevel" class="form-select">
+                    <option value="School / High School">School (Grades 6–12)</option>
+                    <option value="Undergraduate College" selected>College / Undergraduate</option>
+                    <option value="Postgraduate">Postgraduate (Master's / Ph.D.)</option>
+                    <option value="Lifelong Learner">Self-Learner / Lifelong Learner</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 2: Location -->
+            <div class="mb-4">
+              <div class="section-title">
+                <span>02</span> Location
+              </div>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label class="field-label" for="stuState">State</label>
+                  <input type="text" id="stuState" class="form-control clean-input" placeholder="e.g. Maharashtra" required>
+                </div>
+                <div class="col-md-4">
+                  <label class="field-label" for="stuCity">City</label>
+                  <input type="text" id="stuCity" class="form-control clean-input" placeholder="e.g. Pune" required>
+                </div>
+                <div class="col-md-4">
+                  <label class="field-label" for="stuPincode">Pincode</label>
+                  <input type="text" id="stuPincode" class="form-control clean-input" placeholder="e.g. 411043" pattern="[0-9]{6}" required>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 3: Course & Hobbies -->
+            <div class="mb-4">
+              <div class="section-title">
+                <span>03</span> Academic Focus &amp; Interests
+              </div>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="field-label" for="stuCourse">Course or subject you are pursuing</label>
+                  <input type="text" id="stuCourse" class="form-control clean-input" placeholder="e.g. Mathematics, Commerce, CS, Design" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="field-label" for="stuHobby">Hobbies or skills to barter <span class="text-muted">(Optional)</span></label>
+                  <input type="text" id="stuHobby" class="form-control clean-input" placeholder="e.g. Chess, Guitar, UI Design">
+                </div>
+                <div class="col-12">
+                  <label class="field-label">Primary learning goal</label>
+                  <div class="d-flex flex-wrap gap-2">
+                    <button type="button" class="goal-chip active" onclick="toggleGoalChip(this)">Academic Mastery</button>
+                    <button type="button" class="goal-chip" onclick="toggleGoalChip(this)">Practical Skills &amp; Coding</button>
+                    <button type="button" class="goal-chip" onclick="toggleGoalChip(this)">Exam Preparation</button>
+                    <button type="button" class="goal-chip" onclick="toggleGoalChip(this)">1-on-1 Mentorship</button>
+                    <button type="button" class="goal-chip" onclick="toggleGoalChip(this)">Peer Skill Barter</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 4: Password -->
+            <div class="mb-4">
+              <div class="section-title">
+                <span>04</span> Security
+              </div>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="field-label" for="stuPassword">Create password</label>
+                  <input type="password" id="stuPassword" class="form-control clean-input" placeholder="At least 6 characters" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="field-label" for="stuConfirmPassword">Confirm password</label>
+                  <input type="password" id="stuConfirmPassword" class="form-control clean-input" placeholder="Re-enter password" required>
+                </div>
+              </div>
+            </div>
+
+            <!-- Agreement -->
+            <div class="d-flex align-items-center mb-4">
+              <input class="form-check-input me-2" type="checkbox" id="termsCheck" checked required style="cursor: pointer;">
+              <label class="text-muted" for="termsCheck" style="font-size: 0.8125rem; cursor: pointer; user-select: none;">
+                I agree to the Community Guidelines and Code of Conduct.
+              </label>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="submit-btn mb-3">
+              <span>Create Student Account</span>
+              <i class="bi bi-arrow-right" style="font-size: 0.85rem;"></i>
+            </button>
+
+          </form>
+
+          <div class="text-center pt-3 border-top" style="font-size: 0.8125rem; color: #64748b;">
+            <span>Looking to teach or mentor? </span>
+            <a href="signup-tutor.html" style="color: #0f172a; font-weight: 500; text-decoration: none;">Apply as a Tutor &rarr;</a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      &copy; 2026 SmartTutor. Universal learning &amp; peer mentorship platform.
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5.3 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/api-config.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    function fillStudentDemoData() {
+      document.getElementById('stuName').value = "Priya Sharma";
+      document.getElementById('stuEmail').value = "priya.sharma@example.com";
+      document.getElementById('stuPhone').value = "+91 9823456780";
+      document.getElementById('stuLevel').value = "Undergraduate College";
+      document.getElementById('stuState').value = "Maharashtra";
+      document.getElementById('stuCity').value = "Pune";
+      document.getElementById('stuPincode').value = "411043";
+      document.getElementById('stuCourse').value = "Mathematics & Computer Applications";
+      document.getElementById('stuHobby').value = "Digital Illustration & Chess";
+      document.getElementById('stuPassword').value = "Student@123";
+      document.getElementById('stuConfirmPassword').value = "Student@123";
+      showToast("Demo data filled. Click Create Account to proceed.", "info");
+    }
+
+    function toggleGoalChip(btn) {
+      document.querySelectorAll('.goal-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    document.getElementById('studentSignupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.currentTarget;
+      const submitButton = form.querySelector('button[type="submit"]');
+      const errorElement = document.getElementById('studentSignupError');
+      if (errorElement) errorElement.classList.add('d-none');
+
+      const pass = document.getElementById('stuPassword').value;
+      const confirmPass = document.getElementById('stuConfirmPassword').value;
+
+      if (pass !== confirmPass) {
+        if (errorElement) {
+          errorElement.textContent = "Passwords do not match! Please check and retry.";
+          errorElement.classList.remove('d-none');
+        } else {
+          alert("Passwords do not match! Please check and retry.");
+        }
+        return;
+      }
+
+      const activeGoalChip = document.querySelector('.goal-chip.active');
+      const learningGoal = activeGoalChip ? activeGoalChip.textContent.trim() : "Academic Mastery";
+
+      const name = document.getElementById('stuName').value.trim();
+      const email = document.getElementById('stuEmail').value.trim();
+      const phone = document.getElementById('stuPhone').value.trim();
+      const level = document.getElementById('stuLevel').value;
+      const state = document.getElementById('stuState').value.trim();
+      const city = document.getElementById('stuCity').value.trim();
+      const pincode = document.getElementById('stuPincode').value.trim();
+      const course = document.getElementById('stuCourse').value.trim();
+      const hobby = document.getElementById('stuHobby').value.trim();
+
+      submitButton.disabled = true;
+      submitButton.innerHTML = '<span>Creating student account...</span><i class="bi bi-arrow-repeat ms-1"></i>';
+
+      try {
+        const apiUrl = window.SMART_TUTOR_API_URL || 'http://localhost:8081';
+        const response = await fetch(`${apiUrl}/api/students/signup`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fullName: name,
+            email: email,
+            phoneNumber: phone,
+            currentEducationStage: level,
+            state: state,
+            city: city,
+            pincode: pincode,
+            courseOrSubject: course,
+            hobbiesOrSkills: hobby,
+            primaryLearningGoal: learningGoal,
+            password: pass,
+            agreeToGuidelines: true
+          })
+        });
+
+        const result = await response.json();
+        if (!response.ok) {
+          throw new Error(result.message || 'Student registration could not be saved to H2 database.');
+        }
+
+        const studentId = result.id || result.studentId || Date.now();
+        const user = {
+          id: studentId,
+          studentId: studentId,
+          fullName: result.fullName || name,
+          email: result.email || email,
+          phoneNumber: result.phoneNumber || phone,
+          role: "STUDENT",
+          currentEducationStage: result.currentEducationStage || level,
+          courseOrSubject: result.courseOrSubject || course,
+          primaryLearningGoal: result.primaryLearningGoal || learningGoal,
+          city: result.city || city,
+          state: result.state || state,
+          pincode: result.pincode || pincode
+        };
+
+        Auth.setUser(user);
+        localStorage.setItem('smart_tutor_student_profile', JSON.stringify(user));
+        localStorage.setItem('smart_tutor_active_user', JSON.stringify(user));
+
+        try {
+          let students = JSON.parse(localStorage.getItem('smart_tutor_enrolled_students') || '[]');
+          students.unshift({
+            id: studentId,
+            name: user.fullName,
+            email: user.email,
+            phone: user.phoneNumber,
+            level: user.currentEducationStage,
+            location: `${user.city}, ${user.state} (${user.pincode})`,
+            course: user.courseOrSubject,
+            hobby: hobby || "None specified",
+            joinedDate: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+          });
+          localStorage.setItem('smart_tutor_enrolled_students', JSON.stringify(students));
+        } catch(err) {
+          console.warn("Storage warning", err);
+        }
+
+        showToast("Student account saved in H2! Welcome to SmartTutor.", "success");
+        const signupParams = new URLSearchParams(window.location.search);
+        const redirect = signupParams.get('redirect');
+        let nextPage = 'student.html';
+        if (redirect === 'book' && signupParams.get('tutor')) {
+          const nextParams = new URLSearchParams({
+            openBook: signupParams.get('tutor'),
+            rate: signupParams.get('rate') || ''
+          });
+          nextPage = `index.html?${nextParams.toString()}`;
+        } else if (redirect === 'demo') {
+          nextPage = 'index.html#heroDemoForm';
+        } else if (redirect === 'tutor-book' && signupParams.get('tutorId')) {
+          nextPage = `tutor.html?bookMentor=${encodeURIComponent(signupParams.get('tutorId'))}`;
+        }
+        setTimeout(() => { window.location.href = nextPage; }, 600);
+      } catch (err) {
+        if (errorElement) {
+          errorElement.textContent = err.message.includes('fetch')
+            ? 'Could not connect to the H2 service on port 8081. Start the backend and try again.'
+            : err.message;
+          errorElement.classList.remove('d-none');
+        } else {
+          alert(err.message);
+        }
+        submitButton.disabled = false;
+        submitButton.innerHTML = '<span>Create Student Account</span><i class="bi bi-arrow-right" style="font-size: 0.85rem;"></i>';
+      }
+    });
+  </script>
+</body>
+</html>

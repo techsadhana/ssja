@@ -1,0 +1,3209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Portal — Smart Tutor System</title>
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Google Fonts: Outfit + Plus Jakarta Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <style>
+    body.student-dashboard {
+      --primary: #1e3a8a;
+      --primary-hover: #172554;
+      --primary-dark: #0f172a;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      --indigo: #1d4ed8;
+      --card-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+      --card-hover-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+      background-color: #f8fafc;
+      color: #1e293b;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .student-dashboard h1,
+    .student-dashboard h2,
+    .student-dashboard h3,
+    .student-dashboard h4,
+    .student-dashboard h5,
+    .student-dashboard h6 {
+      font-family: 'Outfit', sans-serif;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+    }
+
+    /* ===================================================================
+       Top Navigation Bar (Clean & Sober - Exactly like Home Page)
+       =================================================================== */
+    .navbar-custom {
+      background: #ffffff !important;
+      border-bottom: 1px solid #e2e8f0 !important;
+      padding: 12px 0 !important;
+      box-shadow: 0 1px 3px rgba(16, 24, 40, 0.04) !important;
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+    }
+
+    /* Brand Logo (Matches Home Page Exactly: No Blue Box, No Text Gradient Bug) */
+    .student-dashboard .brand-logo,
+    .brand-logo {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+      text-decoration: none !important;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+      background: transparent !important;
+      background-clip: unset !important;
+      -webkit-background-clip: unset !important;
+      -webkit-text-fill-color: initial !important;
+    }
+
+    .student-dashboard .brand-name,
+    .brand-name {
+      font-family: 'Outfit', sans-serif !important;
+      font-weight: 900 !important;
+      font-size: 1.4rem !important;
+      color: #101828 !important;
+      letter-spacing: -0.03em !important;
+    }
+
+    .student-dashboard .brand-name span,
+    .brand-name span {
+      color: #1e3a8a !important;
+    }
+
+    /* Navbar Navigation Links: Strictly ONE Line (No Wrapping) */
+    .navbar-custom .navbar-nav {
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      align-items: center !important;
+      gap: 4px !important;
+    }
+
+    .student-nav-link {
+      white-space: nowrap !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 0.88rem !important;
+      font-weight: 600 !important;
+      color: #475569 !important;
+      padding: 8px 12px !important;
+      border-radius: 8px !important;
+      background: transparent !important;
+      text-decoration: none !important;
+      transition: all 0.15s ease !important;
+    }
+
+    .student-nav-link:hover {
+      color: #1e3a8a !important;
+      background: #f1f5f9 !important;
+    }
+
+    .student-nav-link.active {
+      color: #1e3a8a !important;
+      background: #eff6ff !important;
+      font-weight: 700 !important;
+    }
+
+    .student-nav-link i {
+      font-size: 1rem;
+    }
+
+    /* ===================================================================
+       Hero Banner (Clean, Sober, Human-Made)
+       =================================================================== */
+    .student-dashboard .portal-hero {
+      background: #fffdf8 !important;
+      border-bottom: 1px solid #e2e8f0 !important;
+      padding: 24px 0 !important;
+      box-shadow: inset 0 -3px 0 #f2c76e;
+    }
+
+    .student-dashboard .portal-hero-title {
+      font-size: 1.85rem !important;
+      font-weight: 800 !important;
+      color: #0f172a !important;
+      letter-spacing: -0.02em !important;
+    }
+
+    /* Buttons: Sober & Clean */
+    .btn-primary-custom {
+      background: #1e3a8a !important;
+      border: 1px solid #1e3a8a !important;
+      color: #ffffff !important;
+      font-weight: 700 !important;
+      padding: 9px 20px !important;
+      border-radius: 8px !important;
+      box-shadow: 0 2px 6px rgba(30, 58, 138, 0.2) !important;
+      transition: all 0.15s ease !important;
+      font-size: 0.9rem !important;
+    }
+
+    .btn-primary-custom:hover {
+      background: #4839c7 !important;
+      border-color: #4839c7 !important;
+      transform: none !important;
+      box-shadow: 0 4px 10px rgba(30, 58, 138, 0.3) !important;
+    }
+
+    .btn-outline-custom {
+      border: 1px solid #cbd5e1 !important;
+      color: #334155 !important;
+      font-weight: 600 !important;
+      padding: 8px 18px !important;
+      border-radius: 8px !important;
+      background: #ffffff !important;
+      transition: all 0.15s ease !important;
+      font-size: 0.9rem !important;
+    }
+
+    .btn-outline-custom:hover {
+      background: #f8fafc !important;
+      color: #0f172a !important;
+      border-color: #94a3b8 !important;
+    }
+
+    /* ===================================================================
+       Feature Toolbar (Strictly 1 Line, Sober Indigo Active State)
+       =================================================================== */
+    .student-feature-bar {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 6px;
+      gap: 6px;
+      box-shadow: 0 1px 3px rgba(16, 24, 40, 0.03);
+      margin-bottom: 24px;
+    }
+
+    .student-feature-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .student-feature-bar .nav-item {
+      flex: 0 0 auto;
+    }
+
+    .student-feature-bar .nav-link {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      padding: 8px 14px !important;
+      border-radius: 8px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #475569;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      background: transparent;
+    }
+
+    .student-feature-bar .nav-link:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+
+    .student-feature-bar .nav-link.active {
+      background: #1e3a8a !important;
+      color: #ffffff !important;
+      border-color: #1e3a8a;
+      box-shadow: none;
+    }
+
+    .student-feature-bar .nav-link.active i {
+      color: #ffffff !important;
+    }
+
+    /* ===================================================================
+       Card & Module Aesthetics (Unified Palette, No Rainbow Colors)
+       =================================================================== */
+    .card-spacious, .dashboard-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(16, 24, 40, 0.03);
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+    }
+
+    .card-spacious:hover, .dashboard-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 8px 20px rgba(30, 41, 59, 0.07);
+    }
+
+    .student-dashboard .card-spacious h5 i,
+    .student-dashboard .card-spacious h3 i {
+      color: #d28a1d !important;
+    }
+
+    .card-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      background: #eff6ff;
+      color: #1e3a8a;
+      flex-shrink: 0;
+    }
+
+    .coaching-class-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 14px 16px;
+      transition: all 0.15s ease;
+    }
+
+    .coaching-class-card:hover {
+      border-color: #c7d2fe;
+      background: #fafbff;
+    }
+
+    .coaching-class-card.active-live {
+      border-color: #e8c979;
+      background: #fffdf7;
+      box-shadow: inset 3px 0 0 #d28a1d;
+    }
+
+    .live-indicator-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #10b981;
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse-dot 2s infinite;
+    }
+
+    .feature-hub-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.15s ease;
+      box-shadow: 0 1px 3px rgba(16, 24, 40, 0.03);
+    }
+
+    .feature-hub-card:hover {
+      border-color: #c7d2fe;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(16, 24, 40, 0.06);
+    }
+
+    .tutor-desk-card {
+      border-top: 3px solid #d28a1d;
+    }
+
+    .twin-header-card {
+      background: #fffdf8;
+      border-left: 4px solid #d28a1d;
+    }
+
+    .twin-note-card {
+      background: #fffdf8;
+      border-color: #eadfbf;
+    }
+
+    .twin-next-card {
+      border-top: 3px solid #8db6a3;
+    }
+
+    .student-dashboard .profile-card {
+      border-top: 3px solid #d28a1d;
+    }
+
+    .student-dashboard .support-card {
+      border-left: 4px solid #8db6a3;
+    }
+
+    .tutor-avatar-circle {
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Animated AI Assistant Indicator */
+    .pulse-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      display: inline-block;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulseGreen 1.8s infinite;
+      vertical-align: middle;
+    }
+    @keyframes pulseGreen {
+      0% {
+        transform: scale(0.9);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      }
+      70% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+      }
+      100% {
+        transform: scale(0.9);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+      }
+    }
+
+    /* Tutor Search Modal */
+    .tutor-search-modal .modal-content {
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.16);
+      overflow: hidden;
+    }
+
+    .tutor-search-modal .modal-header {
+      background: #ffffff;
+      padding: 18px 20px;
+    }
+
+    .tutor-search-modal .modal-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .tutor-search-input {
+      height: 46px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px 0 0 10px !important;
+      font-size: 0.9rem;
+    }
+
+    .tutor-search-input:focus {
+      border-color: #1e3a8a;
+      box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.10);
+    }
+
+    .tutor-search-button {
+      border-radius: 0 10px 10px 0 !important;
+      min-width: 112px;
+    }
+
+    .tutor-search-results {
+      max-height: 390px;
+      overflow-y: auto;
+    }
+
+    .tutor-search-result {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 13px 14px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 11px;
+      margin-bottom: 9px;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+    }
+
+    .tutor-search-result:hover {
+      background: #f8fafc;
+      border-color: #bfdbfe;
+      transform: translateY(-1px);
+    }
+
+    .tutor-search-result:last-child {
+      margin-bottom: 0;
+    }
+
+    .tutor-search-result-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 44px;
+      background: #eff6ff;
+      color: #1e3a8a;
+      font-weight: 800;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .tutor-search-result-name {
+      color: #0f172a;
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+
+    .tutor-search-result-meta {
+      color: #64748b;
+      font-size: 0.77rem;
+      line-height: 1.45;
+    }
+
+    .tutor-search-status {
+      min-height: 22px;
+    }
+
+  </style>
+</head>
+<body class="site-theme student-dashboard">
+<div style="padding:12px;background:#e8f5ee;text-align:center"><a href="sessions.html">Sessions &amp; Notifications</a></div>
+
+
+  <!-- Top Navigation Bar: Clean, Sober, Exactly like Home Page -->
+  <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+    <div class="container">
+      <!-- Brand Logo (Matches Home Page: No Blue Box, No Text Gradient Bug) -->
+      <a class="brand-logo" href="index.html">
+        <span class="brand-icon"><i class="bi bi-mortarboard-fill"></i></span>
+        <span class="brand-name">Smart<span>Tutor</span></span>
+      </a>
+
+      <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarStudent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarStudent">
+        <!-- Center: Batch Tag (Clean, Human-Made, No Duplicate Tabs) -->
+        <div class="d-none d-lg-flex align-items-center gap-2 mx-auto">
+          <!-- Removed Lakshya Batch badge -->
+        </div>
+        
+        <!-- Right: Direct Navigation & Student Account Dropdown -->
+        <div class="d-flex align-items-center gap-2 flex-shrink-0">
+          <a href="index.html" class="btn btn-sm btn-light border text-muted py-1 px-2 d-none d-sm-inline-flex align-items-center gap-1" style="font-size: 0.82rem;">
+            <i class="bi bi-house"></i> Home
+          </a>
+          <button type="button" class="btn btn-sm btn-light border text-muted py-1 px-2 d-none d-sm-inline-flex align-items-center gap-1" style="font-size: 0.82rem;" onclick="openTutorSearchModal()">
+            <i class="bi bi-search"></i> Tutors
+          </button>
+          
+          <div class="dropdown">
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-2 py-1 px-2 rounded-3 text-dark fw-semibold" type="button" data-bs-toggle="dropdown" style="border-color: #e2e8f0; background: #ffffff;">
+              <div class="tutor-avatar-circle" style="width: 26px; height: 26px; font-size: 0.75rem; background: #1e3a8a;">ST</div>
+              <span id="studentDisplayName" style="font-size: 0.88rem;">Student</span>
+              <span class="badge bg-primary text-white" style="font-size: 0.72rem; font-weight: 600;">Student</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm border rounded-3 mt-1">
+              <li><h6 class="dropdown-header small text-uppercase text-muted">Student Account</h6></li>
+              <li><a class="dropdown-item py-2 small" href="#" onclick="switchStudentTab('student-profile-tab')"><i class="bi bi-person-circle me-2"></i>My Profile</a></li>
+              <li><a class="dropdown-item py-2 small" href="#" onclick="switchStudentTab('overview-tab')"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+              <li><a class="dropdown-item py-2 small" href="#" onclick="switchStudentTab('coding-tab')"><i class="bi bi-code-slash me-2"></i>AI Coding Lab</a></li>
+              <li><a class="dropdown-item py-2 small" href="#" onclick="switchStudentTab('barter-tab')"><i class="bi bi-arrow-left-right me-2"></i>Skill Barter</a></li>
+              <li><a class="dropdown-item py-2 small" href="#" onclick="switchStudentTab('twin-tab')"><i class="bi bi-cpu me-2"></i>AI Learning Twin</a></li>
+              <li><a class="dropdown-item py-2 small" href="#" onclick="switchStudentTab('concept-tab')"><i class="bi bi-diagram-3 me-2"></i>Concept Dependency</a></li>
+              <li><a class="dropdown-item py-2 small" href="#" onclick="switchStudentTab('student-support-tab')"><i class="bi bi-life-preserver me-2"></i>Support</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item py-2 small text-danger" href="index.html"><i class="bi bi-box-arrow-right me-2"></i>Log Out to Home</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Header Banner (Simple, Sober, Human-Made) -->
+  <header class="portal-hero">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <h1 class="portal-hero-title mb-1">
+            Welcome back!
+          </h1>
+          <p class="text-muted mb-0" style="font-size: 0.96rem;">
+            Your schedule, tutor notes, and practice work are ready when you are.
+          </p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <button class="btn btn-primary-custom" onclick="openStudentFindMentorModal()">
+            <i class="bi bi-calendar-plus me-1"></i> Book a session
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container mb-5 flex-grow-1">
+
+    <!-- Feature Navigation Tabs (Single-Line Ultra-Clean Toolbar) -->
+    <div class="mb-4">
+      <ul class="nav student-feature-bar shadow-sm" id="studentTab" role="tablist">
+          <button class="nav-link" id="student-profile-tab" data-bs-toggle="pill" data-bs-target="#tab-student-profile" type="button" role="tab">
+            <i class="bi bi-person-circle me-1"></i> My Profile
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="overview-tab" data-bs-toggle="pill" data-bs-target="#tab-overview" type="button" role="tab">
+            <i class="bi bi-speedometer2 me-1"></i> Dashboard
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="coding-tab" data-bs-toggle="pill" data-bs-target="#tab-coding" type="button" role="tab">
+            <i class="bi bi-code-slash me-1"></i> AI Coding Lab
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" href="mistake-lab.html">
+            <i class="bi bi-journal-x me-1"></i> Mistake Lab
+          </a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="barter-tab" data-bs-toggle="pill" data-bs-target="#tab-barter" type="button" role="tab">
+            <i class="bi bi-arrow-left-right me-1"></i> Skill Barter
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="twin-tab" data-bs-toggle="pill" data-bs-target="#tab-twin" type="button" role="tab">
+            <i class="bi bi-cpu me-1"></i> AI Learning Twin
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="concept-tab" data-bs-toggle="pill" data-bs-target="#tab-concept" type="button" role="tab">
+            <i class="bi bi-diagram-3-fill me-1"></i> Concept Dependency
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="collab-tab" data-bs-toggle="pill" data-bs-target="#tab-collab" type="button" role="tab">
+            <i class="bi bi-globe2 me-1"></i> Global Study
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="notes-tab" data-bs-toggle="pill" data-bs-target="#tab-notes" type="button" role="tab">
+            <i class="bi bi-journal-bookmark-fill me-1"></i> Lectures &amp; DPPs
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="student-support-tab" data-bs-toggle="pill" data-bs-target="#tab-student-support" type="button" role="tab">
+            <i class="bi bi-life-preserver me-1"></i> Support
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Tab Contents -->
+    <div class="tab-content" id="studentTabContent">
+
+      <!-- ================================================================= -->
+      <!-- TAB 1: DASHBOARD & TUTOR OVERVIEW (Clean, Sober, Human-Made)      -->
+      <!-- ================================================================= -->
+      <div class="tab-pane fade show active" id="tab-overview" role="tabpanel">
+        
+        <!-- Row 1: Only the two counts most useful for today -->
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <div class="dashboard-card p-3">
+              <div class="d-flex align-items-center gap-3">
+                <div class="card-icon mb-0"><i class="bi bi-calendar2-check"></i></div>
+                <div>
+                  <h4 class="fw-bold mb-0 text-dark">2 classes today</h4>
+                  <span class="text-muted small">One live class and one 1-on-1 session</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="dashboard-card p-3">
+              <div class="d-flex align-items-center gap-3">
+                <div class="card-icon mb-0"><i class="bi bi-journal-check"></i></div>
+                <div>
+                  <h4 class="fw-bold mb-0 text-dark">1 practice sheet due</h4>
+                  <span class="text-muted small">Graph Traversal DPP, due today</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: Today's Schedule (Left 7) + Resume Unfinished Option (Right 5) -->
+        <div class="row g-4 mb-4">
+          
+          <!-- Today's Schedule (1 or 2 lectures) -->
+          <div class="col-lg-7">
+            <div class="card-spacious h-100 d-flex flex-column justify-content-between">
+              <div>
+                <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+                  <div>
+                    <span class="badge bg-light text-dark border mb-1"><i class="bi bi-calendar-event text-primary me-1"></i> Today's Schedule</span>
+                    <h5 class="fw-bold text-dark mb-0">Booked Lectures &amp; Mentor Sessions</h5>
+                  </div>
+                  <button class="btn btn-sm btn-outline-custom" onclick="openStudentFindMentorModal()">
+                    <i class="bi bi-calendar-plus me-1"></i> Book Doubt Session
+                  </button>
+                </div>
+                <p class="text-muted small mb-3">Your live lessons and booked 1-on-1 time for today.</p>
+
+                <!-- Scheduled 1-2 Lectures -->
+                <div class="d-flex flex-column gap-3">
+                  <!-- Lecture 1 -->
+                  <div class="coaching-class-card active-live">
+                    <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-1">
+                      <span class="badge bg-success-subtle text-success border border-success-subtle fw-semibold">
+                        <span class="live-indicator-dot me-1"></span> Starts in 25 mins • 4:00 PM – 5:15 PM
+                      </span>
+                      <span class="badge bg-light text-secondary border">Online Live Classroom</span>
+                    </div>
+                    <h6 class="fw-bold text-dark mb-1">Data Structures: Balanced Trees &amp; AVL Rotations</h6>
+                    <div class="d-flex justify-content-between align-items-center mt-2 flex-wrap gap-2">
+                      <small class="text-muted"><i class="bi bi-person-circle text-primary me-1"></i> Prof. Rohit Verma (Senior Algorithms Faculty)</small>
+                      <button class="btn btn-sm btn-primary-custom fw-bold px-3" onclick="joinLiveRoom('AVL Trees', 'Prof. Rohit Verma')">
+                        <i class="bi bi-camera-video-fill me-1"></i> Join Live Class
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Lecture 2 -->
+                  <div class="coaching-class-card">
+                    <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-1">
+                      <span class="badge bg-light text-secondary border fw-semibold"><i class="bi bi-clock me-1"></i> Today, 6:30 PM – 7:45 PM</span>
+                      <span class="badge bg-light text-dark border">1-on-1 Mentorship</span>
+                    </div>
+                    <h6 class="fw-bold text-dark mb-1">Database Systems: SQL Query Optimization &amp; Indexing</h6>
+                    <div class="d-flex justify-content-between align-items-center mt-2 flex-wrap gap-2">
+                      <small class="text-muted"><i class="bi bi-person-circle text-primary me-1"></i> Dr. Neha Sen (Database Architect)</small>
+                      <span class="badge bg-light text-muted border small">Classroom Link Ready at 6:20 PM</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-3 border-top mt-3 text-center">
+                <small class="text-muted">
+                  <i class="bi bi-bell text-secondary me-1"></i> Reminders are sent 15 mins prior. Need to reschedule? Contact your tutor 1 hr in advance.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live 1-on-1 Tutoring Desk -->
+          <div class="col-lg-5">
+            <div class="card-spacious h-100 d-flex flex-column justify-content-between">
+              <div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <span class="badge bg-light text-dark border"><i class="bi bi-person-video3 text-primary me-1"></i> Live 1-on-1 Sessions</span>
+                </div>
+                <h5 class="fw-bold text-dark mb-1">Today's Live Class &amp; Notes</h5>
+                <p class="text-muted small mb-3">Everything related to your live tutor sessions is kept here.</p>
+
+                <div class="d-flex align-items-start gap-2 p-3 rounded-3 bg-light border mb-3">
+                  <i class="bi bi-info-circle text-primary fs-5 mt-1"></i>
+                  <div>
+                    <span class="text-dark small"><strong>How it works:</strong> join your class here, find the slides after class, or book another session if you need more help.</span>
+                  </div>
+                </div>
+
+                <!-- Live Session Status -->
+                <div class="p-3 border rounded-3 bg-white mb-3 shadow-xs">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle small fw-semibold">1. Join your class</span>
+                    <span class="small text-success fw-bold"><i class="bi bi-broadcast me-1"></i>Ready in 25 mins</span>
+                  </div>
+                  <strong class="text-dark d-block mb-1" style="font-size: 0.94rem;">Balanced Trees &amp; AVL Rotations with Prof. Rohit</strong>
+                  <p class="text-muted small mb-2">Join the video room when you are ready. Your tutor will share the whiteboard there.</p>
+                  <button class="btn btn-sm btn-primary-custom w-100 py-1" onclick="joinLiveRoom('AVL Trees', 'Prof. Rohit Verma')">
+                    <i class="bi bi-camera-video me-1"></i> Join Live Class
+                  </button>
+                </div>
+
+                <!-- Tutor Materials Notice -->
+                <div class="p-3 border rounded-3 bg-light mb-2">
+                  <div class="d-flex align-items-center gap-2 mb-1">
+                    <i class="bi bi-file-earmark-slides text-primary fs-5"></i>
+                    <div>
+                      <strong class="text-dark d-block small">2. Find your materials</strong>
+                      <span class="text-muted" style="font-size: 0.78rem;">Your tutor's slides and practice sheet will appear in Lectures &amp; DPPs.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-2 border-top">
+                <div class="d-flex gap-2">
+                  <button class="btn btn-outline-custom flex-grow-1 py-2 fw-semibold small" onclick="switchStudentTab('notes-tab')">
+                    <i class="bi bi-folder2-open me-1"></i> View PPT &amp; DPPs
+                  </button>
+                  <button class="btn btn-primary-custom flex-grow-1 py-2 fw-semibold small" onclick="openStudentFindMentorModal()">
+                    <i class="bi bi-calendar-plus me-1"></i> 3. Book help
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Row 3: Short progress summary -->
+        <div class="row g-4 mb-4">
+          <div class="col-lg-7">
+            <div class="card-spacious h-100 d-flex flex-column justify-content-between">
+              <div>
+                <span class="badge bg-light text-dark border mb-1"><i class="bi bi-bar-chart text-primary me-1"></i> This week</span>
+                <h5 class="fw-bold text-dark mb-1">Course progress</h5>
+                <p class="text-muted small mb-3">A quick view of the subjects you are working through.</p>
+
+                <div class="d-flex flex-column gap-3 mb-3">
+                  <div>
+                    <div class="d-flex justify-content-between small fw-bold mb-1">
+                      <span class="text-dark">Data Structures &amp; Algorithms</span>
+                      <span class="text-primary">78%</span>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                      <div class="progress-bar" style="background: var(--primary); width: 78%"></div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="d-flex justify-content-between small fw-bold mb-1">
+                      <span class="text-dark">Full-Stack Web Development</span>
+                      <span class="text-primary">85%</span>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                      <div class="progress-bar" style="background: var(--primary); width: 85%"></div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="d-flex justify-content-between small fw-bold mb-1">
+                      <span class="text-dark">Database Management (SQL &amp; NoSQL)</span>
+                      <span class="text-primary">64%</span>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                      <div class="progress-bar" style="background: var(--primary); width: 64%"></div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="p-3 bg-light rounded-3 border">
+                  <div class="d-flex align-items-center gap-2 mb-1">
+                    <i class="bi bi-chat-quote-fill text-primary"></i>
+                    <strong class="small text-dark">Tutor note</strong>
+                  </div>
+                  <p class="text-muted small mb-0" style="line-height: 1.5;">
+                    Focus on AVL tree rotation edge cases before the next mock.
+                  </p>
+                </div>
+              </div>
+
+              <div class="pt-3 border-top mt-3">
+                <button class="btn btn-sm btn-outline-custom" onclick="switchStudentTab('twin-tab')">
+                  <i class="bi bi-person-check me-1"></i> View study guidance
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="card-spacious h-100">
+              <h5 class="fw-bold text-dark mb-2"><i class="bi bi-clock-history text-primary me-2"></i>Study time</h5>
+              <p class="text-muted small mb-3">You have studied 18.5 hours this week.</p>
+              <div class="d-flex justify-content-between small mb-1">
+                <span class="text-muted">Weekly target</span>
+                <span class="fw-semibold text-dark">18.5 / 16 hours</span>
+              </div>
+              <div class="progress mb-3" style="height: 8px;">
+                <div class="progress-bar" style="background: var(--primary); width: 100%"></div>
+              </div>
+              <span class="small text-muted"><i class="bi bi-check-circle text-success me-1"></i>Target reached for this week.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- TAB 5: AI CODING LAB                                              -->
+      <!-- ================================================================= -->
+      <div class="tab-pane fade" id="tab-coding" role="tabpanel">
+        <div class="card-spacious mb-4">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div>
+              <span class="badge bg-light text-dark border mb-2"><i class="bi bi-terminal-fill text-primary me-1"></i> Student Coding Lab</span>
+              <h3 class="fw-bold text-dark mb-1">Coding Lab &amp; Compiler</h3>
+              <p class="text-muted small mb-0">Write, run, and understand your code in one place. Use the helper when you get stuck.</p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <select id="codingLangSelect" class="form-select form-select-sm py-2" onchange="switchCodingSample(this.value)">
+                <option value="python" selected>Python 3</option>
+                <option value="java">Java</option>
+                <option value="c">C Compiler (GCC)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <!-- Code Editor Sandbox -->
+          <div class="col-lg-7">
+            <div class="code-editor-box shadow-sm">
+              <div class="code-editor-header">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="badge bg-danger rounded-circle p-1"></span>
+                  <span class="badge bg-warning rounded-circle p-1"></span>
+                  <span class="badge bg-success rounded-circle p-1"></span>
+                  <span class="small text-muted ms-2" id="codeEditorFilename">main.py</span>
+                </div>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-sm btn-outline-light py-1 px-3 small" onclick="fixCodeWithAi()">
+                    <i class="bi bi-magic me-1"></i> Review my code
+                  </button>
+                  <button class="btn btn-sm btn-success py-1 px-3 small fw-bold" onclick="runCodeSandbox()">
+                    <i class="bi bi-play-fill me-1"></i> Run Code
+                  </button>
+                </div>
+              </div>
+              <textarea id="codeTextarea" class="code-textarea" spellcheck="false"># Python 3 - Simple Program
+print("Hello, World!")
+
+# Simple arithmetic addition
+a = 15
+b = 25
+total = a + b
+print(f"Sum of {a} and {b} is: {total}")</textarea>
+            </div>
+
+            <!-- Terminal Output -->
+            <div class="mt-3">
+              <label class="small fw-bold text-muted mb-1"><i class="bi bi-terminal me-1"></i>Program Output Console</label>
+              <div id="codeTerminalOutput" class="code-output-terminal">
+[Ready] Click "Run Code" to compile and execute program...
+              </div>
+            </div>
+          </div>
+
+          <!-- Code Help & Explanation Column -->
+          <div class="col-lg-5">
+            <div class="card-spacious h-100 d-flex flex-column justify-content-between">
+              <div>
+                <div class="d-flex align-items-center justify-content-between pb-3 border-bottom mb-3">
+                  <div class="d-flex align-items-center gap-2">
+                    <div class="card-icon mb-0" style="width: 40px; height: 40px; font-size: 1.1rem;">
+                      <i class="bi bi-stars"></i>
+                    </div>
+                    <div>
+                      <h6 class="fw-bold text-dark mb-0">Code help</h6>
+                      <div class="d-flex align-items-center gap-1 mt-1">
+                        <span class="pulse-indicator"></span>
+                        <span class="text-success small fw-semibold" style="font-size: 0.75rem;">Online &amp; Ready</span>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn btn-sm btn-outline-custom py-1" onclick="fixCodeWithAi()">
+                    <i class="bi bi-magic me-1"></i> Review code
+                  </button>
+                </div>
+
+                <!-- Code Explanation -->
+                <div id="aiCodeExplanationBox" class="p-3 bg-light rounded-3 mb-3 border">
+                  <h6 class="fw-bold text-dark mb-1" id="aiCodeExplanationTitle"><i class="bi bi-info-circle text-primary me-1"></i> Python 3 Explanation</h6>
+                  <p class="text-muted small mb-2" id="aiCodeExplanationText">
+                    This script prints <code>'Hello, World!'</code> to stdout using <code>print()</code>, then initializes two integers (<code>a = 15</code>, <code>b = 25</code>), adds them together, and prints the result using an f-string.
+                  </p>
+                  <div class="badge bg-white text-secondary border small fw-normal" id="aiCodeCollegeTag">
+                    <i class="bi bi-mortarboard me-1"></i> Introductory Python 3 script
+                  </div>
+                </div>
+
+                <!-- Ask for an explanation or a small code suggestion -->
+                <div class="mb-3">
+                  <label class="small fw-bold text-dark mb-1"><i class="bi bi-chat-dots me-1"></i> Ask for help</label>
+                  <div class="input-group input-group-sm">
+                    <input type="text" id="aiCodePromptInput" class="form-control" placeholder="Ask: 'explain this code', 'how to add loop'..." onkeydown="if(event.key==='Enter') askAiCodeAssistant()">
+                    <button class="btn btn-primary-custom" onclick="askAiCodeAssistant()">
+                      <i class="bi bi-send-fill"></i> Ask
+                    </button>
+                  </div>
+                  <small class="text-muted" style="font-size: 0.75rem;">Ask about a line, an error, or the next step.</small>
+                </div>
+
+                <!-- AI Response / Feedback Area -->
+                <div id="aiCodingFeedback" class="small">
+                  <div class="p-3 border rounded-3 bg-white shadow-xs">
+                    <strong class="text-dark d-block mb-1"><i class="bi bi-chat-square-text text-primary me-1"></i> Stuck on something?</strong>
+                    <p class="text-muted small mb-2">Ask for a plain-language explanation or a suggested correction.</p>
+                    <div class="d-flex gap-2">
+                      <button class="btn btn-sm btn-outline-custom" onclick="askAiCodePrompt('explain')">
+                        <i class="bi bi-card-text me-1"></i> Explain Code
+                      </button>
+                      <button class="btn btn-sm btn-primary-custom" onclick="fixCodeWithAi()">
+                        <i class="bi bi-magic me-1"></i> Suggest a fix
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-3 border-top mt-3 text-center">
+                <small class="text-muted">
+                  <i class="bi bi-shield-check text-success me-1"></i> Practice safely in the sandbox. Python 3, Java, and C are supported.
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- TAB 6: STUDENT SKILL BARTER                                       -->
+      <!-- ================================================================= -->
+      <div class="tab-pane fade" id="tab-barter" role="tabpanel">
+        <div class="card-spacious mb-4">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div>
+              <span class="badge bg-light text-dark border mb-2"><i class="bi bi-arrow-left-right text-primary me-1"></i> Peer-to-Peer Exchange</span>
+              <h3 class="fw-bold text-dark mb-1">Student Skill Barter</h3>
+              <p class="text-muted small mb-0">Teach one skill. Learn another. Exchange knowledge with college peers without monetary barriers.</p>
+            </div>
+            <div>
+              <button class="btn btn-primary-custom btn-sm" data-bs-toggle="modal" data-bs-target="#createBarterModal">
+                <i class="bi bi-plus-circle me-1"></i> Post New Barter Offer
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Incoming Barter Exchange Proposal -->
+        <div id="incomingBarterProposalCard" class="card-spacious mb-4 border-start border-4 shadow-sm" style="border-left-color: #1e3a8a !important; background: #ffffff;">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div class="d-flex align-items-start gap-3">
+              <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=120&q=80" class="rounded-circle border" width="60" height="60" alt="Aman Gupta" style="cursor: pointer;" onclick="viewStudentBarterProfile('Aman Gupta')">
+              <div>
+                <div class="d-flex align-items-center gap-2 mb-1">
+                  <span class="badge bg-primary text-white"><i class="bi bi-bell-fill me-1"></i> New Barter Proposal</span>
+                  <span class="badge bg-success-subtle text-success border border-success-subtle"><i class="bi bi-stars me-1"></i> 96% Compatible</span>
+                </div>
+                <h5 class="fw-bold text-dark mb-1" style="cursor: pointer;" onclick="viewStudentBarterProfile('Aman Gupta')">Aman Gupta proposes a Skill Swap!</h5>
+                <p class="text-muted small mb-2">3rd Year CSE, DTU &bull; Roll ID: DTU/2024/CS-409 &bull; Verified Student</p>
+                <div class="d-flex flex-wrap align-items-center gap-2">
+                  <span class="badge bg-light text-dark border p-2"><strong class="text-success">Aman Teaches:</strong> Figma UI/UX &amp; Design Systems</span>
+                  <i class="bi bi-arrow-left-right text-primary fs-6"></i>
+                  <span class="badge bg-light text-dark border p-2"><strong class="text-primary">Wants to Learn:</strong> Python Core &amp; Data Analysis</span>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex flex-column flex-sm-row gap-2 align-items-stretch">
+              <button class="btn btn-outline-primary btn-sm px-3 fw-semibold" onclick="viewStudentBarterProfile('Aman Gupta')">
+                <i class="bi bi-person-lines-fill me-1"></i> View Profile
+              </button>
+              <button class="btn btn-success btn-sm px-3 fw-bold" onclick="acceptBarterAndStartQuiz('Aman Gupta', 'Python Core', 'Figma UI/UX')">
+                <i class="bi bi-patch-check-fill me-1"></i> Accept &amp; Start Quiz
+              </button>
+              <button class="btn btn-outline-danger btn-sm px-2" onclick="declineBarterProposal()">
+                <i class="bi bi-x-lg me-1"></i> Decline
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="barterQuizBannerContainer" class="mb-4">
+          <!-- Populated dynamically by student.js -->
+        </div>
+
+        <div class="row g-4" id="barterCardsContainer">
+          <!-- Populated by student.js -->
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- TAB 4: PERSONAL STUDY HABITS & MENTOR GUIDANCE                    -->
+      <!-- ================================================================= -->
+      <div class="tab-pane fade" id="tab-twin" role="tabpanel">
+        <div class="card-spacious mb-4">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+              <h3 class="fw-bold text-dark mb-2">AI Learning Twin</h3>
+              <p class="text-muted mb-0">
+                A simple record of how you study, what to revise next, and the notes your tutors have left for you.
+              </p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+              <button class="btn btn-primary-custom" onclick="refreshLearningTwin()">
+                <i class="bi bi-arrow-repeat me-1"></i> Update notes
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-4 mb-4">
+          <!-- Study pattern -->
+          <div class="col-lg-4">
+            <div class="card-spacious h-100">
+              <h5 class="fw-bold text-dark mb-3"><i class="bi bi-pencil-square text-primary me-2"></i>What I noticed</h5>
+              <div class="d-flex flex-column gap-3 small">
+                <div class="d-flex gap-2">
+                  <i class="bi bi-check2 text-success"></i>
+                  <span class="text-muted">You do well when you solve a problem after discussing it with a tutor.</span>
+                </div>
+                <div class="d-flex gap-2">
+                  <i class="bi bi-check2 text-success"></i>
+                  <span class="text-muted">Coding practice is becoming a regular part of your week.</span>
+                </div>
+                <div class="d-flex gap-2">
+                  <i class="bi bi-arrow-right text-primary"></i>
+                  <span class="text-muted">Try to read one handout before the next class.</span>
+                </div>
+              </div>
+
+              <div class="p-3 bg-light rounded-3 mt-4 small text-muted">
+                <strong class="text-dark">Small plan:</strong> solve one AVL problem, then bring your doubt to Prof. Rohit.
+              </div>
+            </div>
+          </div>
+
+          <!-- Next topics -->
+          <div class="col-lg-4">
+            <div class="card-spacious h-100">
+              <h5 class="fw-bold text-dark mb-3"><i class="bi bi-calendar-check text-success me-2"></i>Next steps</h5>
+              <p class="text-muted small mb-3">A short list for your next few study sessions.</p>
+              
+              <div class="p-3 border rounded-3 bg-white mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="small fw-bold text-dark">Data Structures: AVL Trees</span>
+                  <span class="badge bg-success small">Keep going</span>
+                </div>
+                <div class="progress" style="height: 6px;">
+                  <div class="progress-bar bg-success" style="width: 92%"></div>
+                </div>
+                <span class="text-muted" style="font-size: 0.75rem;">Practise once more this week.</span>
+              </div>
+
+              <div class="p-3 border rounded-3 bg-white mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="small fw-bold text-dark">SQL Normalization &amp; Indexing</span>
+                  <span class="badge bg-warning small text-dark">Ask tutor</span>
+                </div>
+                <div class="progress" style="height: 6px;">
+                  <div class="progress-bar bg-warning" style="width: 54%"></div>
+                </div>
+                <span class="text-muted" style="font-size: 0.75rem;">Add this to your next session.</span>
+              </div>
+
+              <div class="p-3 border rounded-3 bg-white">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="small fw-bold text-dark">React Context &amp; Hooks</span>
+                  <span class="badge bg-primary small">Practise</span>
+                </div>
+                <div class="progress" style="height: 6px;">
+                  <div class="progress-bar bg-primary" style="width: 88%"></div>
+                </div>
+                <span class="text-muted" style="font-size: 0.75rem;">Try one short drill this weekend.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tutor notes -->
+          <div class="col-lg-4">
+            <div class="card-spacious h-100">
+              <h5 class="fw-bold text-dark mb-3"><i class="bi bi-chat-left-quote text-primary me-2"></i>Notes from tutors</h5>
+              <div class="p-3 bg-primary-light border border-primary-subtle rounded-3 mb-3">
+                <h6 class="fw-bold text-primary mb-1">Prof. Rohit Verma (Algorithms)</h6>
+                <p class="small text-dark mb-2">"Strong progress on graph traversals. Keep practicing BFS queue patterns before our upcoming session on Dijkstra."</p>
+                <button class="btn btn-sm btn-primary-custom" onclick="openPptModal('DSA-Lec12')">
+                  <i class="bi bi-file-earmark-slides me-1"></i> Open handout
+                </button>
+              </div>
+
+              <div class="p-3 bg-light rounded-3 border">
+                <h6 class="fw-bold text-dark mb-1">Peer exchange</h6>
+                <p class="small text-muted mb-2">Kunal Joshi wants to trade Java backend mentoring for your React frontend skills.</p>
+                <button class="btn btn-sm btn-outline-custom" onclick="switchStudentTab('barter-tab')">View offer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- ================================================================= -->
+      <!-- TAB 5: PREREQUISITE ROADMAP (Teacher Guided)                      -->
+      <!-- ================================================================= -->
+      <div class="tab-pane fade" id="tab-concept" role="tabpanel">
+        <div class="card-spacious mb-4">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div>
+              <span class="badge bg-light text-dark border mb-2"><i class="bi bi-diagram-3-fill text-primary me-1"></i> Topic Dependencies</span>
+              <h3 class="fw-bold text-dark mb-1">Concept Dependency Engine</h3>
+              <p class="text-muted small mb-0">Clear, step-by-step topic dependencies so you master the prerequisite concepts first.</p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <label class="small fw-bold text-muted text-nowrap">Subject Track:</label>
+              <select id="roadmapTrackSelect" class="form-select py-2" onchange="renderRoadmapGraph(this.value)">
+                <option value="dsa">Data Structures &amp; Algorithms</option>
+                <option value="webdev">Modern Full-Stack Web Development</option>
+                <option value="springboot">Java &amp; Spring Boot Architecture</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <!-- Left: Visual Roadmap Steps -->
+          <div class="col-lg-8">
+            <div class="card-spacious">
+              <h5 class="fw-bold text-dark mb-4">
+                <i class="bi bi-signpost-2-fill text-primary me-2"></i>Curriculum Learning Stages
+              </h5>
+              <div id="roadmapNodesContainer">
+                <!-- Populated dynamically by student.js -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Selected Node Details & Recommended Mentors -->
+          <div class="col-lg-4">
+            <div class="card-spacious h-100" id="roadmapDetailPanel">
+              <h5 class="fw-bold text-dark mb-3"><i class="bi bi-info-circle text-primary me-2"></i>Concept Details</h5>
+              <div class="p-3 bg-light rounded-3 mb-3">
+                <span class="badge bg-success mb-2">Done</span>
+                <h6 class="fw-bold text-dark mb-1" id="inspectNodeTitle">Binary Search &amp; Recursion</h6>
+                <p class="small text-muted mb-2" id="inspectNodeDesc">Divide-and-conquer principles and recursive base cases needed before advanced tree traversal.</p>
+                <div class="small fw-semibold text-primary">Prerequisites: Arrays, Pointers, Functions</div>
+              </div>
+              <h6 class="fw-bold text-dark mb-2">Tutors who can help:</h6>
+              <div class="d-flex align-items-center gap-2 p-2 border rounded-3 mb-2">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" class="rounded-circle" width="40" height="40" alt="Tutor">
+                <div class="flex-grow-1">
+                  <div class="small fw-bold text-dark">Prof. Rohit Verma</div>
+                  <div class="text-muted" style="font-size: 0.75rem;">Algorithms Specialist • ₹450/hr</div>
+                </div>
+                <button class="btn btn-sm btn-outline-custom py-1" onclick="openStudentFindMentorModal('Prof. Rohit Verma')">Book</button>
+              </div>
+              <div class="mt-4">
+                <button class="btn btn-primary-custom w-100 btn-sm" onclick="switchStudentTab('coding-tab')">
+                  <i class="bi bi-code-slash me-1"></i> Practice in Coding Lab
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- TAB 7: GLOBAL COLLABORATION                                       -->
+      <!-- ================================================================= -->
+      <div class="tab-pane fade" id="tab-collab" role="tabpanel">
+        <div class="card-spacious mb-4">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div>
+              <span class="badge bg-light text-dark border mb-2"><i class="bi bi-globe2 text-primary me-1"></i> Worldwide Learning</span>
+              <h3 class="fw-bold text-dark mb-1">Global Collaboration Hub</h3>
+              <p class="text-muted small mb-0">Study with peers across borders with real-time audio rooms and live translated peer discussions.</p>
+            </div>
+            <div class="d-flex flex-wrap align-items-center gap-2">
+              <label class="small fw-bold text-muted text-nowrap"><i class="bi bi-door-open text-primary me-1"></i>Study Room:</label>
+              <select id="collabRoomSelect" class="form-select form-select-sm py-2" onchange="switchCollabRoom(this.value)">
+                <option value="cloud">Cloud Microservices &amp; Systems</option>
+                <option value="dsa">DSA &amp; Problem Solving Circle</option>
+                <option value="web">Full-Stack &amp; React Projects</option>
+              </select>
+              <label class="small fw-bold text-muted text-nowrap ms-2"><i class="bi bi-translate text-primary me-1"></i>Translate To:</label>
+              <select id="collabLangSelect" class="form-select form-select-sm py-2" onchange="translateCollabChat(this.value)">
+                <option value="en">English (Default)</option>
+                <option value="es">Spanish (Español)</option>
+                <option value="hi">Hindi (हिंदी)</option>
+                <option value="fr">French (Français)</option>
+                <option value="ja">Japanese (日本語)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <!-- Live Room Simulation Screen -->
+          <div class="col-lg-8">
+            <div class="collab-screen shadow-lg">
+              <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="badge bg-danger p-2"><i class="bi bi-broadcast me-1"></i> LIVE VOICE STUDY ROOM</span>
+                  <span class="small text-light opacity-75" id="collabRoomTopic">Topic: Distributed Systems &amp; Cloud Microservices</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                  <span class="badge bg-dark border border-secondary px-3 py-1" id="collabPeerCountBadge">
+                    <i class="bi bi-people-fill text-success me-1"></i> 6 International Peers
+                  </span>
+                </div>
+              </div>
+
+              <!-- Interactive Voice Room Action Bar -->
+              <div class="p-2 mb-3 rounded-3 d-flex align-items-center justify-content-between flex-wrap gap-2" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">
+                <div class="d-flex align-items-center gap-2">
+                  <button type="button" class="btn btn-sm btn-success fw-bold px-3" id="btnJoinCollabVoice" onclick="toggleCollabVoice()">
+                    <i class="bi bi-mic-fill me-1" id="collabVoiceIcon"></i> <span id="collabVoiceLabel">Connect Voice</span>
+                  </button>
+                  <span class="text-white-50 small" id="collabVoiceStatusText">Click to unmute your microphone in this global study room</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                  <button type="button" class="btn btn-sm btn-outline-light py-1" onclick="raiseCollabHand()">
+                    <i class="bi bi-hand-index me-1"></i> Raise Hand
+                  </button>
+                  <button type="button" class="btn btn-sm btn-primary py-1" onclick="openLiveClassroom('Distributed Systems', 'Global Mentor')">
+                    <i class="bi bi-camera-video me-1"></i> Fullscreen Classroom
+                  </button>
+                </div>
+              </div>
+
+              <!-- Video Tiles Grid -->
+              <div class="row g-3 mb-4" id="collabPeersGrid">
+                <div class="col-4">
+                  <div class="p-3 bg-dark rounded-3 border border-secondary text-center position-relative" id="peerTileUser">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" class="rounded-circle mb-2" width="54" height="54" alt="Peer" id="collabUserAvatar">
+                    <div class="small fw-bold text-white">You (India)</div>
+                    <span class="badge bg-primary-subtle text-primary" id="collabUserStatusBadge" style="font-size: 0.7rem;">Listening</span>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="p-3 bg-dark rounded-3 border border-secondary text-center position-relative" id="peerTileMateo">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" class="rounded-circle mb-2" width="54" height="54" alt="Peer">
+                    <div class="small fw-bold text-white">Mateo (Spain)</div>
+                    <span class="badge bg-secondary" style="font-size: 0.7rem;">Speaking</span>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="p-3 bg-dark rounded-3 border border-secondary text-center position-relative" id="peerTileYuki">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&q=80" class="rounded-circle mb-2" width="54" height="54" alt="Peer">
+                    <div class="small fw-bold text-white">Yuki (Japan)</div>
+                    <span class="badge bg-secondary" style="font-size: 0.7rem;">Active</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Live translated transcript -->
+              <div class="p-3 rounded-3" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                  <i class="bi bi-soundwave text-warning"></i>
+                  <span class="small fw-bold text-warning">Live voice transcript:</span>
+                  <span class="badge bg-dark border border-secondary text-light small ms-auto" id="currentSubtitleSpeaker">Mateo speaking</span>
+                </div>
+                <div class="fs-6 fw-semibold text-white mb-0" id="liveSubtitleText">
+                  "In our Madrid lab, we split database reads and writes using CQRS to prevent bottlenecking."
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Multi-lingual Chat Stream -->
+          <div class="col-lg-4">
+            <div class="card-spacious h-100 d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold text-dark mb-0"><i class="bi bi-chat-dots-fill text-primary me-2"></i>Global Room Chat</h5>
+                <span class="badge bg-light text-muted border small"><i class="bi bi-globe me-1"></i>Auto-translated</span>
+              </div>
+              <div class="chat-container flex-grow-1 mb-3" id="globalChatContainer" style="height: 320px;">
+                <!-- Populated by student.js -->
+              </div>
+              <div class="input-group">
+                <input type="text" id="globalChatInput" class="form-control py-2" placeholder="Send a message to peers..." onkeydown="if(event.key==='Enter') sendGlobalChatMessage()">
+                <button class="btn btn-primary-custom" onclick="sendGlobalChatMessage()">
+                  <i class="bi bi-send-fill"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- TAB 8: DAILY PRACTICE PROBLEMS (DPP) & LECTURE PPTs (PW Style)    -->
+      <!-- ================================================================= -->
+      <!-- ================================================================= -->
+      <!-- TAB 7: LECTURE HANDOUTS & DAILY PRACTICE PROBLEMS (DPP)           -->
+      <!-- ================================================================= -->
+      <div class="tab-pane fade" id="tab-notes" role="tabpanel">
+        
+        <!-- Materials header -->
+        <div class="card-spacious mb-4">
+          <div>
+            <h3 class="fw-bold text-dark mb-1">Lectures &amp; DPPs</h3>
+            <p class="text-muted small mb-0">Slides from your classes and practice questions from your tutors.</p>
+          </div>
+        </div>
+
+        <!-- Subject Filter Pills -->
+        <div class="d-flex flex-wrap gap-2 mb-4">
+          <button class="btn btn-sm btn-primary-custom" onclick="filterDppItems('all', this)">All Materials</button>
+          <button class="btn btn-sm btn-outline-custom" onclick="filterDppItems('dsa', this)">Data Structures</button>
+          <button class="btn btn-sm btn-outline-custom" onclick="filterDppItems('webdev', this)">Web Development</button>
+        </div>
+
+        <!-- Two Columns: 2 Concise DPPs on Left, 2 Concise Lecture PPTs on Right -->
+        <div class="row g-4">
+          
+          <!-- Column 1: Daily Practice Problems (DPP) -->
+          <div class="col-lg-6">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="fw-bold text-dark mb-0"><i class="bi bi-ui-checks text-primary me-2"></i>Daily Practice Problems (DPP)</h5>
+              <small class="text-muted fw-semibold">2 practice sets</small>
+            </div>
+
+            <div class="d-flex flex-column gap-3" id="studentDppListContainer">
+              <!-- DPP 1: Active Pending -->
+              <div class="card-spacious p-3 dpp-item dpp-dsa" style="border-left: 4px solid #1e3a8a;">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <div>
+                    <span class="badge bg-light text-dark border me-1">Data Structures</span>
+                    <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle fw-bold"><i class="bi bi-clock-history me-1"></i> Due today</span>
+                  </div>
+                  <small class="text-muted">Lec 12 Drill</small>
+                </div>
+                <h6 class="fw-bold text-dark mb-1">DPP #24: Graph Traversal — BFS &amp; DFS Applications</h6>
+                <p class="text-muted small mb-3">10 questions on traversal queues and common edge cases. 4 completed.</p>
+                <div class="d-flex align-items-center justify-content-between pt-2 border-top">
+                  <span class="text-muted small"><i class="bi bi-person me-1"></i> Prof. Rohit Verma</span>
+                  <button class="btn btn-sm btn-primary-custom py-1 px-3" onclick="openDppQuizModal('DPP-24')">
+                    <i class="bi bi-play-circle-fill me-1"></i> Start practice
+                  </button>
+                </div>
+              </div>
+
+              <!-- DPP 2: Completed -->
+              <div class="card-spacious p-3 dpp-item dpp-webdev">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <div>
+                    <span class="badge bg-light text-dark border me-1">Web Development</span>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle fw-bold"><i class="bi bi-check-circle-fill me-1"></i> Completed</span>
+                  </div>
+                  <small class="text-muted">Yesterday</small>
+                </div>
+                <h6 class="fw-bold text-dark mb-1">DPP #23: React State &amp; Context API Patterns</h6>
+                <p class="text-muted small mb-3">10 questions on state and context patterns. You scored 9/10.</p>
+                <div class="d-flex align-items-center justify-content-between pt-2 border-top">
+                  <span class="text-muted small"><i class="bi bi-person me-1"></i> Rahul Patil (Tutor)</span>
+                  <button class="btn btn-sm btn-outline-custom py-1" onclick="openDppSolutionModal('DPP-23')">
+                    <i class="bi bi-eye-fill me-1"></i> View solution
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: Lecture Slide Decks (PPT) -->
+          <div class="col-lg-6">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="fw-bold text-dark mb-0"><i class="bi bi-file-earmark-slides text-primary me-2"></i>Lecture Slides &amp; Handouts</h5>
+              <small class="text-muted fw-semibold">2 handouts</small>
+            </div>
+
+            <div class="d-flex flex-column gap-3">
+              <!-- PPT 1 -->
+              <div class="card-spacious p-3 dpp-item dpp-dsa">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <span class="badge bg-light text-dark border">Data Structures</span>
+                  <small class="text-muted">Delivered 25 Sep</small>
+                </div>
+                <h6 class="fw-bold text-dark mb-1">Lec 12 PPT: Graph Traversal Algorithms</h6>
+                <p class="text-muted small mb-3">BFS and DFS implementation with queue walkthroughs. 32 slides.</p>
+                <div class="d-flex align-items-center justify-content-between pt-2 border-top">
+                  <span class="text-muted small"><i class="bi bi-person me-1"></i> Prof. Rohit Verma</span>
+                  <button class="btn btn-sm btn-primary-custom py-1 px-3" onclick="openPptModal('DSA-Lec12')">
+                    <i class="bi bi-file-earmark-slides-fill me-1"></i> Open slides
+                  </button>
+                </div>
+              </div>
+
+              <!-- PPT 2 -->
+              <div class="card-spacious p-3 dpp-item dpp-webdev">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <span class="badge bg-light text-dark border">Web Development</span>
+                  <small class="text-muted">Delivered 24 Sep</small>
+                </div>
+                <h6 class="fw-bold text-dark mb-1">Lec 09 PPT: React State &amp; Context API Patterns</h6>
+                <p class="text-muted small mb-3">Context API, hooks, and reducer patterns. 28 slides.</p>
+                <div class="d-flex align-items-center justify-content-between pt-2 border-top">
+                  <span class="text-muted small"><i class="bi bi-person me-1"></i> Rahul Patil</span>
+                  <button class="btn btn-sm btn-primary-custom py-1 px-3" onclick="openPptModal('WebDev-Lec09')">
+                    <i class="bi bi-file-earmark-slides-fill me-1"></i> Open slides
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="tab-student-profile" role="tabpanel">
+        <div class="card-spacious profile-card mb-4">
+          <div class="d-flex align-items-start justify-content-between gap-3 flex-wrap">
+            <div>
+              <span class="badge bg-light text-dark border mb-2"><i class="bi bi-person-circle text-primary me-1"></i> Student profile</span>
+              <h3 class="fw-bold text-dark mb-1">Your details</h3>
+              <p class="text-muted small mb-0">Keep your contact and course details up to date for tutors.</p>
+            </div>
+            <span class="small text-muted">Changes are saved on this device</span>
+          </div>
+        </div>
+
+        <form class="card-spacious" id="studentProfileForm" onsubmit="saveStudentProfile(event)">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <img id="studentProfilePhotoPreview" class="rounded-circle border" src="" alt="Student profile photo" width="76" height="76" style="object-fit: cover; display: none;">
+            <div id="studentProfilePhotoPlaceholder" class="rounded-circle border bg-light text-secondary d-flex align-items-center justify-content-center" style="width: 76px; height: 76px; font-size: 1.8rem;">
+              <i class="bi bi-person"></i>
+            </div>
+            <div>
+              <label class="form-label small fw-semibold mb-1" for="studentProfilePhoto">Profile photo</label>
+              <input class="form-control form-control-sm" id="studentProfilePhoto" type="file" accept="image/*" onchange="handleStudentPhotoChange(event)">
+              <small class="text-muted">Choose a photo for your student profile.</small>
+            </div>
+          </div>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold" for="studentProfileName">Full name</label>
+              <input class="form-control" id="studentProfileName" name="fullName" value="Student" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold" for="studentProfileEmail">Email</label>
+              <input class="form-control" id="studentProfileEmail" name="email" type="email" value="student@smarttutor.edu" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold" for="studentProfilePhone">Phone</label>
+              <input class="form-control" id="studentProfilePhone" name="phone" type="tel" placeholder="e.g. 98765 43210">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold" for="studentProfileCourse">Course</label>
+              <input class="form-control" id="studentProfileCourse" name="course" value="Java &amp; Spring Boot Full-Stack">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold" for="studentProfileCollege">College</label>
+              <input class="form-control" id="studentProfileCollege" name="college" placeholder="Your college name">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold" for="studentProfileCity">City</label>
+              <input class="form-control" id="studentProfileCity" name="city" placeholder="Your city">
+            </div>
+            <div class="col-12">
+              <div class="d-flex justify-content-between align-items-center">
+                <label class="form-label small fw-semibold" for="studentProfileBio">Bio</label>
+                <small class="text-muted" id="studentProfileBioCount" aria-live="polite">0 / 1,000 words</small>
+              </div>
+              <textarea class="form-control" id="studentProfileBio" name="bio" rows="3" placeholder="Tell tutors a little about yourself and your learning goals." oninput="updateProfileBioWordCount(this)"></textarea>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end mt-4">
+            <button class="btn btn-primary-custom" type="submit"><i class="bi bi-check2 me-1"></i> Save profile</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="tab-pane fade" id="tab-student-support" role="tabpanel">
+        <div class="card-spacious support-card mb-4">
+          <h3 class="fw-bold text-dark mb-1">Support</h3>
+          <p class="text-muted mb-0">Need help with a tutor, booking, payment, or class? Send a message to the SmartTutor team.</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-lg-7">
+            <form class="card-spacious" onsubmit="submitStudentSupport(event)">
+              <label class="form-label small fw-semibold" for="studentSupportTopic">What do you need help with?</label>
+              <select class="form-select mb-3" id="studentSupportTopic">
+                <option>Tutor or booking</option>
+                <option>Payment or refund</option>
+                <option>Class or materials</option>
+                <option>Something else</option>
+              </select>
+              <label class="form-label small fw-semibold" for="studentSupportMessage">Message</label>
+              <textarea class="form-control mb-3" id="studentSupportMessage" rows="4" placeholder="Write a short description..."></textarea>
+              <button class="btn btn-primary-custom" type="submit"><i class="bi bi-send me-1"></i> Send to support</button>
+            </form>
+          </div>
+          <div class="col-lg-5">
+            <div class="card-spacious h-100">
+              <h5 class="fw-bold text-dark mb-3">Contact</h5>
+              <p class="small text-muted mb-2"><i class="bi bi-envelope me-2 text-primary"></i>support@smarttutor.app</p>
+              <p class="small text-muted mb-0"><i class="bi bi-clock me-2 text-primary"></i>Replies within one working day</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- In-Portal Student Booking Modal -->
+  <div class="modal fade" id="studentBookMentorModal" tabindex="-1" aria-labelledby="studentBookMentorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header border-bottom">
+          <div>
+            <h5 class="modal-title fw-bold text-dark" id="studentBookMentorModalLabel">
+              <i class="bi bi-calendar-plus text-primary me-2"></i>Book a Mentoring Session
+            </h5>
+            <p class="text-muted small mb-0">Choose a course offered by a tutor.</p>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body p-4">
+          <div id="studentBookingStatus" class="alert d-none py-2 small mb-3" role="status" aria-live="polite"></div>
+
+          <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
+            <div>
+              <label class="form-label small fw-bold text-muted mb-0">Available courses</label>
+              <div class="small text-muted">Tutor, course and price are loaded from the backend.</div>
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-custom" id="studentBookingRefreshButton" onclick="loadStudentBookingCourses()">
+              <i class="bi bi-arrow-clockwise me-1"></i>Refresh
+            </button>
+          </div>
+
+          <div id="studentBookingCourseList" class="d-flex flex-column gap-2 mt-3">
+            <div class="text-center py-4 text-muted">
+              <span class="spinner-border spinner-border-sm me-2"></span>Loading courses...
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer border-top">
+          <span class="small text-muted me-auto" id="studentBookingStudentInfo"></span>
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Barter Offer Modal -->
+  <div class="modal fade" id="createBarterModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header border-bottom">
+          <h5 class="modal-title fw-bold text-dark">
+            <i class="bi bi-arrow-left-right text-primary me-2"></i>Post a Skill Barter Offer
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <div class="mb-3">
+            <label class="form-label fw-bold small text-muted">Skill You Can Teach</label>
+            <input type="text" id="barterGiveInput" class="form-control" placeholder="e.g. Java Spring Boot, MySQL, CSS Grid">
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-bold small text-muted">Skill You Want To Learn</label>
+            <input type="text" id="barterWantInput" class="form-control" placeholder="e.g. React.js, Docker, DSA Graphs">
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-bold small text-muted">Preferred Time Commitment</label>
+            <input type="text" id="barterTimeInput" class="form-control" placeholder="e.g. 2 hours / week (Weekends)">
+          </div>
+        </div>
+        <div class="modal-footer border-top">
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary-custom" onclick="submitBarterOffer()">Post Offer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive DPP Quiz Modal -->
+  <div class="modal fade" id="dppQuizModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header border-bottom py-3">
+          <div class="d-flex align-items-center gap-2">
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle fw-bold">DPP #24</span>
+            <h5 class="modal-title fw-bold text-dark mb-0">Graph Traversal — BFS &amp; DFS Applications</h5>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle"><i class="bi bi-stopwatch me-1"></i> <span id="dppTimer">24:45</span></span>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+        </div>
+        <div class="modal-body p-4">
+          <div class="d-flex justify-content-between align-items-center mb-3 text-muted small">
+            <span><strong class="text-dark">Question 1 of 10</strong> (Single Choice • +4 / -1 Mark)</span>
+            <span class="badge bg-light text-dark border">Data Structures • Practice Drill</span>
+          </div>
+
+          <div class="p-3 bg-light rounded-3 mb-4 border">
+            <h6 class="fw-bold text-dark mb-2">Algorithmic Complexity Question:</h6>
+            <div class="p-3 bg-white rounded border fs-6 mb-2 text-dark">
+              What is the time complexity of <strong>Breadth-First Search (BFS)</strong> on a graph with <em>V</em> vertices and <em>E</em> edges when represented using an <strong>adjacency list</strong>?
+            </div>
+            <small class="text-muted"><i class="bi bi-info-circle me-1"></i> Core interview question tested in technical screening and campus placements.</small>
+          </div>
+
+          <label class="form-label small fw-bold text-muted mb-2">Select the correct option:</label>
+          <div class="d-flex flex-column gap-2 mb-4" id="dppOptionsGroup">
+            <label class="d-flex align-items-center p-3 border rounded-3 cursor-pointer dpp-option-label" style="cursor: pointer;">
+              <input type="radio" name="dppAnswer" value="A" class="form-check-input me-3 mt-0" checked>
+              <span><strong>(A)</strong> O(V + E)</span>
+            </label>
+            <label class="d-flex align-items-center p-3 border rounded-3 cursor-pointer dpp-option-label" style="cursor: pointer;">
+              <input type="radio" name="dppAnswer" value="B" class="form-check-input me-3 mt-0">
+              <span><strong>(B)</strong> O(V &times; E)</span>
+            </label>
+            <label class="d-flex align-items-center p-3 border rounded-3 cursor-pointer dpp-option-label" style="cursor: pointer;">
+              <input type="radio" name="dppAnswer" value="C" class="form-check-input me-3 mt-0">
+              <span><strong>(C)</strong> O(V&sup2;)</span>
+            </label>
+            <label class="d-flex align-items-center p-3 border rounded-3 cursor-pointer dpp-option-label" style="cursor: pointer;">
+              <input type="radio" name="dppAnswer" value="D" class="form-check-input me-3 mt-0">
+              <span><strong>(D)</strong> O(E log V)</span>
+            </label>
+          </div>
+
+          <!-- Instant Feedback Alert -->
+          <div id="dppFeedbackAlert" class="alert alert-success d-none mb-0">
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <i class="bi bi-check-circle-fill text-success fs-5"></i>
+              <strong>Correct! Option (A) O(V + E) is the right answer (+4 Marks).</strong>
+            </div>
+            <p class="small mb-0 text-dark">
+              <strong>Faculty Solution:</strong> With an adjacency list representation, BFS visits each vertex once (O(V)) and inspects each edge once (O(E)), giving total time complexity <strong>O(V + E)</strong>.
+            </p>
+          </div>
+        </div>
+        <div class="modal-footer border-top d-flex justify-content-between">
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-outline-custom" onclick="checkDppAnswer()">
+              <i class="bi bi-check2-circle me-1"></i> Check Answer
+            </button>
+            <button type="button" class="btn btn-primary-custom" onclick="submitDppAndNext()">
+              Submit &amp; Next Question &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Lecture PPT Preview Modal -->
+  <div class="modal fade" id="pptPreviewModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header border-bottom py-3">
+          <div class="d-flex align-items-center gap-2">
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle fw-bold">Lecture Slide Deck</span>
+            <h5 class="modal-title fw-bold text-dark mb-0" id="pptModalTitle">Lec 12: Graph Traversal Algorithms (BFS &amp; DFS)</h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <!-- Slide Preview Screen -->
+          <div class="p-4 rounded-3 border mb-3" style="background: #ffffff; min-height: 280px; box-shadow: 0 4px 14px rgba(0,0,0,0.04);">
+            <div class="d-flex justify-content-between align-items-center pb-2 border-bottom mb-3">
+              <span class="small fw-bold text-primary"><i class="bi bi-easel2-fill me-1"></i> Data Structures • Prof. Rohit Verma</span>
+              <span class="badge bg-light text-dark border">Slide 4 of 32</span>
+            </div>
+            
+            <h5 class="fw-bold text-dark mb-3">Breadth-First Search: Queue-Based Traversal</h5>
+            
+            <div class="p-3 bg-light rounded-3 font-monospace mb-3 text-start fs-6 text-dark border">
+              Queue&lt;Integer&gt; queue = new ArrayDeque&lt;&gt;();<br>
+              queue.add(startNode); visited[startNode] = true;
+            </div>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="p-3 border rounded-2 bg-white small h-100">
+                  <strong class="text-primary d-block mb-1"><i class="bi bi-lightbulb me-1"></i> Key Traversal Insight:</strong>
+                  BFS discovers nodes level-by-level using a First-In-First-Out (FIFO) queue. It guarantees the shortest path on unweighted graphs.
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="p-3 border rounded-2 bg-white small h-100">
+                  <strong class="text-success d-block mb-1"><i class="bi bi-shield-check me-1"></i> Space &amp; Time Complexity:</strong>
+                  <strong>Time:</strong> O(V + E) with adjacency list.<br>
+                  <strong>Space:</strong> O(V) for the boolean visited array and BFS queue memory.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide Controls -->
+          <div class="d-flex align-items-center justify-content-between">
+            <button class="btn btn-sm btn-outline-custom" onclick="showToast('Displaying Previous Slide (Slide 3)')">
+              <i class="bi bi-chevron-left me-1"></i> Previous Slide
+            </button>
+            <span class="text-muted small fw-semibold">Slide 4 / 32 • Prof. Rohit Verma Handout</span>
+            <button class="btn btn-sm btn-primary-custom" onclick="showToast('Displaying Next Slide (Slide 5)')">
+              Next Slide <i class="bi bi-chevron-right ms-1"></i>
+            </button>
+          </div>
+        </div>
+        <div class="modal-footer border-top py-2 d-flex justify-content-between">
+          <small class="text-muted"><i class="bi bi-file-earmark-pdf me-1"></i> High-Res PDF handout available</small>
+          <button type="button" class="btn btn-sm btn-light border" onclick="showToast('Downloading Complete 32-Slide Lecture PDF...', 'info')">
+            <i class="bi bi-download me-1"></i> Download Slide Deck (PDF)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- LIVE INTERACTIVE CLASSROOM MODAL (Real WebRTC Video & Audio)      -->
+  <!-- ================================================================= -->
+  <div class="modal fade" id="liveClassroomModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down">
+      <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+        
+        <!-- Live Class Header -->
+        <div class="modal-header bg-dark text-white py-3 px-4 d-flex justify-content-between align-items-center">
+          <div class="d-flex align-items-center gap-3">
+            <span class="badge bg-danger px-3 py-2 fw-bold d-inline-flex align-items-center gap-1 shadow-sm">
+              <span class="live-indicator-dot me-1"></span> LIVE CLASS
+            </span>
+            <div>
+              <h5 class="modal-title fw-bold text-white mb-0" id="liveClassSubject">Data Structures: AVL Trees &amp; Rotations</h5>
+              <small class="text-white-50"><i class="bi bi-person-circle me-1 text-primary"></i> <span id="liveClassTutorName">Prof. Rohit Verma</span> • Verified Faculty</small>
+            </div>
+          </div>
+          
+          <div class="d-flex align-items-center gap-2">
+            <span class="badge bg-secondary border border-secondary font-monospace px-3 py-2 text-light" id="liveClassTimer">
+              <i class="bi bi-stopwatch me-1"></i> 00:00:00
+            </span>
+            <button type="button" class="btn btn-sm btn-danger fw-bold px-3 py-2" onclick="leaveLiveClassroom()">
+              <i class="bi bi-telephone-x me-1"></i> Leave Class
+            </button>
+          </div>
+        </div>
+
+        <div class="modal-body p-3 bg-light">
+          <div class="row g-2 mb-3">
+            <div class="col-md-4">
+              <div class="bg-white border rounded-3 p-3 h-100">
+                <span class="text-muted d-block" style="font-size: 0.72rem;">Today's topic</span>
+                <strong class="small text-dark" id="liveClassSummaryTopic">AVL Trees &amp; Rotations</strong>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="bg-white border rounded-3 p-3 h-100">
+                <span class="text-muted d-block" style="font-size: 0.72rem;">Tutor</span>
+                <strong class="small text-dark" id="liveClassSummaryTutor">Prof. Rohit Verma</strong>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="bg-white border rounded-3 p-3 h-100">
+                <span class="text-muted d-block" style="font-size: 0.72rem;">Class tools</span>
+                <strong class="small text-dark">Video, mic, chat &amp; whiteboard</strong>
+              </div>
+            </div>
+          </div>
+          <div class="row g-3">
+            
+            <!-- Left Stage: Video / Whiteboard View -->
+            <div class="col-lg-8">
+              <div class="d-flex justify-content-between align-items-center mb-2 px-1">
+                <div class="btn-group btn-group-sm" role="group">
+                  <button type="button" class="btn btn-primary-custom" id="btnStageModeLecture" onclick="switchLiveStageMode('lecture')">
+                    <i class="bi bi-easel me-1"></i> Lecture Screen
+                  </button>
+                  <button type="button" class="btn btn-outline-custom" id="btnStageModeWhiteboard" onclick="switchLiveStageMode('whiteboard')">
+                    <i class="bi bi-pen me-1"></i> Shared Whiteboard
+                  </button>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                  <span class="badge bg-white text-dark border small" id="liveAudioStatusTag">
+                    <i class="bi bi-mic text-success me-1"></i> Mic: Ready
+                  </span>
+                  <span class="badge bg-white text-dark border small" id="liveHandRaisedTag" style="display: none;">
+                    ✋ Hand Raised
+                  </span>
+                </div>
+              </div>
+
+              <!-- Stage 1: Lecture Screen (Tutor Feed + Student PiP Webcam) -->
+              <div id="liveStageLecture" class="live-stage-screen shadow-sm mb-2 position-relative">
+                
+                <!-- Tutor Presentation Slide / Lecture Visual -->
+                <div class="live-slide-content">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1">
+                      <i class="bi bi-diagram-3-fill me-1"></i> Active Lecture Stream
+                    </span>
+                    <span class="badge bg-dark border border-secondary text-white-50">1080p HD Encrypted Stream</span>
+                  </div>
+
+                  <h4 class="fw-bold text-white mb-2" id="liveScreenTopic">Balanced Trees: AVL Rotations (LL, RR, LR, RL)</h4>
+                  <p class="text-light opacity-75 small mb-3">
+                    Balance Factor = Height(Left Subtree) &minus; Height(Right Subtree). An AVL tree maintains Balance Factor &isin; {-1, 0, +1}.
+                  </p>
+
+                  <!-- Visual Diagram Card -->
+                  <div class="p-3 rounded-3 mb-3" style="background: rgba(255,255,255,0.06); border: 1px dashed rgba(255,255,255,0.2);">
+                    <div class="row align-items-center text-center">
+                      <div class="col-4">
+                        <span class="badge bg-secondary mb-1">Unbalanced Node</span>
+                        <div class="fw-bold text-warning font-monospace fs-5">Node (30)</div>
+                        <div class="small text-white-50">BF = +2 (Left Heavy)</div>
+                      </div>
+                      <div class="col-4">
+                        <div class="text-success fw-bold fs-5">&rarr; Right Rotation &rarr;</div>
+                        <div class="small text-white-50">Pivot on Child Node (20)</div>
+                      </div>
+                      <div class="col-4">
+                        <span class="badge bg-success mb-1">Balanced AVL</span>
+                        <div class="fw-bold text-success font-monospace fs-5">Root (20)</div>
+                        <div class="small text-white-50">BF = 0 (Balanced)</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Tutor Active Speech Bar -->
+                  <div class="tutor-speech-bubble">
+                    <div class="wave-animation">
+                      <span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="small">
+                      <strong class="text-white d-block" id="liveTutorSpeakerName">Prof. Rohit Verma:</strong>
+                      <span class="text-white-50" id="liveTutorSpeechText">"Notice how the right rotation preserves the in-order binary search sequence perfectly."</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Student Picture-in-Picture Webcam Box -->
+                <div class="pip-camera-box" id="studentPipBox">
+                  <video id="liveStudentVideo" autoplay playsinline muted></video>
+                  <div id="liveStudentAvatarFallback" class="pip-fallback d-none">
+                    <div class="tutor-avatar-circle" style="width: 36px; height: 36px; background: #1e3a8a; font-size: 0.85rem;">ST</div>
+                    <span class="mt-1" style="font-size: 0.65rem;">Camera Off</span>
+                  </div>
+                  <span class="badge bg-dark text-white position-absolute bottom-0 start-0 m-1" style="font-size: 0.62rem; z-index: 12;">
+                    You (Student)
+                  </span>
+                </div>
+
+              </div>
+
+              <!-- Stage 2: Shared Interactive Whiteboard (Hidden initially) -->
+              <div id="liveStageWhiteboard" class="whiteboard-canvas-box shadow-sm mb-2 d-none">
+                <div class="whiteboard-toolbar">
+                  <span class="small fw-bold text-dark me-2"><i class="bi bi-palette text-primary me-1"></i> Pen:</span>
+                  <button type="button" class="color-dot-btn active" style="background: #0f172a;" onclick="setWhiteboardColor('#0f172a', this)" title="Black"></button>
+                  <button type="button" class="color-dot-btn" style="background: #2563eb;" onclick="setWhiteboardColor('#2563eb', this)" title="Blue"></button>
+                  <button type="button" class="color-dot-btn" style="background: #dc2626;" onclick="setWhiteboardColor('#dc2626', this)" title="Red"></button>
+                  <button type="button" class="color-dot-btn" style="background: #16a34a;" onclick="setWhiteboardColor('#16a34a', this)" title="Green"></button>
+                  
+                  <div class="vr mx-2"></div>
+                  
+                  <button type="button" class="btn btn-sm btn-light border py-0 px-2 small" id="btnWhiteboardEraser" onclick="setWhiteboardEraser()">
+                    <i class="bi bi-eraser me-1"></i> Eraser
+                  </button>
+                  <button type="button" class="btn btn-sm btn-light border py-0 px-2 small" onclick="clearWhiteboardCanvas()">
+                    <i class="bi bi-trash me-1"></i> Clear
+                  </button>
+                  <button type="button" class="btn btn-sm btn-light border py-0 px-2 small ms-auto" onclick="downloadWhiteboardNotes()">
+                    <i class="bi bi-download me-1"></i> Save Notes
+                  </button>
+                </div>
+                <canvas id="liveClassWhiteboardCanvas" width="800" height="380" class="w-100" style="touch-action: none; cursor: crosshair; display: block;"></canvas>
+              </div>
+
+              <!-- Classroom Bottom Control Bar -->
+              <div class="live-controls-bar shadow-sm">
+                
+                <!-- Mic Button with Real Audio Volume Meter -->
+                <div style="min-width: 90px;">
+                  <button type="button" class="live-ctrl-btn w-100" id="btnLiveMic" onclick="toggleLiveMic()">
+                    <i class="bi bi-mic-fill text-success" id="liveMicIcon"></i>
+                    <span id="liveMicLabel">Mute</span>
+                  </button>
+                  <!-- Volume level visualizer -->
+                  <div class="mic-level-track" title="Microphone Audio Level">
+                    <div id="liveMicLevelFill" class="mic-level-fill"></div>
+                  </div>
+                </div>
+
+                <!-- Camera Button -->
+                <button type="button" class="live-ctrl-btn" id="btnLiveCamera" onclick="toggleLiveCamera()">
+                  <i class="bi bi-camera-video-fill text-primary" id="liveCamIcon"></i>
+                  <span id="liveCamLabel">Stop Video</span>
+                </button>
+
+                <!-- Screen Share Button -->
+                <button type="button" class="live-ctrl-btn" id="btnLiveScreenShare" onclick="toggleLiveScreenShare()">
+                  <i class="bi bi-display text-secondary" id="liveScreenIcon"></i>
+                  <span>Share Screen</span>
+                </button>
+
+                <!-- Raise Hand Button -->
+                <button type="button" class="live-ctrl-btn" id="btnLiveRaiseHand" onclick="toggleLiveRaiseHand()">
+                  <i class="bi bi-hand-index text-warning" id="liveHandIcon"></i>
+                  <span id="liveHandLabel">Raise Hand</span>
+                </button>
+
+                <!-- Whiteboard Quick Toggle -->
+                <button type="button" class="live-ctrl-btn" id="btnLiveToggleWhiteboard" onclick="quickToggleWhiteboard()">
+                  <i class="bi bi-brush text-info"></i>
+                  <span>Whiteboard</span>
+                </button>
+
+                <!-- End / Leave Button -->
+                <button type="button" class="live-ctrl-btn active-danger ms-auto" onclick="leaveLiveClassroom()">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>End Class</span>
+                </button>
+
+              </div>
+            </div>
+
+            <!-- Right Panel: Live Doubts & Classmates -->
+            <div class="col-lg-4">
+              <div class="card-spacious h-100 d-flex flex-column p-3 bg-white">
+                
+                <!-- Tabs: Doubts | Classmates -->
+                <ul class="nav nav-tabs nav-fill mb-3" role="tablist">
+                  <li class="nav-item">
+                    <button class="nav-link active py-2 small fw-bold" data-bs-toggle="tab" data-bs-target="#liveTabDoubts" type="button">
+                      <i class="bi bi-chat-quote-fill me-1"></i> Live Doubts
+                    </button>
+                  </li>
+                  <li class="nav-item">
+                    <button class="nav-link py-2 small fw-bold" data-bs-toggle="tab" data-bs-target="#liveTabClassmates" type="button">
+                      <i class="bi bi-people-fill me-1"></i> Classmates (4)
+                    </button>
+                  </li>
+                </ul>
+
+                <div class="tab-content flex-grow-1 d-flex flex-column">
+                  
+                  <!-- Tab 1: Live Doubts Chat -->
+                  <div class="tab-pane fade show active flex-grow-1 d-flex flex-column" id="liveTabDoubts">
+                    <div class="live-class-chat-scroll flex-grow-1 mb-2" id="liveClassDoubtsContainer">
+                      <!-- Chat items populated dynamically -->
+                    </div>
+
+                    <form onsubmit="handleSendLiveDoubt(event)">
+                      <div class="input-group">
+                        <input type="text" id="liveDoubtInput" class="form-control form-control-sm py-2" placeholder="Ask sir a doubt on this topic..." autocomplete="off">
+                        <button class="btn btn-sm btn-primary-custom" type="submit">
+                          <i class="bi bi-send-fill"></i> Ask
+                        </button>
+                      </div>
+                      <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">
+                        <i class="bi bi-info-circle me-1"></i> Tutors address doubts immediately during the live explanation.
+                      </small>
+                    </form>
+                  </div>
+
+                  <!-- Tab 2: Classmates List -->
+                  <div class="tab-pane fade" id="liveTabClassmates">
+                    <div class="d-flex flex-column gap-2">
+                      <div class="p-2 border rounded-3 bg-light d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center gap-2">
+                          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80" class="rounded-circle" width="34" height="34" alt="Tutor">
+                          <div>
+                            <strong class="d-block small text-dark" id="liveListTutorName">Prof. Rohit Verma</strong>
+                            <span class="badge bg-primary text-white" style="font-size: 0.65rem;">Host &bull; Faculty</span>
+                          </div>
+                        </div>
+                        <span class="text-success small fw-bold"><i class="bi bi-mic-fill me-1"></i>Speaking</span>
+                      </div>
+
+                      <div class="p-2 border rounded-3 bg-white d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center gap-2">
+                          <div class="tutor-avatar-circle" style="width: 34px; height: 34px; font-size: 0.75rem; background: #1e3a8a;">ST</div>
+                          <div>
+                            <strong class="d-block small text-dark" id="liveListStudentName">Priya Sharma (You)</strong>
+                            <span class="badge bg-light text-muted border" style="font-size: 0.65rem;">Student</span>
+                          </div>
+                        </div>
+                        <span class="badge bg-light text-success border small" id="liveListMyMicBadge"><i class="bi bi-mic-fill text-success"></i></span>
+                      </div>
+
+                      <div class="p-2 border rounded-3 bg-white d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center gap-2">
+                          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&q=80" class="rounded-circle" width="34" height="34" alt="Student">
+                          <div>
+                            <strong class="d-block small text-dark">Rohan Kulkarni</strong>
+                            <span class="badge bg-light text-muted border" style="font-size: 0.65rem;">Student</span>
+                          </div>
+                        </div>
+                        <span class="badge bg-light text-muted border small"><i class="bi bi-mic-mute"></i></span>
+                      </div>
+
+                      <div class="p-2 border rounded-3 bg-white d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center gap-2">
+                          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80" class="rounded-circle" width="34" height="34" alt="Student">
+                          <div>
+                            <strong class="d-block small text-dark">Janvi Thakre</strong>
+                            <span class="badge bg-light text-muted border" style="font-size: 0.65rem;">Student</span>
+                          </div>
+                        </div>
+                        <span class="badge bg-light text-muted border small"><i class="bi bi-mic-mute"></i></span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Barter Compatibility & Personality Quiz -->
+  <div class="modal fade" id="barterPersonalityModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header border-bottom py-3 px-4 bg-light">
+          <div>
+            <h5 class="modal-title fw-bold text-dark mb-1"><i class="bi bi-patch-check-fill text-primary me-2"></i>Peer Compatibility & Learning Style Quiz</h5>
+            <p class="text-muted small mb-0">Answer 4 quick questions to find study exchange partners who match your pace, schedule, and vibe.</p>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="barterQuizForm" onsubmit="submitBarterQuiz(event)">
+          <div class="modal-body p-4">
+            <div class="p-3 rounded-3 bg-light border mb-4 small text-muted d-flex align-items-center gap-2">
+              <i class="bi bi-shield-check text-success fs-5"></i>
+              <div>
+                <strong class="text-dark d-block">Zero pressure — purely for study comfort!</strong>
+                There are no right or wrong answers. This simply helps connect you with peers who like learning the same way you do.
+              </div>
+            </div>
+
+            <!-- Q1: Learning Pace -->
+            <fieldset class="mb-4">
+              <legend class="h6 fw-bold text-dark mb-2">
+                <span class="badge bg-primary me-2">1</span>What is your comfortable learning pace?
+              </legend>
+              <div class="d-flex flex-column gap-2 mt-2">
+                <label class="border rounded-3 p-3 small d-flex align-items-center gap-3 cursor-pointer quiz-label">
+                  <input class="form-check-input mt-0" type="radio" name="barterPace" value="step_by_step" required>
+                  <div>
+                    <strong class="d-block text-dark">🐢 Step-by-Step Fundamentals</strong>
+                    <span class="text-muted">Start from zero, explain line-by-line, build concepts with solid foundations.</span>
+                  </div>
+                </label>
+                <label class="border rounded-3 p-3 small d-flex align-items-center gap-3 cursor-pointer quiz-label">
+                  <input class="form-check-input mt-0" type="radio" name="barterPace" value="hands_on" required>
+                  <div>
+                    <strong class="d-block text-dark">💻 Hands-on Builder</strong>
+                    <span class="text-muted">Jump straight into writing code and mini-projects; learn syntax along the way.</span>
+                  </div>
+                </label>
+                <label class="border rounded-3 p-3 small d-flex align-items-center gap-3 cursor-pointer quiz-label">
+                  <input class="form-check-input mt-0" type="radio" name="barterPace" value="exam_prep" required>
+                  <div>
+                    <strong class="d-block text-dark">⚡ Fast-Paced / Exam-Focused</strong>
+                    <span class="text-muted">Target interview and semester questions directly; solve maximum problems quickly.</span>
+                  </div>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Q2: Study Time -->
+            <fieldset class="mb-4">
+              <legend class="h6 fw-bold text-dark mb-2">
+                <span class="badge bg-primary me-2">2</span>When do you usually study and code best?
+              </legend>
+              <div class="d-flex flex-column gap-2 mt-2">
+                <label class="border rounded-3 p-3 small d-flex align-items-center gap-3 cursor-pointer quiz-label">
+                  <input class="form-check-input mt-0" type="radio" name="barterTime" value="night_owl" required>
+                  <div>
+                    <strong class="d-block text-dark">🦉 Late Night (10:00 PM – 1:00 AM)</strong>
+                    <span class="text-muted">Quiet night hours when hostel/home is silent and focus is at its peak.</span>
+                  </div>
+                </label>
+                <label class="border rounded-3 p-3 small d-flex align-items-center gap-3 cursor-pointer quiz-label">
+                  <input class="form-check-input mt-0" type="radio" name="barterTime" value="evening" required>
+                  <div>
+                    <strong class="d-block text-dark">☕ Evening Slots (5:00 PM – 8:00 PM)</strong>
+                    <span class="text-muted">Right after college classes before dinner; keep nights free.</span>
+                  </div>
+                </label>
+                <label class="border rounded-3 p-3 small d-flex align-items-center gap-3 cursor-pointer quiz-label">
+                  <input class="form-check-input mt-0" type="radio" name="barterTime" value="weekends" required>
+                  <div>
+                    <strong class="d-block text-dark">📅 Weekend Sprinters</strong>
+                    <span class="text-muted">Dedicated Saturday & Sunday deep-dive study blocks without weekday stress.</span>
+                  </div>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Q3: Teaching / Learning Style -->
+            <fieldset class="mb-4">
+              <legend class="h6 fw-bold text-dark mb-2">
+                <span class="badge bg-primary me-2">3</span>How do you like to explain or learn a topic?
+              </legend>
+              <div class="d-flex flex-column gap-2 mt-2">
+                <label class="border rounded-3 p-3 small d-flex align-items-center gap-3 cursor-pointer quiz-label">
+                  <input class="form-check-input mt-0" type="radio" name="barterTeaching" value="pair_coding" required>
+                  <div>
+                    <strong class="d-block text-dark">👥 Live Pair-Coding</strong>
+                    <span class="text-muted">Screen share together, type code in real time, and talk through the logic.</span>
+                  </div>
+                </label>
+                <label class="border rounded-3 p-3 small d-flex align-items-center gap-3 cursor-pointer quiz-label">
+                  <input class="form-check-input mt-0" type="radio" name="barterTeaching" value="visual" required>
+                  <div>
+                    <strong class="d-block text-dark">🎨 Visual Whiteboard & Analogies</strong>
+                    <span class="text-muted">Draw flowcharts, memory diagrams, and explain with simple everyday examples.</span>
+                  </div>
+                </label>
+                <label class="border rounded-3 p-3 small d-flex align-items-center gap-3 cursor-pointer quiz-label">
+                  <input class="form-check-input mt-0" type="radio" name="barterTeaching" value="code_review" required>
+                  <div>
+                    <strong class="d-block text-dark">🔍 Code Review & Debugging</strong>
+                    <span class="text-muted">Point out errors in my code, review edge cases, and teach fixes step-by-step.</span>
+                  </div>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Q4: Collaboration Vibe -->
+            <fieldset class="mb-3">
+              <legend class="h6 fw-bold text-dark mb-2">
+                <span class="badge bg-primary me-2">4</span>What study partner vibe works best for you?
+              </legend>
+              <div class="d-flex flex-column gap-2 mt-2">
+                <label class="border rounded-3 p-3 small d-flex align-items-center gap-3 cursor-pointer quiz-label">
+                  <input class="form-check-input mt-0" type="radio" name="barterVibe" value="chill_patient" required>
+                  <div>
+                    <strong class="d-block text-dark">🌿 Chill, Patient & Encouraging</strong>
+                    <span class="text-muted">Relaxed atmosphere where no question feels stupid or too basic.</span>
+                  </div>
+                </label>
+                <label class="border rounded-3 p-3 small d-flex align-items-center gap-3 cursor-pointer quiz-label">
+                  <input class="form-check-input mt-0" type="radio" name="barterVibe" value="goal_driven" required>
+                  <div>
+                    <strong class="d-block text-dark">🎯 Goal-Driven & Disciplined</strong>
+                    <span class="text-muted">Strict agenda, timer for topics, and finishing target problems without distractions.</span>
+                  </div>
+                </label>
+                <label class="border rounded-3 p-3 small d-flex align-items-center gap-3 cursor-pointer quiz-label">
+                  <input class="form-check-input mt-0" type="radio" name="barterVibe" value="discussion" required>
+                  <div>
+                    <strong class="d-block text-dark">💡 Collaborative Thinker & Debater</strong>
+                    <span class="text-muted">Compare different algorithms, discuss pros and cons, and explore alternative solutions.</span>
+                  </div>
+                </label>
+              </div>
+            </fieldset>
+          </div>
+          <div class="modal-footer border-top py-3 px-4 d-flex justify-content-between bg-light">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary-custom px-4">
+              <i class="bi bi-stars me-1"></i> Calculate Matches & Save Persona
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="sessionFeedbackModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header border-bottom">
+          <div>
+            <h5 class="modal-title fw-bold text-dark mb-1">Session feedback</h5>
+            <p class="text-muted small mb-0"><span id="feedbackSubject">Session</span> with <span id="feedbackTutor">your tutor</span></p>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="sessionFeedbackForm" onsubmit="submitSessionFeedback(event)">
+          <div class="modal-body p-4">
+            <input type="hidden" id="feedbackBookingId">
+            <label class="form-label small fw-semibold">How was the session?</label>
+            <div class="d-flex gap-2 mb-3" role="radiogroup" aria-label="Session rating">
+              <input class="btn-check" type="radio" name="sessionRating" id="rating5" value="5">
+              <label class="btn btn-outline-warning" for="rating5">5 <i class="bi bi-star-fill"></i></label>
+              <input class="btn-check" type="radio" name="sessionRating" id="rating4" value="4">
+              <label class="btn btn-outline-warning" for="rating4">4 <i class="bi bi-star-fill"></i></label>
+              <input class="btn-check" type="radio" name="sessionRating" id="rating3" value="3">
+              <label class="btn btn-outline-warning" for="rating3">3 <i class="bi bi-star-fill"></i></label>
+              <input class="btn-check" type="radio" name="sessionRating" id="rating2" value="2">
+              <label class="btn btn-outline-warning" for="rating2">2 <i class="bi bi-star-fill"></i></label>
+              <input class="btn-check" type="radio" name="sessionRating" id="rating1" value="1">
+              <label class="btn btn-outline-warning" for="rating1">1 <i class="bi bi-star-fill"></i></label>
+            </div>
+            <label class="form-label small fw-semibold" for="sessionFeedbackComment">What did you think?</label>
+            <textarea class="form-control" id="sessionFeedbackComment" rows="4" placeholder="Tell us what helped or what could be better..."></textarea>
+          </div>
+          <div class="modal-footer border-top">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary-custom"><i class="bi bi-send me-1"></i> Send feedback</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Modal: Restricted Barter Negotiation Chat & WebRTC Scheduler -->
+  <div class="modal fade" id="barterChatModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 shadow-lg rounded-1">
+        <div class="modal-header border-bottom py-3 px-4 bg-light">
+          <div class="d-flex align-items-center gap-3">
+            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=120&q=80" class="rounded-circle border" width="44" height="44" id="barterChatAvatar" alt="Peer">
+            <div>
+              <div class="d-flex align-items-center gap-2">
+                <h6 class="modal-title fw-bold text-dark mb-0" id="barterChatPeerName">Aman Gupta</h6>
+                <span class="badge bg-success-subtle text-success border border-success-subtle" style="font-size: 0.68rem;"><i class="bi bi-circle-fill me-1" style="font-size: 0.5rem;"></i>Active Now</span>
+              </div>
+              <small class="text-muted d-block" id="barterChatTopicLine">Exchange: You teach Python Core &bull; Aman teaches Figma UI/UX</small>
+            </div>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body p-0 d-flex flex-column" style="height: 480px;">
+          <!-- Top Slot Negotiation Quick Bar -->
+          <div class="p-2 px-3 bg-light border-bottom d-flex align-items-center justify-content-between flex-wrap gap-2">
+            <div class="small text-muted">
+              <i class="bi bi-calendar-event text-primary me-1"></i> Mutual Match: <strong>Weekend Evenings (6:00 PM – 8:00 PM)</strong>
+            </div>
+            <button class="btn btn-primary-custom btn-sm py-1 px-3 fw-bold" onclick="scheduleBarterLiveMeeting()">
+              <i class="bi bi-camera-video-fill me-1"></i> Schedule Session &amp; Pin Live Room
+            </button>
+          </div>
+
+          <!-- Chat Stream -->
+          <div class="flex-grow-1 p-3 overflow-y-auto" id="barterChatMessagesContainer" style="background: #f8fafc;">
+            <!-- Rendered by student.js -->
+          </div>
+
+          <!-- Quick negotiation prompts -->
+          <div class="p-2 px-3 bg-white border-top border-bottom d-flex gap-2 overflow-x-auto">
+            <button class="btn btn-sm btn-light border small text-nowrap py-0 px-2" style="font-size: 0.75rem;" onclick="sendQuickBarterPrompt('Hi Aman, does Saturday 6:00 PM work for our first exchange?')">
+              📅 "Saturday 6:00 PM?"
+            </button>
+            <button class="btn btn-sm btn-light border small text-nowrap py-0 px-2" style="font-size: 0.75rem;" onclick="sendQuickBarterPrompt('Let\'s do 45 mins Python fundamentals followed by 45 mins Figma design components.')">
+              ⏱️ "45m Python + 45m Figma"
+            </button>
+            <button class="btn btn-sm btn-light border small text-nowrap py-0 px-2" style="font-size: 0.75rem;" onclick="sendQuickBarterPrompt('Sounds good! Click Schedule Session to pin the live class link.')">
+              ✅ "Let\'s schedule live room"
+            </button>
+          </div>
+
+          <!-- Chat Input -->
+          <div class="p-3 bg-white">
+            <form onsubmit="sendBarterChatMessage(event)" class="d-flex gap-2">
+              <input type="text" id="barterChatInput" class="form-control" placeholder="Type a message or slot suggestion..." required autocomplete="off">
+              <button type="submit" class="btn btn-primary-custom px-4"><i class="bi bi-send-fill"></i></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Barter Counter Offer -->
+  <div class="modal fade" id="barterCounterModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-1">
+        <div class="modal-header border-bottom py-3 px-4 bg-light">
+          <h5 class="modal-title fw-bold text-dark mb-0"><i class="bi bi-sliders text-primary me-2"></i>Counter Barter Offer to Aman</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form onsubmit="submitBarterCounter(event)">
+          <div class="modal-body p-4">
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-dark">Alternative Skill You Want to Learn</label>
+              <select id="counterSkillSelect" class="form-select">
+                <option value="Figma UI/UX &amp; Prototyping" selected>Figma UI/UX &amp; Prototyping (As offered)</option>
+                <option value="Design Systems &amp; Wireframing">Design Systems &amp; Wireframing</option>
+                <option value="Frontend CSS &amp; Tailwind">Frontend CSS &amp; Tailwind</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-dark">Proposed Slot / Frequency</label>
+              <select id="counterSlotSelect" class="form-select">
+                <option value="1 Session / week (60 mins)">1 Session / week (60 mins)</option>
+                <option value="2 Sessions / week (45 mins each)" selected>2 Sessions / week (45 mins each)</option>
+                <option value="Weekend Bootcamp (2 hrs)">Weekend Bootcamp (2 hrs)</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <label class="form-label small fw-bold text-dark">Message to Aman</label>
+              <textarea id="counterMessage" class="form-control" rows="2" placeholder="e.g. Can we focus on Figma mobile UI components first?">Can we focus on Figma mobile UI components first? I can help you with Python OOP and Pandas.</textarea>
+            </div>
+          </div>
+          <div class="modal-footer border-top py-3 px-4 bg-light">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary-custom px-4"><i class="bi bi-send-check me-1"></i> Send Counter Offer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Modal: Aman Gupta Peer Profile Details -->
+  <div class="modal fade" id="barterStudentProfileModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-2">
+        <div class="modal-header border-bottom py-3 px-4 bg-light">
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-person-badge-fill text-primary fs-5"></i>
+            <h5 class="modal-title fw-bold text-dark mb-0">Student Profile &amp; Verification</h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <div class="d-flex align-items-center gap-3 mb-4">
+            <img id="barterProfilePhoto" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80" class="rounded-circle border shadow-xs" width="68" height="68" alt="Aman Gupta">
+            <div>
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <h5 id="barterProfileName" class="fw-bold text-dark mb-0">Aman Gupta</h5>
+                <span class="badge bg-success-subtle text-success border border-success-subtle small"><i class="bi bi-shield-check me-1"></i>Verified Student</span>
+              </div>
+              <p id="barterProfileCollege" class="text-muted small mb-0">3rd Year B.Tech CSE &bull; Delhi Technological University (DTU)</p>
+              <div class="text-secondary small" style="font-size: 0.75rem;">Weekly availability: <strong id="barterProfileCredits">3 hrs/week</strong></div>
+            </div>
+          </div>
+
+          <div class="p-3 bg-light rounded-2 border mb-3 small">
+            <strong class="text-dark d-block mb-1">Student Bio &amp; Goals:</strong>
+            <p id="barterProfileBio" class="text-muted mb-0">"I'm interested in exchanging skills and learning with a dedicated peer."</p>
+          </div>
+
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <div class="p-2 border rounded-2 bg-white">
+                <span class="text-success small fw-bold d-block"><i class="bi bi-mortarboard-fill me-1"></i>Can Teach:</span>
+                <span id="barterProfileTeach" class="text-dark small fw-semibold">Figma UI/UX &amp; Design Systems</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="p-2 border rounded-2 bg-white">
+                <span class="text-primary small fw-bold d-block"><i class="bi bi-book-half me-1"></i>Wants to Learn:</span>
+                <span id="barterProfileLearn" class="text-dark small fw-semibold">Python Core &amp; Data Analysis</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center p-2 px-3 border rounded-2 bg-light mb-3 small">
+            <span class="text-muted"><i class="bi bi-clock me-1 text-primary"></i>Study style: <strong id="barterProfileStyle">Hands-on peer learning</strong></span>
+            <span id="barterProfileRating" class="text-warning fw-bold">New peer</span>
+          </div>
+
+          <div class="alert alert-info py-2 px-3 small mb-0 d-flex align-items-center gap-2">
+            <i class="bi bi-info-circle-fill text-primary"></i>
+            <span>Accepting this swap will launch the 1-minute <strong>Compatibility Quiz</strong> to verify your study style and schedule before opening the shared collaboration room.</span>
+          </div>
+        </div>
+        <div class="modal-footer border-top py-3 px-4 bg-light d-flex justify-content-between">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+          <button id="barterProfileAcceptButton" type="button" class="btn btn-success btn-sm px-4 fw-bold" onclick="acceptBarterAndStartQuiz(this.dataset.peerName, this.dataset.learnSkill, this.dataset.teachSkill)">
+            <i class="bi bi-check2-circle me-1"></i> Accept Swap &amp; Start Quiz &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Tutor Search Modal -->
+  <div class="modal fade tutor-search-modal" id="tutorSearchModal" tabindex="-1" aria-labelledby="tutorSearchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header border-bottom">
+          <div>
+            <h5 class="modal-title mb-1" id="tutorSearchModalLabel">
+              <i class="bi bi-person-video3 text-primary me-2"></i>Find a Tutor
+            </h5>
+            <p class="text-muted small mb-0">Search by speciality, subject, or topic.</p>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body p-4">
+          <form id="tutorSearchForm" onsubmit="searchTutors(event)">
+            <div class="input-group">
+              <input
+                type="text"
+                id="tutorSpecialityInput"
+                class="form-control tutor-search-input"
+                placeholder="e.g. Java, Mathematics, DSA, Spring Boot"
+                autocomplete="off"
+                required
+              >
+              <button type="submit" id="tutorSearchButton" class="btn btn-primary-custom tutor-search-button">
+                <i class="bi bi-search me-1"></i> Search
+              </button>
+            </div>
+          </form>
+
+          <div id="tutorSearchStatus" class="tutor-search-status small mt-3"></div>
+
+          <div id="tutorSearchResults" class="tutor-search-results mt-2">
+            <!-- Search results are inserted here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container text-center">
+      <p class="mb-1 text-light fw-semibold">Smart Tutor System — learn with tutors, peers, and practice</p>
+      <p class="small text-muted mb-0">Connecting verified educators with students for online and in-person tutoring across India</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/api-config.js"></script>
+<script src="js/app.js"></script>
+  <script src="js/student.js"></script>
+
+  <script>
+    const TUTOR_SEARCH_ENDPOINT =
+      (window.SMART_TUTOR_API_URL || 'http://localhost:8081') + '/api/students/courses/search';
+
+    const TUTOR_DETAIL_ENDPOINT =
+      (window.SMART_TUTOR_API_URL || 'http://localhost:8081') + '/api/tutors';
+
+    function openTutorSearchModal() {
+      const modalElement = document.getElementById('tutorSearchModal');
+
+      if (!modalElement) {
+        console.error('Tutor search modal was not found.');
+        return;
+      }
+
+      const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
+      modal.show();
+
+      setTimeout(() => {
+        document.getElementById('tutorSpecialityInput')?.focus();
+      }, 250);
+    }
+
+    function getTutorListFromResponse(data) {
+      if (Array.isArray(data)) {
+        return data;
+      }
+
+      if (Array.isArray(data?.tutors)) {
+        return data.tutors;
+      }
+
+      if (Array.isArray(data?.courses)) {
+        return data.courses;
+      }
+
+      if (Array.isArray(data?.content)) {
+        return data.content;
+      }
+
+      if (Array.isArray(data?.data)) {
+        return data.data;
+      }
+
+      return [];
+    }
+
+    function getTutorId(tutor) {
+      return tutor?.id ??
+             tutor?.tutorId ??
+             tutor?.tutor?.id ??
+             tutor?.tutor?.tutorId ??
+             null;
+    }
+
+    function getTutorName(tutor) {
+      return tutor?.fullName ??
+             tutor?.name ??
+             tutor?.tutorName ??
+             tutor?.tutor?.fullName ??
+             tutor?.tutor?.name ??
+             'Tutor';
+    }
+
+    function getTutorSpeciality(tutor) {
+      return tutor?.specialization ??
+             tutor?.speciality ??
+             tutor?.specialty ??
+             tutor?.subjectsOrSkills ??
+             tutor?.subjects ??
+             tutor?.courseOrSubject ??
+             tutor?.tutor?.specialization ??
+             'Speciality not specified';
+    }
+
+    function getTutorLocation(tutor) {
+      const city = tutor?.city ?? tutor?.tutor?.city ?? '';
+      const state = tutor?.state ?? tutor?.tutor?.state ?? '';
+
+      if (city && state) return `${city}, ${state}`;
+      return city || state || '';
+    }
+
+    function getTutorInitials(name) {
+      return name
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map(part => part.charAt(0).toUpperCase())
+        .join('') || 'T';
+    }
+
+    function renderTutorSearchResults(tutors) {
+      const resultsElement = document.getElementById('tutorSearchResults');
+
+      if (!tutors.length) {
+        resultsElement.innerHTML = `
+          <div class="text-center py-4 border rounded-3 bg-light">
+            <i class="bi bi-person-x fs-3 text-muted"></i>
+            <div class="fw-bold text-dark mt-2">No tutors found</div>
+            <div class="text-muted small">Try another subject or speciality.</div>
+          </div>
+        `;
+        return;
+      }
+
+      resultsElement.innerHTML = tutors.map((tutor, index) => {
+        const id = getTutorId(tutor);
+        const name = getTutorName(tutor);
+        const speciality = getTutorSpeciality(tutor);
+        const location = getTutorLocation(tutor);
+
+        return `
+          <div class="tutor-search-result">
+            <span class="tutor-search-result-avatar">
+              ${escapeHtmlTutorSearch(getTutorInitials(name))}
+            </span>
+
+            <span class="flex-grow-1 min-w-0">
+              <span class="tutor-search-result-name d-block">
+                ${escapeHtmlTutorSearch(name)}
+              </span>
+              <span class="tutor-search-result-meta d-block">
+                ${escapeHtmlTutorSearch(String(speciality))}
+                ${location ? ` • ${escapeHtmlTutorSearch(location)}` : ''}
+              </span>
+            </span>
+
+            ${id !== null
+              ? `<button type="button" class="btn btn-sm btn-primary px-3" onclick="openSelectedTutor(${JSON.stringify(String(id))})">
+                   <i class="bi bi-person-vcard me-1"></i>View
+                 </button>`
+              : `<button type="button" class="btn btn-sm btn-secondary px-3" disabled>
+                   View
+                 </button>`}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function escapeHtmlTutorSearch(value) {
+      return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    async function searchTutors(event) {
+      event.preventDefault();
+
+      const input = document.getElementById('tutorSpecialityInput');
+      const button = document.getElementById('tutorSearchButton');
+      const status = document.getElementById('tutorSearchStatus');
+      const results = document.getElementById('tutorSearchResults');
+
+      const searchQuery = input.value.trim();
+
+      if (!searchQuery) {
+        input.focus();
+        return;
+      }
+
+      button.disabled = true;
+      button.innerHTML =
+        '<span class="spinner-border spinner-border-sm me-1"></span>Searching';
+
+      status.className = 'tutor-search-status small mt-3 text-muted';
+      status.textContent = `Searching tutors for "${searchQuery}"...`;
+
+      results.innerHTML = '';
+
+      try {
+        const response = await fetch(
+          `${TUTOR_SEARCH_ENDPOINT}/${encodeURIComponent(searchQuery)}`,
+          {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json'
+            }
+          }
+        );
+
+        const contentType =
+          response.headers.get('content-type') || '';
+
+        const data = contentType.includes('application/json')
+          ? await response.json()
+          : await response.text();
+
+        if (!response.ok) {
+          const message =
+            typeof data === 'object'
+              ? (data.message || data.error)
+              : data;
+
+          throw new Error(
+            message || `Tutor search failed with HTTP ${response.status}`
+          );
+        }
+
+        const tutors = getTutorListFromResponse(data);
+
+        status.className = 'tutor-search-status small mt-3 text-muted';
+        status.textContent =
+          tutors.length === 1
+            ? '1 tutor found. Click View to open the tutor profile.'
+            : `${tutors.length} tutors found. Click View to open a tutor profile.`;
+
+        renderTutorSearchResults(tutors);
+
+      } catch (error) {
+        console.error('Tutor search error:', error);
+
+        status.className = 'tutor-search-status small mt-3 text-danger';
+        status.innerHTML =
+          `<i class="bi bi-exclamation-circle me-1"></i>${escapeHtmlTutorSearch(
+            error.message || 'Could not search tutors.'
+          )}`;
+
+        results.innerHTML = '';
+      } finally {
+        button.disabled = false;
+        button.innerHTML =
+          '<i class="bi bi-search me-1"></i> Search';
+      }
+    }
+
+    async function openSelectedTutor(tutorId) {
+      if (!tutorId) {
+        return;
+      }
+
+      const status = document.getElementById('tutorSearchStatus');
+      const resultButtons =
+        document.querySelectorAll('.tutor-search-result button');
+
+      resultButtons.forEach(button => {
+        button.disabled = true;
+      });
+
+      status.className = 'tutor-search-status small mt-3 text-muted';
+      status.innerHTML =
+        '<span class="spinner-border spinner-border-sm me-1"></span>Loading tutor profile...';
+
+      try {
+        const response = await fetch(
+          `${TUTOR_DETAIL_ENDPOINT}/${encodeURIComponent(tutorId)}`,
+          {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json'
+            }
+          }
+        );
+
+        const contentType =
+          response.headers.get('content-type') || '';
+
+        const tutorData = contentType.includes('application/json')
+          ? await response.json()
+          : await response.text();
+
+        if (!response.ok) {
+          const message =
+            typeof tutorData === 'object'
+              ? (tutorData.message || tutorData.error)
+              : tutorData;
+
+          throw new Error(
+            message || `Could not load tutor with id ${tutorId}.`
+          );
+        }
+
+        /*
+         * Keep the complete backend response available to tutor.html.
+         * The id is also included in the URL so tutor.html can identify
+         * the selected tutor even after a page refresh.
+         */
+        sessionStorage.setItem(
+          'smartTutorSelectedTutor',
+          JSON.stringify(tutorData)
+        );
+
+        sessionStorage.setItem(
+          'smartTutorSelectedTutorId',
+          String(tutorId)
+        );
+
+        window.location.href =
+          `tutor.html?tutorId=${encodeURIComponent(tutorId)}`;
+
+      } catch (error) {
+        console.error('Tutor profile error:', error);
+
+        status.className = 'tutor-search-status small mt-3 text-danger';
+        status.innerHTML =
+          `<i class="bi bi-exclamation-circle me-1"></i>${escapeHtmlTutorSearch(
+            error.message || 'Could not load tutor profile.'
+          )}`;
+
+        resultButtons.forEach(button => {
+          button.disabled = false;
+        });
+      }
+    }
+
+    /* ================================================================
+       STUDENT COURSE BOOKING
+       ================================================================ */
+    const STUDENT_COURSES_ALL_ENDPOINT =
+      (window.SMART_TUTOR_API_URL || 'http://localhost:8081') + '/api/courses/all';
+
+    const STUDENT_BOOKING_ENDPOINT =
+      (window.SMART_TUTOR_API_URL || 'http://localhost:8081') + '/api/bookings/new';
+
+    function getCurrentStudentId() {
+      // First use the application's Auth object when available.
+      try {
+        if (typeof Auth !== 'undefined' && typeof Auth.getUser === 'function') {
+          const user = Auth.getUser();
+          const id = user?.id ?? user?.studentId;
+          if (id !== undefined && id !== null && String(id).trim() !== '') {
+            return id;
+          }
+        }
+      } catch (error) {
+        console.warn('Could not read student from Auth:', error);
+      }
+
+      // The signup flow stores the active student here.
+      const storageKeys = [
+        'smart_tutor_active_user',
+        'smart_tutor_student_profile',
+        'smartTutorActiveUser',
+        'student',
+        'user'
+      ];
+
+      for (const key of storageKeys) {
+        for (const storage of [localStorage, sessionStorage]) {
+          try {
+            const raw = storage.getItem(key);
+            if (!raw) continue;
+
+            const user = JSON.parse(raw);
+            const id = user?.id ?? user?.studentId;
+
+            if (id !== undefined && id !== null && String(id).trim() !== '') {
+              return id;
+            }
+          } catch (error) {
+            // Ignore invalid/non-JSON storage values and continue.
+          }
+        }
+      }
+
+      // Also support a direct stored ID if the login flow uses one.
+      for (const key of [
+        'studentId',
+        'student_id',
+        'smart_tutor_student_id'
+      ]) {
+        const id = localStorage.getItem(key) || sessionStorage.getItem(key);
+        if (id !== null && String(id).trim() !== '') {
+          return id;
+        }
+      }
+
+      return null;
+    }
+
+    function getCourseListFromResponse(data) {
+      if (Array.isArray(data)) return data;
+      if (Array.isArray(data?.courses)) return data.courses;
+      if (Array.isArray(data?.content)) return data.content;
+      if (Array.isArray(data?.data)) return data.data;
+      return [];
+    }
+
+    function getCourseId(course) {
+      return course?.id ??
+             course?.courseId ??
+             course?.course?.id ??
+             course?.course?.courseId ??
+             null;
+    }
+
+    function getCourseName(course) {
+      return course?.name ??
+             course?.courseName ??
+             course?.title ??
+             course?.course?.name ??
+             course?.course?.courseName ??
+             'Course';
+    }
+
+    function getCoursePrice(course) {
+      return course?.price ??
+             course?.coursePrice ??
+             course?.course?.price ??
+             null;
+    }
+
+    function getCourseDuration(course) {
+      return course?.duration ??
+             course?.courseDuration ??
+             course?.course?.duration ??
+             null;
+    }
+
+    function getCourseTutor(course) {
+      return course?.tutor ?? course?.teacher ?? course?.instructor ?? null;
+    }
+
+    function getCourseTutorName(course) {
+      const tutor = getCourseTutor(course);
+
+      return course?.tutorName ??
+             course?.teacherName ??
+             tutor?.fullName ??
+             tutor?.name ??
+             tutor?.tutorName ??
+             'Tutor';
+    }
+
+    function formatCoursePrice(price) {
+      if (price === null || price === undefined || price === '') {
+        return 'Price not specified';
+      }
+
+      const numericPrice = Number(price);
+
+      if (Number.isFinite(numericPrice)) {
+        return `₹${numericPrice.toLocaleString('en-IN')}`;
+      }
+
+      return String(price);
+    }
+
+    function escapeStudentBookingHtml(value) {
+      return String(value ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function showStudentBookingStatus(message, type = 'info') {
+      const element = document.getElementById('studentBookingStatus');
+      if (!element) return;
+
+      element.className = `alert alert-${type} py-2 small mb-3`;
+      element.textContent = message;
+      element.classList.remove('d-none');
+    }
+
+    function hideStudentBookingStatus() {
+      const element = document.getElementById('studentBookingStatus');
+      if (!element) return;
+      element.classList.add('d-none');
+    }
+
+    function openStudentFindMentorModal() {
+      const modalElement = document.getElementById('studentBookMentorModal');
+
+      if (!modalElement) {
+        console.error('Student booking modal was not found.');
+        return;
+      }
+
+      const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
+      modal.show();
+
+      hideStudentBookingStatus();
+      loadStudentBookingCourses();
+    }
+
+    async function loadStudentBookingCourses() {
+      const list = document.getElementById('studentBookingCourseList');
+      const refreshButton = document.getElementById('studentBookingRefreshButton');
+      const studentInfo = document.getElementById('studentBookingStudentInfo');
+
+      if (!list) return;
+
+      const studentId = getCurrentStudentId();
+
+      if (studentInfo) {
+        studentInfo.textContent = studentId !== null
+          ? `Student ID: ${studentId}`
+          : 'Student ID not found';
+      }
+
+      if (refreshButton) {
+        refreshButton.disabled = true;
+        refreshButton.innerHTML =
+          '<span class="spinner-border spinner-border-sm me-1"></span>Loading';
+      }
+
+      list.innerHTML = `
+        <div class="text-center py-4 text-muted">
+          <span class="spinner-border spinner-border-sm me-2"></span>
+          Loading available courses...
+        </div>
+      `;
+
+      try {
+        const response = await fetch(STUDENT_COURSES_ALL_ENDPOINT, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        const contentType = response.headers.get('content-type') || '';
+        const data = contentType.includes('application/json')
+          ? await response.json()
+          : await response.text();
+
+        if (!response.ok) {
+          const message = typeof data === 'object'
+            ? (data?.message || data?.error)
+            : data;
+
+          throw new Error(
+            message || `Could not load courses. HTTP ${response.status}`
+          );
+        }
+
+        const courses = getCourseListFromResponse(data);
+        renderStudentBookingCourses(courses);
+
+      } catch (error) {
+        console.error('Course loading error:', error);
+
+        list.innerHTML = `
+          <div class="text-center py-4 border rounded-3 bg-light">
+            <i class="bi bi-exclamation-circle fs-3 text-danger"></i>
+            <div class="fw-bold text-dark mt-2">Could not load courses</div>
+            <div class="text-muted small mb-3">${escapeStudentBookingHtml(error.message || 'Please try again.')}</div>
+            <button type="button" class="btn btn-sm btn-outline-custom" onclick="loadStudentBookingCourses()">
+              <i class="bi bi-arrow-clockwise me-1"></i>Try again
+            </button>
+          </div>
+        `;
+      } finally {
+        if (refreshButton) {
+          refreshButton.disabled = false;
+          refreshButton.innerHTML =
+            '<i class="bi bi-arrow-clockwise me-1"></i>Refresh';
+        }
+      }
+    }
+
+    function renderStudentBookingCourses(courses) {
+      const list = document.getElementById('studentBookingCourseList');
+      if (!list) return;
+
+      if (!courses.length) {
+        list.innerHTML = `
+          <div class="text-center py-4 border rounded-3 bg-light">
+            <i class="bi bi-journal-x fs-3 text-muted"></i>
+            <div class="fw-bold text-dark mt-2">No courses available</div>
+            <div class="text-muted small">Tutors have not added any courses yet.</div>
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = courses.map(course => {
+        const id = getCourseId(course);
+        const name = getCourseName(course);
+        const tutorName = getCourseTutorName(course);
+        const price = getCoursePrice(course);
+        const duration = getCourseDuration(course);
+
+        if (id === null || id === undefined) {
+          return `
+            <div class="border rounded-3 p-3 bg-light">
+              <div class="fw-bold text-dark">${escapeStudentBookingHtml(name)}</div>
+              <div class="small text-muted">${escapeStudentBookingHtml(tutorName)}</div>
+              <div class="small text-danger mt-1">Course ID unavailable</div>
+            </div>
+          `;
+        }
+
+        const durationText = duration !== null && duration !== undefined && duration !== ''
+          ? ` • ${escapeStudentBookingHtml(duration)} hours`
+          : '';
+
+        return `
+          <div class="border rounded-3 p-3 bg-white shadow-sm">
+            <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap">
+              <div class="flex-grow-1 min-w-0">
+                <div class="fw-bold text-dark">${escapeStudentBookingHtml(name)}</div>
+                <div class="small text-muted mt-1">
+                  <i class="bi bi-person-circle me-1"></i>
+                  ${escapeStudentBookingHtml(tutorName)}
+                  ${durationText}
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                  ${escapeStudentBookingHtml(formatCoursePrice(price))}
+                </span>
+                <label class="small">Session date
+                  <input type="date" class="form-control form-control-sm" id="courseDate${Number(id)}" required>
+                </label>
+                <label class="small">Start time
+                  <input type="time" class="form-control form-control-sm" id="courseSlot${Number(id)}" required>
+                </label>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-primary-custom"
+                  onclick="bookStudentCourse(${JSON.stringify(String(id))})"
+                >
+                  <i class="bi bi-calendar-check me-1"></i>Book
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function bookStudentCourse(courseId) {
+      if (!courseId) return;
+
+      const studentId = getCurrentStudentId();
+
+      if (studentId === null || studentId === undefined || String(studentId).trim() === '') {
+        showStudentBookingStatus(
+          'Student ID could not be found. Please sign in again before booking.',
+          'danger'
+        );
+        return;
+      }
+
+      const bookingDate = document.getElementById(`courseDate${Number(courseId)}`)?.value;
+      const timeSlot = document.getElementById(`courseSlot${Number(courseId)}`)?.value;
+      if (!bookingDate || !timeSlot) {
+        showStudentBookingStatus('Choose a session date and start time.', 'danger');
+        return;
+      }
+
+      const buttons = document.querySelectorAll('#studentBookingCourseList button');
+      buttons.forEach(button => button.disabled = true);
+
+      showStudentBookingStatus('Creating your booking...', 'info');
+
+      try {
+        const bookingData = {
+          courseId: courseId,
+          studentId: studentId,
+          bookingDate,
+          timeSlot
+        };
+
+        console.log('Creating booking:', bookingData);
+
+        const response = await fetch(STUDENT_BOOKING_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(bookingData)
+        });
+
+        const contentType = response.headers.get('content-type') || '';
+        const data = contentType.includes('application/json')
+          ? await response.json()
+          : await response.text();
+
+        if (!response.ok) {
+          const message = typeof data === 'object'
+            ? (data?.message || data?.error)
+            : data;
+
+          throw new Error(
+            message || `Booking failed. HTTP ${response.status}`
+          );
+        }
+
+        console.log('Booking created:', data);
+
+        showStudentBookingStatus(
+          'Course booked successfully.',
+          'success'
+        );
+
+        // Reload the course list so the UI reflects the current state.
+        await loadStudentBookingCourses();
+
+      } catch (error) {
+        console.error('Course booking error:', error);
+
+        showStudentBookingStatus(
+          error.message || 'Could not create booking.',
+          'danger'
+        );
+
+        buttons.forEach(button => button.disabled = false);
+      }
+    }
+
+    // Keep the old button name working if any other part of the page calls it.
+    function submitStudentBookingRequest() {
+      showStudentBookingStatus(
+        'Please select a course and click Book.',
+        'info'
+      );
+    }
+
+    /*
+     * If tutor.html wants the exact object fetched above, it can read:
+     *
+     * const tutor = JSON.parse(
+     *   sessionStorage.getItem('smartTutorSelectedTutor') || 'null'
+     * );
+     *
+     * The selected tutor id is also available from:
+     *
+     * sessionStorage.getItem('smartTutorSelectedTutorId')
+     *
+     * and from the URL:
+     *
+     * new URLSearchParams(window.location.search).get('tutorId')
+     */
+  </script>
+
+</body>
+</html>

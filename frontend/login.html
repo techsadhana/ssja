@@ -1,0 +1,1658 @@
+---------------------------------------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — SmartTutor Platform</title>
+
+  <!-- Bootstrap 5.3 CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <!-- Bootstrap Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+  >
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --academic-navy: #002e5e;
+      --academic-navy-hover: #1a325d;
+      --amity-gold: #f5a623;
+      --amity-gold-hover: #d97706;
+      --amity-gold-soft: #fffbeb;
+      --amity-gold-border: #fde68a;
+      --page-bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border-line: #e2e8f0;
+      --border-input: #cbd5e1;
+      --text-navy: #002e5e;
+      --text-dark: #001c3d;
+      --text-slate: #334155;
+      --text-subtle: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans',
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
+
+      background-color: var(--page-bg);
+      color: var(--text-slate);
+      min-height: 100vh;
+
+      display: flex;
+      flex-direction: column;
+
+      -webkit-font-smoothing: antialiased;
+      margin: 0;
+    }
+
+    /* Navbar */
+
+    .institute-nav {
+      background: #ffffff;
+      border-bottom: 2px solid var(--border-line);
+      padding: 12px 0;
+    }
+
+    .brand-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-logo-badge {
+      width: 38px;
+      height: 38px;
+      background: #5a4bda;
+      color: #ffffff;
+      border-radius: 9px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 1.2rem;
+
+      box-shadow:
+        0 4px 10px rgba(90, 75, 218, 0.25);
+    }
+
+    .brand-text {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--academic-navy);
+      letter-spacing: -0.025em;
+    }
+
+    .nav-action-link {
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--text-subtle);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .nav-action-link:hover {
+      color: var(--academic-navy);
+      background: #f1f5f9;
+    }
+
+    /* Login container */
+
+    .auth-shell {
+      flex: 1;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 40px 16px;
+    }
+
+    .academic-card {
+      width: 100%;
+      max-width: 440px;
+
+      background: var(--card-bg);
+
+      border: 1px solid var(--border-line);
+      border-radius: 12px;
+
+      padding: 36px 32px;
+
+      box-shadow:
+        0 1px 3px rgba(10, 37, 64, 0.05),
+        0 12px 28px -6px rgba(10, 37, 64, 0.06);
+    }
+
+    .card-top-heading {
+      margin-bottom: 22px;
+    }
+
+    .card-top-heading h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+
+      color: var(--text-navy);
+
+      letter-spacing: -0.025em;
+      margin-bottom: 6px;
+    }
+
+    .card-top-heading p {
+      font-size: 0.88rem;
+      color: var(--text-subtle);
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    /* Role selector */
+
+    .role-segmented-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+
+      background: #eef2f6;
+
+      border-radius: 8px;
+      padding: 3px;
+      gap: 3px;
+
+      margin-bottom: 22px;
+
+      border: 1px solid #e2e8f0;
+    }
+
+    .role-btn {
+      border: none;
+      background: transparent;
+
+      padding: 8px 10px;
+
+      font-size: 0.82rem;
+      font-weight: 600;
+
+      color: #64748b;
+
+      border-radius: 6px;
+
+      cursor: pointer;
+
+      transition: all 0.15s ease;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 6px;
+
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .role-btn:hover {
+      color: var(--academic-navy);
+    }
+
+    .role-btn.active {
+      background: #ffffff;
+      color: var(--academic-navy);
+
+      font-weight: 800;
+
+      box-shadow:
+        0 1px 3px rgba(0, 46, 94, 0.1);
+
+      border-bottom: 2px solid var(--amity-gold);
+    }
+
+    /* Inputs */
+
+    .field-row {
+      margin-bottom: 18px;
+    }
+
+    .field-label {
+      display: block;
+
+      font-size: 0.8125rem;
+      font-weight: 600;
+
+      color: var(--text-dark);
+
+      margin-bottom: 6px;
+    }
+
+    .field-label-split {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      margin-bottom: 6px;
+    }
+
+    .academic-input {
+      width: 100%;
+      height: 42px;
+
+      padding: 8px 13px;
+
+      font-size: 0.875rem;
+
+      font-family: 'Plus Jakarta Sans', sans-serif;
+
+      color: var(--text-dark);
+      background: #ffffff;
+
+      border: 1px solid var(--border-input);
+      border-radius: 6px;
+
+      transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+    }
+
+    .academic-input:focus {
+      outline: none;
+
+      border-color: var(--academic-navy);
+
+      box-shadow:
+        0 0 0 3.5px rgba(0, 46, 94, 0.1);
+    }
+
+    .academic-input::placeholder {
+      color: #94a3b8;
+    }
+
+    /* Password */
+
+    .password-wrap {
+      position: relative;
+    }
+
+    .pw-toggle-btn {
+      position: absolute;
+
+      right: 8px;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      background: transparent;
+      border: none;
+
+      color: #94a3b8;
+
+      cursor: pointer;
+
+      padding: 4px 6px;
+
+      border-radius: 4px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 0.95rem;
+    }
+
+    .pw-toggle-btn:hover {
+      color: var(--text-dark);
+    }
+
+    /* Submit */
+
+    .academic-submit-btn {
+      width: 100%;
+      height: 46px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--academic-navy) 0%,
+          var(--academic-navy-hover) 100%
+        );
+
+      color: #ffffff;
+
+      border: 1px solid var(--academic-navy);
+
+      border-radius: 8px;
+
+      font-family: 'Outfit', sans-serif;
+
+      font-size: 0.95rem;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition: all 0.15s ease;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 8px;
+
+      margin-top: 4px;
+
+      box-shadow:
+        0 4px 14px rgba(0, 46, 94, 0.22);
+    }
+
+    .academic-submit-btn:hover {
+      background:
+        linear-gradient(
+          135deg,
+          var(--academic-navy-hover) 0%,
+          #001c3d 100%
+        );
+
+      border-color: var(--academic-navy-hover);
+
+      box-shadow:
+        0 6px 18px rgba(0, 46, 94, 0.3);
+
+      transform: translateY(-1px);
+    }
+
+    .academic-submit-btn:active {
+      transform: translateY(1px);
+    }
+
+    .academic-submit-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Demo shortcuts */
+
+    .demo-bar {
+      margin-top: 24px;
+      padding-top: 18px;
+
+      border-top: 1px solid var(--border-line);
+    }
+
+    .demo-bar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      margin-bottom: 8px;
+    }
+
+    .demo-bar-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+
+      color: var(--text-subtle);
+
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .demo-bar-hint {
+      font-size: 0.725rem;
+
+      color: var(--amity-gold-hover);
+
+      font-weight: 600;
+    }
+
+    .demo-bar-grid {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr 1fr;
+
+      gap: 6px;
+    }
+
+    .demo-pill-btn {
+      background: #f8fafc;
+
+      border: 1px solid var(--border-line);
+
+      padding: 6px 8px;
+
+      border-radius: 6px;
+
+      font-size: 0.775rem;
+
+      font-weight: 600;
+
+      color: var(--text-dark);
+
+      cursor: pointer;
+
+      text-align: center;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      transition: all 0.15s ease;
+    }
+
+    .demo-pill-btn:hover {
+      background: #ffffff;
+
+      border-color: var(--academic-navy);
+
+      color: var(--academic-navy);
+
+      box-shadow:
+        0 1px 2px rgba(10, 37, 64, 0.08);
+    }
+
+    /* Footer */
+
+    .form-foot-note {
+      text-align: center;
+
+      font-size: 0.825rem;
+
+      color: var(--text-subtle);
+
+      margin-top: 20px;
+    }
+
+    .form-foot-note a {
+      color: var(--academic-navy);
+
+      font-weight: 600;
+
+      text-decoration: none;
+    }
+
+    .form-foot-note a:hover {
+      text-decoration: underline;
+    }
+
+    .institute-footer {
+      border-top: 1px solid var(--border-line);
+
+      background: #ffffff;
+
+      padding: 16px 0;
+
+      text-align: center;
+
+      font-size: 0.8rem;
+
+      color: var(--text-subtle);
+    }
+  </style>
+</head>
+
+<body class="site-theme">
+
+  <!-- Navigation -->
+  <header class="institute-nav">
+
+    <div class="container d-flex justify-content-between align-items-center">
+
+      <a href="index.html" class="brand-mark">
+
+        <span class="brand-logo-badge">
+          <i class="bi bi-mortarboard-fill"></i>
+        </span>
+
+        <span class="brand-text">
+          SmartTutor
+        </span>
+
+      </a>
+
+
+      <div class="d-flex align-items-center gap-2">
+
+        <a href="index.html" class="nav-action-link">
+          Home
+        </a>
+
+        <a
+          href="signup.html"
+          class="nav-action-link"
+          style="
+            border: 1px solid var(--border-line);
+            font-weight: 600;
+            color: var(--academic-navy);
+          "
+        >
+          Register
+        </a>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- Login -->
+  <main class="auth-shell">
+
+    <div class="academic-card">
+
+      <!-- Heading -->
+      <div class="card-top-heading">
+
+        <h1 id="screenHeading">
+          Student Sign In
+        </h1>
+
+        <p id="screenSubheading">
+          Access your courses, AI practice lab,
+          and peer mentorship sessions.
+        </p>
+
+      </div>
+
+
+      <!-- Role selector -->
+      <div
+        class="role-segmented-box"
+        role="tablist"
+        aria-label="Select role"
+      >
+
+        <button
+          type="button"
+          class="role-btn active"
+          id="btnRoleStudent"
+          onclick="switchAcademicRole('STUDENT')"
+        >
+          <i class="bi bi-book"></i>
+          Student
+        </button>
+
+
+        <button
+          type="button"
+          class="role-btn"
+          id="btnRoleTutor"
+          onclick="switchAcademicRole('TUTOR')"
+        >
+          <i class="bi bi-person-badge"></i>
+          Tutor
+        </button>
+
+
+        <button
+          type="button"
+          class="role-btn"
+          id="btnRoleAdmin"
+          onclick="switchAcademicRole('ADMIN')"
+        >
+          <i class="bi bi-shield-check"></i>
+          Admin
+        </button>
+
+      </div>
+
+
+      <!-- Error / redirect notice -->
+      <div
+        id="loginRedirectNotice"
+        class="d-none alert py-2 px-3 small mb-3"
+        style="
+          background: #eff6ff;
+          color: #1e3a8a;
+          border-left: 3px solid #1e3a8a !important;
+          border-radius: 2px;
+        "
+      >
+      </div>
+
+
+      <!-- Login form -->
+      <form id="academicLoginForm">
+
+        <!-- Email -->
+        <div class="field-row">
+
+          <label
+            class="field-label"
+            id="labelUserId"
+            for="inputUserId"
+          >
+            Email Address or Student ID
+          </label>
+
+          <input
+            type="text"
+            id="inputUserId"
+            class="academic-input"
+            placeholder="e.g. priya@example.com"
+            required
+            value="priya@example.com"
+            autocomplete="username"
+          >
+
+        </div>
+
+
+        <!-- Password -->
+        <div class="field-row">
+
+          <div class="field-label-split">
+
+            <label
+              class="field-label mb-0"
+              for="inputUserPass"
+            >
+              Password
+            </label>
+
+            <a
+              href="#"
+              class="text-decoration-none"
+              style="
+                font-size: 0.775rem;
+                color: var(--amity-gold-hover);
+                font-weight: 600;
+              "
+              onclick="handleForgotPassword(event)"
+            >
+              Forgot?
+            </a>
+
+          </div>
+
+
+          <div class="password-wrap">
+
+            <input
+              type="password"
+              id="inputUserPass"
+              class="academic-input"
+              placeholder="••••••••"
+              required
+              value="Student@123"
+              autocomplete="current-password"
+            >
+
+            <button
+              type="button"
+              class="pw-toggle-btn"
+              onclick="togglePasswordVisibility()"
+              aria-label="Toggle password visibility"
+            >
+              <i
+                class="bi bi-eye"
+                id="pwToggleIcon"
+              ></i>
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- Admin PIN -->
+        <div
+          class="field-row d-none"
+          id="adminPinField"
+        >
+
+          <div class="field-label-split">
+
+            <label
+              class="field-label mb-0"
+              for="inputAdminSecurityPin"
+            >
+              Institutional Security PIN
+            </label>
+
+            <span
+              style="
+                font-size: 0.725rem;
+                color: var(--amity-gold-hover);
+                font-weight: 600;
+              "
+            >
+              Demo PIN: 9842
+            </span>
+
+          </div>
+
+          <input
+            type="password"
+            id="inputAdminSecurityPin"
+            class="academic-input font-monospace"
+            placeholder="9842"
+            maxlength="6"
+            value="9842"
+          >
+
+        </div>
+
+
+        <!-- Remember me -->
+        <div class="d-flex align-items-center mb-3">
+
+          <input
+            type="checkbox"
+            id="chkRememberSession"
+            class="form-check-input me-2"
+            checked
+            style="cursor: pointer;"
+          >
+
+          <label
+            for="chkRememberSession"
+            style="
+              font-size: 0.8125rem;
+              color: var(--text-subtle);
+              cursor: pointer;
+              user-select: none;
+            "
+          >
+            Keep me logged in on this device
+          </label>
+
+        </div>
+
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="academic-submit-btn"
+          id="btnMainSubmit"
+        >
+
+          <span id="btnSubmitCaption">
+            Continue to Student Portal
+          </span>
+
+          <i
+            class="bi bi-arrow-right"
+            style="font-size: 0.85rem;"
+          ></i>
+
+        </button>
+
+      </form>
+
+
+      <!-- Demo shortcuts -->
+      <div class="demo-bar">
+
+        <div class="demo-bar-header">
+
+          <span class="demo-bar-title">
+            Evaluation Shortcuts
+          </span>
+
+          <span class="demo-bar-hint">
+            1-click demo access
+          </span>
+
+        </div>
+
+
+        <div class="demo-bar-grid">
+
+          <button
+            type="button"
+            class="demo-pill-btn"
+            onclick="autoFillAndLogin('STUDENT')"
+          >
+            Priya (Student)
+          </button>
+
+          <button
+            type="button"
+            class="demo-pill-btn"
+            onclick="autoFillAndLogin('TUTOR')"
+          >
+            Dr. Rajesh (Tutor)
+          </button>
+
+          <button
+            type="button"
+            class="demo-pill-btn"
+            onclick="autoFillAndLogin('ADMIN')"
+          >
+            SuperAdmin
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Footer -->
+      <div class="form-foot-note">
+
+        <span id="authFootPrefix">
+          New to SmartTutor?
+        </span>
+
+        <a
+          href="signup-student.html"
+          id="authFootAction"
+        >
+          Register as a Student →
+        </a>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- Footer -->
+  <footer class="institute-footer">
+
+    <div class="container">
+      &copy; 2026 SmartTutor Platform.
+      Universal open learning, skill bartering
+      &amp; faculty mentorship.
+    </div>
+
+  </footer>
+
+
+  <!-- Bootstrap -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  ></script>
+
+
+  <script src="js/api-config.js"></script>
+  <script>
+
+    /*
+     * Backend endpoint
+     */
+    function saveSessionUser(result, role) {
+      const user={...result, role, id:result.id || result.studentId || result.tutorId};
+      localStorage.setItem("smart_tutor_user",JSON.stringify(user));
+      localStorage.setItem("smart_tutor_active_user",JSON.stringify(user));
+      localStorage.setItem(role==="TUTOR"?"smart_tutor_tutor_profile":"smart_tutor_student_profile",JSON.stringify(user));
+    }
+    const STUDENT_LOGIN_ENDPOINT =
+      window.SMART_TUTOR_API_URL + "/api/students/login";
+
+
+    /*
+     * Currently selected role
+     */
+    let activeAcademicRole = "STUDENT";
+
+
+    /*
+     * Change role
+     */
+    function switchAcademicRole(role) {
+
+      activeAcademicRole = role;
+
+
+      const btnStudent =
+        document.getElementById("btnRoleStudent");
+
+      const btnTutor =
+        document.getElementById("btnRoleTutor");
+
+      const btnAdmin =
+        document.getElementById("btnRoleAdmin");
+
+
+      const screenHeading =
+        document.getElementById("screenHeading");
+
+      const screenSubheading =
+        document.getElementById("screenSubheading");
+
+      const labelUserId =
+        document.getElementById("labelUserId");
+
+      const inputUserId =
+        document.getElementById("inputUserId");
+
+      const inputUserPass =
+        document.getElementById("inputUserPass");
+
+      const adminPinField =
+        document.getElementById("adminPinField");
+
+      const btnSubmitCaption =
+        document.getElementById("btnSubmitCaption");
+
+      const authFootPrefix =
+        document.getElementById("authFootPrefix");
+
+      const authFootAction =
+        document.getElementById("authFootAction");
+
+
+      btnStudent.classList.remove("active");
+      btnTutor.classList.remove("active");
+      btnAdmin.classList.remove("active");
+
+
+      /*
+       * Student
+       */
+      if (role === "STUDENT") {
+
+        btnStudent.classList.add("active");
+
+        screenHeading.textContent =
+          "Student Sign In";
+
+        screenSubheading.textContent =
+          "Access your courses, AI practice lab, and peer mentorship sessions.";
+
+        labelUserId.textContent =
+          "Email Address or Student ID";
+
+        inputUserId.value =
+          "priya@example.com";
+
+        inputUserPass.value =
+          "Student@123";
+
+        adminPinField.classList.add("d-none");
+
+        btnSubmitCaption.textContent =
+          "Continue to Student Portal";
+
+        authFootPrefix.textContent =
+          "New to SmartTutor? ";
+
+        authFootAction.textContent =
+          "Register as a Student →";
+
+        authFootAction.href =
+          "signup-student.html";
+
+      }
+
+
+      /*
+       * Tutor
+       */
+      else if (role === "TUTOR") {
+
+        btnTutor.classList.add("active");
+
+        screenHeading.textContent =
+          "Tutor & Mentor Sign In";
+
+        screenSubheading.textContent =
+          "Manage your student requests, teaching calendar, and mentorship profile.";
+
+        labelUserId.textContent =
+          "Registered Tutor Email";
+
+        inputUserId.value =
+          "rajesh.sharma@mentor.com";
+
+        inputUserPass.value =
+          "Tutor@123";
+
+        adminPinField.classList.add("d-none");
+
+        btnSubmitCaption.textContent =
+          "Continue to Tutor Portal";
+
+        authFootPrefix.textContent =
+          "Want to mentor students? ";
+
+        authFootAction.textContent =
+          "Apply as an Expert Tutor →";
+
+        authFootAction.href =
+          "signup-tutor.html";
+
+      }
+
+
+      /*
+       * Admin
+       */
+      else if (role === "ADMIN") {
+
+        btnAdmin.classList.add("active");
+
+        screenHeading.textContent =
+          "Institutional Administrator";
+
+        screenSubheading.textContent =
+          "Authenticate to access tutor credential verification, logs, and platform audits.";
+
+        labelUserId.textContent =
+          "Administrator Account ID";
+
+        inputUserId.value =
+          "admin@smarttutor.edu";
+
+        inputUserPass.value =
+          "admin123";
+
+        adminPinField.classList.remove("d-none");
+
+        btnSubmitCaption.textContent =
+          "Authenticate as Administrator";
+
+        authFootPrefix.textContent =
+          "Institutional inquiry? ";
+
+        authFootAction.textContent =
+          "Dedicated Admin Gateway →";
+
+        authFootAction.href =
+          "admin-login.html";
+
+      }
+
+    }
+
+
+    /*
+     * Password visibility
+     */
+    function togglePasswordVisibility() {
+
+      const input =
+        document.getElementById("inputUserPass");
+
+      const icon =
+        document.getElementById("pwToggleIcon");
+
+
+      if (input.type === "password") {
+
+        input.type = "text";
+
+        icon.className =
+          "bi bi-eye-slash";
+
+      } else {
+
+        input.type = "password";
+
+        icon.className =
+          "bi bi-eye";
+
+      }
+
+    }
+
+
+    /*
+     * Forgot password
+     */
+    function handleForgotPassword(event) {
+
+      event.preventDefault();
+
+      alert(
+        "Forgot password functionality is not configured yet."
+      );
+
+    }
+
+
+    /*
+     * Demo shortcut
+     */
+    function autoFillAndLogin(role) {
+
+      switchAcademicRole(role);
+
+
+      const submitBtn =
+        document.getElementById("btnMainSubmit");
+
+      submitBtn.style.opacity = "0.7";
+
+
+      setTimeout(() => {
+
+        submitBtn.style.opacity = "1";
+
+        document
+          .getElementById("academicLoginForm")
+          .requestSubmit();
+
+      }, 180);
+
+    }
+
+
+    /*
+     * Display message
+     */
+    function showLoginMessage(message, type = "danger") {
+
+      const noticeEl =
+        document.getElementById("loginRedirectNotice");
+
+
+      noticeEl.className =
+        `alert alert-${type} py-2 px-3 small mb-3`;
+
+      noticeEl.textContent =
+        message;
+
+      noticeEl.classList.remove("d-none");
+
+    }
+
+
+    /*
+     * Hide message
+     */
+    function hideLoginMessage() {
+
+      const noticeEl =
+        document.getElementById("loginRedirectNotice");
+
+      noticeEl.classList.add("d-none");
+
+    }
+
+
+    /*
+     * STUDENT LOGIN
+     *
+     * POST:
+     * http://localhost:8081/api/students/login
+     *
+     * Request:
+     * {
+     *   email: "...",
+     *   password: "..."
+     * }
+     *
+     * Expected response:
+     * {
+     *   "can": true
+     * }
+     */
+    async function loginStudent(email, password) {
+
+      const response =
+        await fetch(
+          STUDENT_LOGIN_ENDPOINT,
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+
+            body: JSON.stringify({
+              email: email,
+              password: password
+            })
+          }
+        );
+
+
+      /*
+       * Try to parse JSON response.
+       */
+      const contentType =
+        response.headers.get("content-type") || "";
+
+      let result;
+
+
+      if (contentType.includes("application/json")) {
+
+        result = await response.json();
+
+      } else {
+
+        const text =
+          await response.text();
+
+        result = text
+          ? { message: text }
+          : {};
+
+      }
+
+
+      /*
+       * HTTP failure
+       */
+      if (!response.ok) {
+
+        throw new Error(
+          result.message ||
+          result.error ||
+          `Login failed with HTTP ${response.status}`
+        );
+
+      }
+
+
+      /*
+       * Backend explicitly controls access
+       *
+       * Only can === true allows login.
+       */
+      if (result.can !== true) {
+
+        throw new Error(
+          result.message ||
+          "Invalid email or password."
+        );
+
+      }
+
+
+      /*
+       * Login successful.
+       */
+      return result;
+
+    }
+
+
+    /*
+     * LOGIN FORM
+     */
+    document
+      .getElementById("academicLoginForm")
+      .addEventListener(
+        "submit",
+        async function (event) {
+
+          event.preventDefault();
+
+          hideLoginMessage();
+
+
+          const identifier =
+            document
+              .getElementById("inputUserId")
+              .value
+              .trim();
+
+
+          const password =
+            document
+              .getElementById("inputUserPass")
+              .value;
+
+
+          const submitBtn =
+            document.getElementById("btnMainSubmit");
+
+
+          const originalCaption =
+            submitBtn.innerHTML;
+
+
+          /*
+           * Basic validation
+           */
+          if (!identifier || !password) {
+
+            showLoginMessage(
+              "Please enter both email and password."
+            );
+
+            return;
+
+          }
+
+
+          /*
+           * Disable button
+           */
+          submitBtn.disabled = true;
+
+          submitBtn.innerHTML = `
+            <span>Verifying credentials...</span>
+            <i class="bi bi-arrow-repeat ms-1"></i>
+          `;
+
+
+          /*
+           * STUDENT
+           */
+          if (activeAcademicRole === "STUDENT") {
+
+            try {
+
+              console.log(
+                "Sending student login request..."
+              );
+
+
+              const result =
+                await loginStudent(
+                  identifier,
+                  password
+                );
+
+
+
+
+
+              /*
+               * Backend returned:
+               *
+               * {
+               *   can: true
+               * }
+               *
+               * Therefore redirect.
+               */
+              if (result.can === true) {
+                saveSessionUser(result, "STUDENT");
+
+                showLoginMessage(
+                  "Login successful. Opening student dashboard...",
+                  "success"
+                );
+
+
+                setTimeout(() => {
+
+                  window.location.href =
+                    "student.html";
+
+                }, 300);
+
+              }
+
+            } catch (error) {
+
+              console.error(
+                "Student login failed:",
+                error
+              );
+
+
+              /*
+               * Network error / backend unavailable
+               */
+              if (
+                error instanceof TypeError
+              ) {
+
+                showLoginMessage(
+                  "Could not connect to the backend at localhost:8081. Make sure your backend is running and CORS is configured."
+                );
+
+              } else {
+
+                showLoginMessage(
+                  error.message ||
+                  "Login failed. Please try again."
+                );
+
+              }
+
+
+              /*
+               * Enable button again
+               */
+              submitBtn.disabled = false;
+
+              submitBtn.innerHTML =
+                originalCaption;
+
+            }
+
+            return;
+          }
+
+
+          /*
+           * TUTOR
+           *
+           * Left here so your existing role selector
+           * does not break.
+           */
+          else if (activeAcademicRole === "TUTOR") {
+
+            try {
+
+              const response =
+                await fetch(
+                  window.SMART_TUTOR_API_URL + "/api/tutors/login",
+                  {
+                    method: "POST",
+
+                    headers: {
+                      "Content-Type":
+                        "application/json",
+
+                      "Accept":
+                        "application/json"
+                    },
+
+                    body: JSON.stringify({
+                      email: identifier,
+                      password: password
+                    })
+                  }
+                );
+
+
+              const result =
+                await response.json();
+
+
+              if (
+                !response.ok ||
+                result.can !== true
+              ) {
+
+                throw new Error(
+                  result.message ||
+                  "Invalid tutor credentials."
+                );
+
+              }
+
+
+              saveSessionUser(result, "TUTOR");
+              showLoginMessage(
+                "Tutor login successful. Opening tutor dashboard...",
+                "success"
+              );
+
+
+              setTimeout(() => {
+
+                window.location.href =
+                  "tutor.html";
+
+              }, 300);
+
+
+            } catch (error) {
+
+              console.error(
+                "Tutor login failed:",
+                error
+              );
+
+
+              showLoginMessage(
+                error.message ||
+                "Tutor login failed."
+              );
+
+
+              submitBtn.disabled = false;
+
+              submitBtn.innerHTML =
+                originalCaption;
+
+            }
+
+            return;
+          }
+
+
+          /*
+           * ADMIN
+           */
+          else if (activeAcademicRole === "ADMIN") {
+
+            const pin =
+              document
+                .getElementById(
+                  "inputAdminSecurityPin"
+                )
+                .value
+                .trim();
+
+
+            if (
+              pin !== "9842" ||
+              pin.length < 4
+            ) {
+
+              showLoginMessage(
+                "Invalid Security PIN."
+              );
+
+
+              submitBtn.disabled = false;
+
+              submitBtn.innerHTML =
+                originalCaption;
+
+              return;
+
+            }
+
+
+            showLoginMessage(
+              "Administrator verified. Opening Admin Console...",
+              "success"
+            );
+
+
+            setTimeout(() => {
+
+              window.location.href =
+                "admin.html";
+
+            }, 300);
+
+          }
+
+        }
+      );
+
+
+    /*
+     * Optional redirect notice from URL
+     */
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
+
+        try {
+
+          const urlParams =
+            new URLSearchParams(
+              window.location.search
+            );
+
+
+          const redirect =
+            urlParams.get("redirect");
+
+
+          const noticeEl =
+            document.getElementById(
+              "loginRedirectNotice"
+            );
+
+
+          if (!noticeEl) {
+            return;
+          }
+
+
+          if (redirect === "demo") {
+
+            noticeEl.innerHTML =
+              `
+              <i class="bi bi-camera-video-fill me-2 text-primary"></i>
+              <strong>Live Demo Access:</strong>
+              Please sign in to launch your interactive Live Classroom.
+              `;
+
+            noticeEl.classList.remove(
+              "d-none"
+            );
+
+          } else if (redirect === "book") {
+
+            noticeEl.innerHTML =
+              `
+              <i class="bi bi-calendar-check-fill me-2 text-primary"></i>
+              <strong>Tutor Booking:</strong>
+              Please sign in or register to complete your booking.
+              `;
+
+            noticeEl.classList.remove(
+              "d-none"
+            );
+
+          }
+
+        } catch (error) {
+
+          console.warn(
+            "Notice display error:",
+            error
+          );
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>

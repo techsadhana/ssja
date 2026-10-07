@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutor Portal — Smart Tutor System</title>
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Google Fonts: Home page typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <style>
+    body.tutor-page {
+      --primary: #1e3a8a;
+      --primary-hover: #172554;
+      --primary-light: #eff6ff;
+      background: #f8fafc;
+      color: #1e293b;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .tutor-page h1,
+    .tutor-page h2,
+    .tutor-page h3,
+    .tutor-page h4,
+    .tutor-page h5,
+    .tutor-page h6 {
+      font-family: 'Outfit', sans-serif;
+      color: #0f172a;
+    }
+
+    .tutor-page .navbar-custom {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(16, 24, 40, 0.04);
+    }
+
+    .tutor-page .brand-logo {
+      gap: 10px;
+      color: #0f172a;
+    }
+
+    .tutor-page .portal-hero {
+      background: #fffdf8;
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: inset 0 -3px 0 #f2c76e;
+    }
+
+    .tutor-page .hero-gradient-text {
+      color: #1e3a8a;
+      background: none;
+      -webkit-text-fill-color: initial;
+    }
+
+    .tutor-page .card-spacious,
+    .tutor-page .dashboard-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(16, 24, 40, 0.04);
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .tutor-page .card-spacious:hover,
+    .tutor-page .dashboard-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 8px 20px rgba(30, 41, 59, 0.07);
+    }
+
+    .tutor-page .nav-pills-custom {
+      border-radius: 12px;
+      padding: 6px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .tutor-page .nav-pills-custom .nav-item,
+    .tutor-page .nav-pills-custom .nav-link {
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+
+    .tutor-page .nav-pills-custom .nav-link {
+      padding: 8px 12px;
+      font-size: 0.88rem;
+    }
+
+    .tutor-page .tutor-nav-photo {
+      width: 28px;
+      height: 28px;
+      object-fit: cover;
+    }
+
+    .tutor-page .nav-pills-custom .nav-link.active {
+      background: #1e3a8a;
+    }
+
+    .tutor-page .profile-card {
+      border-top: 3px solid #d28a1d;
+    }
+
+    .tutor-page .account-balance {
+      background: #fffdf8;
+      border: 1px solid #eadfbf;
+    }
+
+    .tutor-page .support-card {
+      border-left: 4px solid #8db6a3;
+    }
+
+    .tutor-page .portal-intro {
+      border-left: 4px solid #d28a1d;
+      background: #fffdf8;
+    }
+
+    .tutor-page .performance-chart {
+      height: 142px;
+      display: flex;
+      align-items: end;
+      justify-content: space-around;
+      gap: 12px;
+      padding: 16px 8px 0;
+      border-bottom: 1px solid #cbd5e1;
+    }
+
+    .tutor-page .performance-bar {
+      width: 24px;
+      min-height: 14px;
+      border-radius: 6px 6px 0 0;
+      background: #1e3a8a;
+      position: relative;
+    }
+
+    .tutor-page .performance-bar:nth-child(2n) {
+      background: #8db6a3;
+    }
+
+    .tutor-page .performance-bar span {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: 7px;
+      color: #64748b;
+      font-size: 0.68rem;
+    }
+
+    .tutor-page .quote-card {
+      background: #fffdf8;
+      border: 1px solid #eadfbf;
+      border-left: 4px solid #d28a1d;
+    }
+
+    .tutor-page .btn-primary-custom {
+      background: #1e3a8a;
+      border-color: #1e3a8a;
+    }
+  </style>
+</head>
+<body class="site-theme tutor-page">
+<div style="padding:12px;background:#e8f5ee;text-align:center"><a href="sessions.html" style="color:#146c43;font-weight:700">Sessions &amp; Notifications — Book / manage online and offline sessions</a></div>
+
+
+  <!-- Top Navigation Bar: STRICTLY TUTOR ONLY (Decoupled from Student and Admin) -->
+  <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+    <div class="container">
+      <a class="navbar-brand brand-logo" href="index.html">
+        <span class="brand-icon"><i class="bi bi-mortarboard-fill"></i></span>
+        <span class="brand-name">Smart<span>Tutor</span><small class="text-muted fs-6 fw-normal ms-1">| Tutor Portal</small></span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTutor">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarTutor">
+        <!-- Tutor Identity & Log Out -->
+        <div class="d-flex align-items-center gap-2 ms-auto">
+          <a href="tutor-courses.html" class="btn btn-sm btn-primary-custom d-inline-flex align-items-center gap-1">
+            <i class="bi bi-journal-plus"></i> My Courses
+          </a>
+          <a href="index.html" class="btn btn-sm btn-light border text-muted d-inline-flex align-items-center gap-1">
+            <i class="bi bi-house"></i> Home
+          </a>
+          <div class="dropdown">
+            <button class="btn btn-outline-custom dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown">
+              <span id="tutorNavPhotoPlaceholder" class="d-inline-flex align-items-center justify-content-center"><i class="bi bi-person-circle fs-5"></i></span>
+              <img id="tutorNavPhoto" class="tutor-nav-photo rounded-circle" src="" alt="" style="display: none;">
+              <span class="fw-bold">Tutor account</span>
+              <span class="badge bg-warning text-dark ms-1">Tutor</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-3">
+              <li><h6 class="dropdown-header small text-uppercase">Tutor Account</h6></li>
+              <li><span class="dropdown-item-text small text-muted">IT Dept • Assoc. Professor</span></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item py-2 small text-danger" href="index.html"><i class="bi bi-box-arrow-right me-2"></i>Log Out to Home</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Header Banner (Styled like index.html) -->
+  <header class="portal-hero">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <div class="hero-pill shadow-sm" style="background: #fef3c7; color: #b45309;">
+            <i class="bi bi-person-badge-fill text-warning"></i> Tutor space
+          </div>
+          <h1 class="portal-hero-title mb-2">
+            Help someone understand what they could not understand yesterday.
+          </h1>
+          <p class="text-muted mb-0" style="font-size: 1.05rem;">
+            Keep your sessions organised, share your experience, and make every class useful for a student.
+          </p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <div class="d-inline-flex flex-column align-items-lg-end gap-1">
+            <span class="badge bg-primary text-white p-2 px-3 fw-bold" style="border-radius: 2px;">
+              <i class="bi bi-shield-shaded me-1"></i> Police &amp; Aadhaar Verified Mentor
+            </span>
+            <span class="badge bg-success-subtle text-success border border-success-subtle p-1 px-2 small" style="border-radius: 2px;">
+              <i class="bi bi-check2-circle me-1"></i> Background Check Clear
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container mb-5 flex-grow-1">
+
+    <!-- Navigation Tabs -->
+    <div class="mb-4">
+      <ul class="nav nav-pills nav-pills-custom shadow-sm" id="tutorPageTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="tutor-profile-tab" data-bs-toggle="pill" data-bs-target="#tab-tutor-profile" type="button" role="tab" onclick="switchTutorTab('tutor-profile-tab')">
+            <i class="bi bi-person-circle me-1"></i> Profile
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="portal-tab" data-bs-toggle="pill" data-bs-target="#tab-tutor-portal" type="button" role="tab" onclick="switchTutorTab('portal-tab')">
+            <i class="bi bi-person-badge-fill me-1"></i> My Portal
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tutor-tpp-tab" data-bs-toggle="pill" data-bs-target="#tab-tutor-tpp" type="button" role="tab" onclick="switchTutorTab('tutor-tpp-tab')">
+            <i class="bi bi-journal-text me-1"></i> Practice
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="browse-tab" data-bs-toggle="pill" data-bs-target="#tab-browse-mentors" type="button" role="tab">
+            <i class="bi bi-people-fill me-1"></i> Tutors
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tutor-ai-tab" data-bs-toggle="pill" data-bs-target="#tab-tutor-ai" type="button" role="tab" onclick="switchTutorTab('tutor-ai-tab')">
+            <i class="bi bi-calendar-check me-1"></i> Planner
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tutor-account-tab" data-bs-toggle="pill" data-bs-target="#tab-tutor-account" type="button" role="tab" onclick="switchTutorTab('tutor-account-tab')">
+            <i class="bi bi-wallet2 me-1"></i> Earnings
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tutor-support-tab" data-bs-toggle="pill" data-bs-target="#tab-tutor-support" type="button" role="tab">
+            <i class="bi bi-life-preserver me-1"></i> Support
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Tab Contents -->
+    <div class="tab-content" id="tutorPageTabContent">
+
+      <!-- ================================================================= -->
+      <!-- SECTION 1: TUTOR PORTAL                                           -->
+      <!-- ================================================================= -->
+      <div class="tab-pane fade" id="tab-tutor-portal" role="tabpanel">
+        
+        <!-- Main tutor work area -->
+        <div class="card-spacious portal-intro mb-4">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div>
+              <span class="badge bg-light text-dark border mb-2"><i class="bi bi-person-badge text-primary me-1"></i> Main work area</span>
+              <h4 class="fw-bold text-dark mb-1">Your tutor workspace</h4>
+              <p class="text-muted small mb-0">Review student requests, check today's sessions, and keep track of your earnings here.</p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <span class="badge bg-light text-dark border p-2"><i class="bi bi-star-fill text-warning me-1"></i> 4.9 Rating (48 reviews)</span>
+              <span class="badge bg-primary-subtle text-primary p-2">Standard Fee: ₹450/hr</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Metric Cards -->
+        <div class="row g-4 mb-4">
+          <div class="col-md-4">
+            <div class="dashboard-card">
+              <div class="d-flex align-items-center gap-3">
+                <div class="card-icon mb-0 bg-warning-subtle text-warning"><i class="bi bi-inbox-fill"></i></div>
+                <div>
+                  <h4 class="fw-bold mb-0 text-dark counter-value" id="statPendingCount" data-counter="2">0</h4>
+                  <span class="text-muted small fw-semibold">Pending Requests</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="dashboard-card">
+              <div class="d-flex align-items-center gap-3">
+                <div class="card-icon mb-0 bg-primary-light text-primary"><i class="bi bi-calendar2-check-fill"></i></div>
+                <div>
+                  <h4 class="fw-bold mb-0 text-dark counter-value" id="statConfirmedCount" data-counter="4">0</h4>
+                  <span class="text-muted small fw-semibold">Confirmed Sessions</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="dashboard-card">
+              <div class="d-flex align-items-center gap-3">
+                <div class="card-icon mb-0 bg-success-subtle text-success"><i class="bi bi-currency-rupee"></i></div>
+                <div>
+                  <h4 class="fw-bold mb-0 text-dark counter-value" id="statEarnings" data-prefix="₹" data-counter="12600">₹0</h4>
+                  <span class="text-muted small fw-semibold">Total Mentoring Payout</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-4 mb-4">
+          <div class="col-lg-7">
+            <div class="card-spacious h-100">
+              <div class="d-flex justify-content-between align-items-start gap-3 mb-2">
+                <div>
+                  <span class="badge bg-light text-dark border mb-1"><i class="bi bi-bar-chart text-primary me-1"></i> This week</span>
+                  <h5 class="fw-bold text-dark mb-1">Teaching performance</h5>
+                  <p class="text-muted small mb-0">Sessions completed each day.</p>
+                </div>
+                <span class="small fw-semibold text-success"><i class="bi bi-arrow-up me-1"></i>Steady week</span>
+              </div>
+              <div class="performance-chart" aria-label="Weekly completed sessions bar chart">
+                <div class="performance-bar" style="height: 42%;"><span>Mon</span></div>
+                <div class="performance-bar" style="height: 65%;"><span>Tue</span></div>
+                <div class="performance-bar" style="height: 35%;"><span>Wed</span></div>
+                <div class="performance-bar" style="height: 82%;"><span>Thu</span></div>
+                <div class="performance-bar" style="height: 58%;"><span>Fri</span></div>
+                <div class="performance-bar" style="height: 25%;"><span>Sat</span></div>
+                <div class="performance-bar" style="height: 18%;"><span>Sun</span></div>
+              </div>
+              <div class="d-flex justify-content-between small text-muted mt-4">
+                <span><strong class="text-dark">8</strong> sessions this week</span>
+                <span><strong class="text-dark">4.9</strong> average rating</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="card-spacious quote-card h-100 d-flex flex-column justify-content-between">
+              <div>
+                <span class="badge bg-light text-dark border mb-3"><i class="bi bi-lightbulb text-warning me-1"></i> Teaching note</span>
+                <p class="fs-4 fw-bold text-dark mb-2">“Clear beats clever.”</p>
+                <p class="text-muted small mb-0">Use one example, ask one question, and let the student try.</p>
+              </div>
+              <div class="pt-3 mt-3 border-top">
+                <span class="small text-muted">Teach clearly. Make progress visible.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Home Tuition Hindi Safety Line & Emergency SOS Strip -->
+        <div class="card-spacious mb-4 border-start border-4" style="border-left-color: #ef4444 !important; background: #fffbfb;">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div>
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge bg-danger text-white"><i class="bi bi-shield-fill-exclamation me-1"></i> Student &amp; Tutor Safety Protocol</span>
+                <span class="badge bg-light text-dark border"><i class="bi bi-telephone-fill text-danger me-1"></i> Automated Hindi Voice Check &amp; Guardian Alert</span>
+              </div>
+              <h5 class="fw-bold text-dark mb-1">In-Session Safety &amp; Emergency Helpline</h5>
+              <p class="text-muted small mb-0">Our automated Hindi safety check prompts 30 mins into any tuition session. In case of distress, dispatch emergency alerts to registered guardians &amp; campus proctor instantly.</p>
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn btn-outline-danger btn-sm" type="button" onclick="triggerHindiSafetyCall()">
+                <i class="bi bi-telephone-inbound-fill me-1"></i> Test Hindi Voice Check
+              </button>
+              <button class="btn btn-danger btn-sm px-3 fw-bold" type="button" onclick="triggerEmergencySOS()">
+                <i class="bi bi-exclamation-octagon-fill me-1"></i> Emergency Guardian SOS
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Incoming Student Requests Table -->
+        <div class="card-spacious mb-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+              <h5 class="fw-bold text-dark mb-1">
+                <i class="bi bi-bell-fill text-primary me-2"></i>Incoming Student Booking Requests
+              </h5>
+              <p class="text-muted small mb-0">Review student applications with transparent Demo/Paid indicators, Aadhaar KYC, and masked contacts.</p>
+            </div>
+            <span class="badge bg-light text-muted border">Needs your decision</span>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>Student &amp; KYC Verification</th>
+                  <th>Topic &amp; Schedule</th>
+                  <th>Demo / Fee Status</th>
+                  <th>Mode &amp; Geo-Location</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="tutorRequestsTable">
+                <!-- Populated dynamically by tutor.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tutor Schedule & Active Classes -->
+        <div class="card-spacious">
+          <h5 class="fw-bold text-dark mb-3">
+            <i class="bi bi-calendar-week text-primary me-2"></i>Upcoming Class Schedule
+          </h5>
+          <p class="text-muted small mb-3">Your next three sessions, with the student, topic, time, and class link.</p>
+          <div class="row g-3" id="tutorScheduleContainer">
+            <!-- Populated by tutor.js -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- SECTION: TUTOR DAILY PRACTICE PROBLEMS (DPP) MANAGER          -->
+      <!-- ================================================================= -->
+      <div class="tab-pane fade" id="tab-tutor-tpp" role="tabpanel">
+        <div class="card-spacious portal-intro mb-4">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div>
+              <span class="badge bg-primary text-white mb-2"><i class="bi bi-journal-text me-1"></i> Daily Practice Problems (DPP)</span>
+              <h3 class="fw-bold text-dark mb-1">Create &amp; Publish Practice Problems (DPP)</h3>
+              <p class="text-muted small mb-0">Publish simple question sets and exercises for your students to solve after their 1-on-1 lecture.</p>
+            </div>
+            <div>
+              <button class="btn btn-primary-custom" type="button" data-bs-toggle="modal" data-bs-target="#createTppModal">
+                <i class="bi bi-plus-circle me-1"></i> Create New DPP Sheet
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-4" id="tutorTppContainer">
+          <!-- Populated dynamically by tutor.js -->
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- SECTION 2: BROWSE MENTOR                                          -->
+      <!-- ================================================================= -->
+      <div class="tab-pane fade" id="tab-browse-mentors" role="tabpanel">
+
+        <div class="card-spacious portal-intro mb-4">
+          <span class="badge bg-light text-dark border mb-2"><i class="bi bi-people text-primary me-1"></i> Teaching community</span>
+          <h3 class="fw-bold text-dark mb-1">Learn from other tutors</h3>
+          <p class="text-muted mb-0">Good tutors also keep learning. Find simple ideas from peers and bring something useful to your next class.</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <div class="card-spacious h-100">
+              <div class="card-icon mb-3"><i class="bi bi-journal-text"></i></div>
+              <h5 class="fw-bold text-dark mb-2">Make difficult topics simple</h5>
+              <p class="text-muted small mb-3">Start with a real example, draw the idea, and only then introduce the technical definition.</p>
+              <span class="small text-primary fw-semibold">Useful for first-year students</span>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card-spacious h-100">
+              <div class="card-icon mb-3"><i class="bi bi-chat-left-dots"></i></div>
+              <h5 class="fw-bold text-dark mb-2">Share a teaching tip</h5>
+              <p class="text-muted small mb-3">Write down one explanation, activity, or practice question that worked well in your last session.</p>
+              <button class="btn btn-sm btn-outline-custom" type="button" onclick="showToast('Teaching tip saved for your next class.', 'success')"><i class="bi bi-plus me-1"></i> Add a tip</button>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card-spacious h-100">
+              <div class="card-icon mb-3"><i class="bi bi-arrow-repeat"></i></div>
+              <h5 class="fw-bold text-dark mb-2">Keep improving</h5>
+              <p class="text-muted small mb-3">Review your student feedback after each class and choose one small thing to improve next time.</p>
+              <span class="small text-primary fw-semibold">One improvement at a time</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-end gap-3 mt-5 mb-3 flex-wrap">
+          <div>
+            <h5 class="fw-bold text-dark mb-1">Browse tutors</h5>
+            <p class="text-muted small mb-0">See how other tutors present their subjects and teaching style.</p>
+          </div>
+          <span class="small text-muted">3 tutors in the directory</span>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <div class="card-spacious h-100 d-flex flex-column justify-content-between">
+              <div>
+                <div class="d-flex align-items-center gap-3 mb-3">
+                  <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80" class="rounded-circle" width="52" height="52" alt="Prof. Jayashree Madam">
+                  <div><h6 class="fw-bold text-dark mb-1">Prof. Jayashree Madam</h6><span class="small text-muted">Databases &amp; SQL</span></div>
+                </div>
+                <p class="text-muted small mb-3">Explains database concepts with diagrams and small query examples.</p>
+                <span class="badge bg-success-subtle text-success border border-success-subtle">Profile checked</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center pt-3 mt-3 border-top"><span class="small text-muted">₹500 / hour</span><button class="btn btn-sm btn-outline-custom" onclick="openBookingModal(2)">View tutor</button></div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card-spacious h-100 d-flex flex-column justify-content-between">
+              <div>
+                <div class="d-flex align-items-center gap-3 mb-3">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" class="rounded-circle" width="52" height="52" alt="Vikram Malhotra">
+                  <div><h6 class="fw-bold text-dark mb-1">Vikram Malhotra</h6><span class="small text-muted">DSA &amp; Algorithms</span></div>
+                </div>
+                <p class="text-muted small mb-3">Focuses on problem-solving practice, trees, graphs, and exam preparation.</p>
+                <span class="badge bg-success-subtle text-success border border-success-subtle">Profile checked</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center pt-3 mt-3 border-top"><span class="small text-muted">₹350 / hour</span><button class="btn btn-sm btn-outline-custom" onclick="openBookingModal(3)">View tutor</button></div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card-spacious h-100 d-flex flex-column justify-content-between">
+              <div>
+                <div class="d-flex align-items-center gap-3 mb-3">
+                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" class="rounded-circle" width="52" height="52" alt="Neha Patel">
+                  <div><h6 class="fw-bold text-dark mb-1">Neha Patel</h6><span class="small text-muted">React &amp; Web Development</span></div>
+                </div>
+                <p class="text-muted small mb-3">Uses small coding tasks to teach React, CSS, and frontend basics.</p>
+                <span class="badge bg-success-subtle text-success border border-success-subtle">Profile checked</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center pt-3 mt-3 border-top"><span class="small text-muted">₹400 / hour</span><button class="btn btn-sm btn-outline-custom" onclick="openBookingModal(4)">View tutor</button></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tab-pane fade show active" id="tab-tutor-profile" role="tabpanel">
+        <div class="card-spacious profile-card mb-4">
+          <div class="d-flex align-items-start justify-content-between gap-3 flex-wrap">
+            <div>
+              <span class="badge bg-light text-dark border mb-2"><i class="bi bi-person-circle text-primary me-1"></i> Tutor profile</span>
+              <h3 class="fw-bold text-dark mb-1">Your details</h3>
+              <p class="text-muted small mb-0">Keep the information students see when they choose a tutor.</p>
+            </div>
+            <span class="small text-muted">Changes are saved on this device</span>
+          </div>
+        </div>
+
+        <form class="card-spacious" id="tutorProfileForm" onsubmit="saveTutorProfile(event)">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <img id="tutorProfilePhotoPreview" class="rounded-circle border" src="" alt="Tutor profile photo" width="76" height="76" style="object-fit: cover; display: none;">
+            <div id="tutorProfilePhotoPlaceholder" class="rounded-circle border bg-light text-secondary d-flex align-items-center justify-content-center" style="width: 76px; height: 76px; font-size: 1.8rem;">
+              <i class="bi bi-person"></i>
+            </div>
+            <div>
+              <label class="form-label small fw-semibold mb-1" for="tutorProfilePhoto">Profile photo</label>
+              <input class="form-control form-control-sm" id="tutorProfilePhoto" type="file" accept="image/*" onchange="handleTutorPhotoChange(event)">
+              <small class="text-muted">Choose a clear photo so students can recognize you.</small>
+            </div>
+          </div>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold" for="tutorProfileName">Full name</label>
+              <input class="form-control" id="tutorProfileName" name="fullName" value="Dr. Rajesh Sharma" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold" for="tutorProfileEmail">Email</label>
+              <input class="form-control" id="tutorProfileEmail" name="email" type="email" value="rajesh.tutor@smarttutor.edu" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold" for="tutorProfileDepartment">Department</label>
+              <input class="form-control" id="tutorProfileDepartment" name="department" value="Information Technology">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold" for="tutorProfileTitle">Role</label>
+              <input class="form-control" id="tutorProfileTitle" name="title" value="Associate Professor &amp; Senior Technical Mentor">
+            </div>
+            <div class="col-12">
+              <label class="form-label small fw-semibold" for="tutorProfileSubjects">Subjects you teach</label>
+              <input class="form-control" id="tutorProfileSubjects" name="subjects" value="Java, Spring Boot, Microservices, Design Patterns">
+            </div>
+            <div class="col-12">
+              <div class="d-flex justify-content-between align-items-center">
+                <label class="form-label small fw-semibold" for="tutorProfileBio">Bio</label>
+                <small class="text-muted" id="tutorProfileBioCount" aria-live="polite">0 / 1,000 words</small>
+              </div>
+              <textarea class="form-control" id="tutorProfileBio" name="bio" rows="3" placeholder="Introduce yourself and your teaching approach." oninput="updateProfileBioWordCount(this)"></textarea>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end mt-4">
+            <button class="btn btn-primary-custom" type="submit"><i class="bi bi-check2 me-1"></i> Save profile</button>
+          </div>
+        </form>
+
+        <section class="card-spacious mt-4" aria-labelledby="tutorAvailabilityTitle">
+          <div class="mb-3">
+            <h5 class="fw-bold text-dark mb-1" id="tutorAvailabilityTitle"><i class="bi bi-calendar-week text-primary me-2"></i>Weekly availability</h5>
+            <p class="text-muted small mb-0">Students can request one-hour sessions on the days and between the hours you set.</p>
+          </div>
+          <fieldset class="mb-3">
+            <legend class="form-label small fw-semibold">Available days</legend>
+            <div class="d-flex flex-wrap gap-3">
+              <label class="form-check"><input class="form-check-input tutor-availability-day" type="checkbox" value="1" checked> <span class="form-check-label">Mon</span></label>
+              <label class="form-check"><input class="form-check-input tutor-availability-day" type="checkbox" value="2" checked> <span class="form-check-label">Tue</span></label>
+              <label class="form-check"><input class="form-check-input tutor-availability-day" type="checkbox" value="3" checked> <span class="form-check-label">Wed</span></label>
+              <label class="form-check"><input class="form-check-input tutor-availability-day" type="checkbox" value="4" checked> <span class="form-check-label">Thu</span></label>
+              <label class="form-check"><input class="form-check-input tutor-availability-day" type="checkbox" value="5" checked> <span class="form-check-label">Fri</span></label>
+              <label class="form-check"><input class="form-check-input tutor-availability-day" type="checkbox" value="6"> <span class="form-check-label">Sat</span></label>
+              <label class="form-check"><input class="form-check-input tutor-availability-day" type="checkbox" value="0"> <span class="form-check-label">Sun</span></label>
+            </div>
+          </fieldset>
+          <div class="row g-3 align-items-end">
+            <div class="col-sm-4">
+              <label class="form-label small fw-semibold" for="tutorAvailabilityStart">From</label>
+              <input class="form-control" id="tutorAvailabilityStart" type="time" value="10:00" required>
+            </div>
+            <div class="col-sm-4">
+              <label class="form-label small fw-semibold" for="tutorAvailabilityEnd">Until</label>
+              <input class="form-control" id="tutorAvailabilityEnd" type="time" value="18:00" required>
+            </div>
+            <div class="col-sm-4">
+              <button class="btn btn-primary-custom w-100" type="button" onclick="saveTutorAvailability()"><i class="bi bi-check2 me-1"></i>Save availability</button>
+            </div>
+          </div>
+          <div id="tutorAvailabilitySummary" class="alert alert-success py-2 small mt-3 mb-0" role="status"></div>
+        </section>
+
+        <div class="modal fade" id="tutorRescheduleModal" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+              <form onsubmit="submitTutorReschedule(event)">
+                <div class="modal-header border-bottom">
+                  <h5 class="modal-title fw-bold text-dark"><i class="bi bi-calendar2-week text-primary me-2"></i>Propose another time</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <input type="hidden" id="tutorRescheduleRequestId">
+                  <div class="row g-3">
+                    <div class="col-7">
+                      <label class="form-label small fw-semibold" for="tutorRescheduleDate">Date</label>
+                      <input class="form-control" id="tutorRescheduleDate" type="date" required>
+                    </div>
+                    <div class="col-5">
+                      <label class="form-label small fw-semibold" for="tutorRescheduleTime">Start time</label>
+                      <input class="form-control" id="tutorRescheduleTime" type="time" required>
+                    </div>
+                  </div>
+                  <div id="tutorRescheduleAvailabilityMessage" class="small text-muted mt-2">Choose a date and start time within your published availability.</div>
+                </div>
+                <div class="modal-footer border-top">
+                  <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-primary-custom">Send new time</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tutor-Controlled Free Demo Opt-In & Weekly Quota Settings -->
+        <div class="card-spacious mt-4 border-start border-4" style="border-left-color: #1e3a8a !important; background: #fafcff;">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+            <div>
+              <span class="badge bg-primary text-white mb-2"><i class="bi bi-gift-fill me-1"></i> Demo Session Controls</span>
+              <h5 class="fw-bold text-dark mb-1">Offer Free 20-Min Demo to New Students</h5>
+              <p class="text-muted small mb-0">Allow prospective students to take a 20-min orientation demo with you before committing to paid hourly classes.</p>
+            </div>
+            <div class="form-check form-switch fs-4">
+              <input class="form-check-input cursor-pointer" type="checkbox" role="switch" id="tutorDemoOptInToggle" onchange="toggleTutorDemoOptIn(this.checked)" checked>
+            </div>
+          </div>
+          <div class="row g-3 align-items-center pt-2 border-top">
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold text-dark mb-1">Max Free Demos Allowed Per Week</label>
+              <select class="form-select form-select-sm" id="tutorMaxDemosSelect" onchange="updateTutorMaxDemos(this.value)">
+                <option value="1">Max 1 Free Demo / week</option>
+                <option value="2" selected>Max 2 Free Demos / week (Recommended)</option>
+                <option value="3">Max 3 Free Demos / week</option>
+                <option value="5">Max 5 Free Demos / week</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <small class="text-muted d-block mt-3">
+                <i class="bi bi-info-circle me-1 text-primary"></i> Demos are strictly 20-minutes long and logged as <strong>₹0 payout</strong> in your earnings ledger with a distinct demo badge.
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-spacious mt-4">
+          <div class="d-flex justify-content-between align-items-center gap-3 mb-3 flex-wrap">
+            <div>
+              <h5 class="fw-bold text-dark mb-1">Registered documents</h5>
+              <p class="text-muted small mb-0">Keep your qualification and identity documents together.</p>
+            </div>
+            <label class="btn btn-outline-custom btn-sm mb-0" for="tutorDocumentInput"><i class="bi bi-paperclip me-1"></i> Add document</label>
+            <input class="d-none" type="file" id="tutorDocumentInput" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" onchange="addTutorDocument(event)">
+          </div>
+          <div id="tutorDocumentsList" class="d-flex flex-column gap-2">
+            <div class="d-flex align-items-center justify-content-between gap-3 p-3 bg-light rounded-3 border">
+              <div class="d-flex align-items-center gap-2"><i class="bi bi-file-earmark-pdf text-danger fs-5"></i><div><strong class="small text-dark d-block">PhD_Computer_Science_Degree.pdf</strong><span class="text-muted" style="font-size: 0.75rem;">Doctoral degree verification</span></div></div>
+              <span class="badge bg-success-subtle text-success border border-success-subtle">Verified</span>
+            </div>
+            <div class="d-flex align-items-center justify-content-between gap-3 p-3 bg-light rounded-3 border">
+              <div class="d-flex align-items-center gap-2"><i class="bi bi-file-earmark-text text-primary fs-5"></i><div><strong class="small text-dark d-block">Faculty_ID_and_Department_Letter.pdf</strong><span class="text-muted" style="font-size: 0.75rem;">Faculty ID and department letter</span></div></div>
+              <span class="badge bg-success-subtle text-success border border-success-subtle">Verified</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="tab-tutor-account" role="tabpanel">
+        
+        <!-- Transparent Platform Margin Breakdown Banner -->
+        <div class="card-spacious portal-intro mb-4">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+            <div>
+              <span class="badge bg-primary text-white mb-2"><i class="bi bi-shield-check me-1"></i> Transparent 85/15 Fee Architecture</span>
+              <h3 class="fw-bold text-dark mb-1">Earnings &amp; Payout Transparency</h3>
+              <p class="text-muted small mb-0">SmartTutor guarantees 100% upfront payment clarity. You always receive <strong>85% Net Bank Payout</strong> directly on all paid sessions.</p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <span class="badge bg-success text-white p-2 px-3 fw-bold">Tutor Net Payout: 85%</span>
+              <span class="badge bg-light text-muted border p-2 px-3">Platform Tech Fee: 15%</span>
+            </div>
+          </div>
+
+          <!-- Fee Illustration Strip -->
+          <div class="row g-3 pt-3 border-top">
+            <div class="col-md-4">
+              <div class="p-3 bg-white border rounded-1">
+                <span class="text-muted small fw-semibold d-block">1. Student Booking Fee</span>
+                <h5 class="fw-bold text-dark mb-0">₹500.00 / hr</h5>
+                <small class="text-muted">Paid by student at confirmation</small>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="p-3 bg-white border rounded-1">
+                <span class="text-muted small fw-semibold d-block">2. Platform &amp; Video Server Margin (15%)</span>
+                <h5 class="fw-bold text-danger mb-0">- ₹75.00 / hr</h5>
+                <small class="text-muted">Covers WebRTC, cloud &amp; payment gateway</small>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="p-3 bg-white border rounded-1 border-primary">
+                <span class="text-primary small fw-bold d-block">3. Your Net Bank Payout (85%)</span>
+                <h5 class="fw-bold text-success mb-0">+ ₹425.00 / hr</h5>
+                <small class="text-success fw-semibold">Disbursed directly to your account</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-4 mb-4">
+          <div class="col-lg-5">
+            <div class="card-spacious account-balance h-100">
+              <span class="badge bg-light text-dark border mb-2"><i class="bi bi-wallet2 text-success me-1"></i> Tutor Wallet</span>
+              <h4 class="fw-bold text-dark mb-1">Available Payout Balance</h4>
+              <p class="text-muted small mb-3">Net earnings from completed paid sessions ready for bank withdrawal.</p>
+              <div class="display-6 fw-bold text-dark mb-1" id="tutorAvailableBalance">₹8,400</div>
+              <span class="small text-muted d-block mb-3">Auto-disbursement schedule: <strong>Every Wednesday &amp; Saturday</strong></span>
+              
+              <!-- Quick Calculator -->
+              <div class="p-3 bg-white border rounded-1 mb-3">
+                <label class="form-label small fw-bold text-dark mb-1"><i class="bi bi-calculator me-1"></i>Net Payout Calculator</label>
+                <div class="input-group input-group-sm mb-2">
+                  <span class="input-group-text">₹ / hr</span>
+                  <input type="number" id="calcHourlyFee" class="form-control" value="600" oninput="calculateCustomPayout(this.value)">
+                </div>
+                <div class="d-flex justify-content-between small text-muted">
+                  <span>Platform Cut (15%): <strong id="calcAdminCut" class="text-danger">-₹90</strong></span>
+                  <span>Your Payout (85%): <strong id="calcTutorNet" class="text-success">+₹510</strong></span>
+                </div>
+              </div>
+
+              <button class="btn btn-outline-custom w-100" type="button" onclick="showToast('Withdrawal request of ₹8,400 submitted to admin accounting.', 'success')">
+                <i class="bi bi-arrow-up-right me-1"></i> Request Immediate Bank Transfer
+              </button>
+            </div>
+          </div>
+
+          <div class="col-lg-7">
+            <div class="card-spacious h-100">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                  <h5 class="fw-bold text-dark mb-1">Transparent Payout Ledger</h5>
+                  <p class="text-muted small mb-0">Audit log of all sessions, including free demos (₹0) and paid sessions.</p>
+                </div>
+                <span class="badge bg-success-subtle text-success border border-success-subtle">Audit Verified</span>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-sm align-middle">
+                  <thead class="table-light">
+                    <tr>
+                      <th class="small">Session &amp; Student</th>
+                      <th class="small">Type</th>
+                      <th class="small">Student Paid</th>
+                      <th class="small">Platform Fee (15%)</th>
+                      <th class="small text-end">Your Net Payout</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tutorEarningsList">
+                    <!-- Populated dynamically by tutor.js -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="tab-tutor-ai" role="tabpanel">
+        <div class="card-spacious portal-intro mb-4">
+          <span class="badge bg-light text-dark border mb-2"><i class="bi bi-calendar-check text-primary me-1"></i> Class Planner</span>
+          <h3 class="fw-bold text-dark mb-1">Plan a lesson</h3>
+          <p class="text-muted mb-0">Use this planning helper when you want a fresh analogy, worked example, or activity for your student's next class.</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-lg-5">
+            <div class="card-spacious h-100">
+              <h5 class="fw-bold text-dark mb-3"><i class="bi bi-pencil-square text-primary me-2"></i>Lesson details</h5>
+              <label class="form-label small fw-semibold" for="tutorHelpTopic">What are you teaching?</label>
+              <input class="form-control mb-3" id="tutorHelpTopic" placeholder="e.g. AVL tree rotations">
+              <label class="form-label small fw-semibold" for="tutorHelpLevel">Student level</label>
+              <select class="form-select mb-3" id="tutorHelpLevel">
+                <option>Beginner</option>
+                <option selected>College student</option>
+                <option>Exam preparation</option>
+              </select>
+              <label class="form-label small fw-semibold" for="tutorHelpStyle">What would help?</label>
+              <select class="form-select mb-4" id="tutorHelpStyle">
+                <option value="analogy">A simple analogy</option>
+                <option value="example">A worked example</option>
+                <option value="activity">A short practice activity</option>
+              </select>
+              <button class="btn btn-primary-custom w-100" type="button" onclick="prepareTutorLesson()"><i class="bi bi-lightbulb me-1"></i> Prepare idea</button>
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <div class="card-spacious h-100" id="tutorLessonSuggestion">
+              <div class="text-center py-5 text-muted">
+                <i class="bi bi-chat-square-text text-primary" style="font-size: 2.2rem;"></i>
+                <h5 class="fw-bold text-dark mt-3">Your lesson idea will appear here</h5>
+                <p class="small mb-0">Enter a topic and choose the kind of help you want.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="tab-tutor-support" role="tabpanel">
+        <div class="card-spacious support-card mb-4">
+          <h3 class="fw-bold text-dark mb-1">Support</h3>
+          <p class="text-muted mb-0">Need help with a booking, payment, or student session? Send a note to the SmartTutor team.</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-lg-7">
+            <form class="card-spacious" onsubmit="submitTutorSupport(event)">
+              <label class="form-label small fw-semibold" for="tutorSupportTopic">What do you need help with?</label>
+              <select class="form-select mb-3" id="tutorSupportTopic">
+                <option>Booking or student request</option>
+                <option>Payment or payout</option>
+                <option>Technical problem</option>
+                <option>Something else</option>
+              </select>
+              <label class="form-label small fw-semibold" for="tutorSupportMessage">Message</label>
+              <textarea class="form-control mb-3" id="tutorSupportMessage" rows="4" placeholder="Write a short description..."></textarea>
+              <button class="btn btn-primary-custom" type="submit"><i class="bi bi-send me-1"></i> Send to support</button>
+            </form>
+          </div>
+          <div class="col-lg-5">
+            <div class="card-spacious h-100">
+              <h5 class="fw-bold text-dark mb-3">Contact</h5>
+              <p class="small text-muted mb-2"><i class="bi bi-envelope me-2 text-primary"></i>support@smarttutor.app</p>
+              <p class="small text-muted mb-0"><i class="bi bi-clock me-2 text-primary"></i>Replies within one working day</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Book Mentor Session Modal -->
+  <div class="modal fade" id="bookSessionModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header border-bottom">
+          <h5 class="modal-title fw-bold text-dark">
+            <i class="bi bi-calendar-plus text-primary me-2"></i>Book Mentoring Session
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <div class="p-3 bg-light rounded-3 mb-3 d-flex align-items-center gap-3">
+            <img id="bookModalAvatar" src="" class="rounded-circle" width="50" height="50" alt="Mentor">
+            <div>
+              <h6 class="fw-bold mb-0 text-dark" id="bookModalName">Tutor Name</h6>
+              <span class="text-muted small" id="bookModalRate">₹0 / hr</span>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-bold text-muted">Session Topic / Doubt Summary</label>
+            <input type="text" id="bookSessionTopic" class="form-control" placeholder="e.g. Clarify Spring Security Filter Chain">
+          </div>
+
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <label class="form-label small fw-bold text-muted">Preferred Date</label>
+              <input type="date" id="bookSessionDate" class="form-control">
+            </div>
+            <div class="col-6">
+              <label class="form-label small fw-bold text-muted">Time Slot</label>
+              <select id="bookSessionSlot" class="form-select">
+                <option>10:00 AM - 11:00 AM</option>
+                <option>2:00 PM - 3:00 PM</option>
+                <option>4:30 PM - 5:30 PM</option>
+                <option>6:00 PM - 7:00 PM</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label small fw-bold text-muted">Session Format</label>
+            <select id="bookSessionMode" class="form-select">
+              <option value="Online 1-on-1">🌐 Online 1-on-1 Video Session (WebRTC)</option>
+              <option value="Campus Lab Hub">🏫 In-Person College IT Lab (Lab 304)</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer border-top">
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary-custom" onclick="confirmBookingSubmission()">Confirm &amp; Send Request</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Create Daily Practice Problems (DPP) -->
+  <div class="modal fade" id="createTppModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 shadow-lg rounded-1">
+        <div class="modal-header border-bottom py-3 px-4 bg-light">
+          <div>
+            <h5 class="modal-title fw-bold text-dark mb-1"><i class="bi bi-journal-text text-primary me-2"></i>Create Daily Practice Problem (DPP)</h5>
+            <p class="text-muted small mb-0">Publish a clean set of practice questions directly to your enrolled student.</p>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form onsubmit="handleCreateTpp(event)">
+          <div class="modal-body p-4">
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label small fw-bold text-dark">DPP Sheet Title</label>
+                <input type="text" id="tppPlanTitle" class="form-control" placeholder="e.g. DPP-04: Balanced AVL Trees &amp; Rotations" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-bold text-dark">Target Student</label>
+                <input type="text" id="tppStudentName" class="form-control" placeholder="e.g. Priya Sharma" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-bold text-dark">Subject / Module</label>
+                <select id="tppDuration" class="form-select">
+                  <option value="Data Structures &amp; Algorithms" selected>Data Structures &amp; Algorithms</option>
+                  <option value="Core Java &amp; OOP">Core Java &amp; OOP</option>
+                  <option value="Spring Boot &amp; Microservices">Spring Boot &amp; Microservices</option>
+                  <option value="Database Systems &amp; SQL">Database Systems &amp; SQL</option>
+                  <option value="Full-Stack Web Development">Full-Stack Web Development</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-bold text-dark">Difficulty Level</label>
+                <select id="tppFrequency" class="form-select">
+                  <option value="Level 1: Fundamentals (Easy)">Level 1: Fundamentals (Easy)</option>
+                  <option value="Level 2: Standard University Exam (Moderate)" selected>Level 2: Standard University Exam (Moderate)</option>
+                  <option value="Level 3: Advanced Problem Solving (Challenging)">Level 3: Advanced Problem Solving (Challenging)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-dark">Practice Questions (1 to 4 Questions)</label>
+              <textarea id="tppMilestones" class="form-control" rows="5" required>Q1. Explain the Balance Factor calculation for an AVL tree and write the exact condition for a Right (LL) rotation.
+Q2. Given the insertion sequence [30, 20, 10], draw the unbalanced tree and trace the pivot rotation step.
+Q3. Implement a short recursive function in Java or Python to verify if a Binary Search Tree is height-balanced.
+Q4. Compare the worst-case search complexity of an unbalanced BST vs an AVL Tree with N elements.</textarea>
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label small fw-bold text-dark">Submission Instructions / Due Date</label>
+              <input type="text" id="tppDeliverable" class="form-control" value="Submit handwritten code or digital trace before tomorrow's live class (8:00 PM)">
+            </div>
+          </div>
+          <div class="modal-footer border-top py-3 px-4 bg-light">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary-custom px-4"><i class="bi bi-send-check me-1"></i> Publish DPP to Student</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Automated Hindi IVR Safety Call Simulation -->
+  <div class="modal fade" id="hindiSafetyCallModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-1">
+        <div class="modal-header border-bottom py-3 px-4 bg-dark text-white">
+          <div class="d-flex align-items-center gap-2">
+            <span class="live-indicator-dot"></span>
+            <h6 class="modal-title fw-bold text-white mb-0"><i class="bi bi-telephone-inbound-fill text-warning me-2"></i>Incoming Automated Hindi Safety Call</h6>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4 text-center">
+          <div class="mb-3">
+            <div class="rounded-circle bg-danger-subtle text-danger mx-auto d-flex align-items-center justify-content-center mb-2" style="width: 68px; height: 68px; font-size: 1.8rem;">
+              <i class="bi bi-shield-lock-fill"></i>
+            </div>
+            <h5 class="fw-bold text-dark mb-1">SmartTutor Suraksha Hotline</h5>
+            <span class="badge bg-light text-muted border font-monospace">+91 1800-SURAKSHA (Automated Check)</span>
+          </div>
+
+          <div class="p-3 bg-light border rounded-1 mb-4 text-start">
+            <strong class="d-block small text-dark mb-1"><i class="bi bi-soundwave text-primary me-1"></i> IVR Voice Transcript (Playing in Hindi):</strong>
+            <p class="small text-secondary mb-0 fst-italic">
+              "नमस्ते! यह स्मार्टट्यूटर सुरक्षा केंद्र से ऑटोमेटेड सुरक्षा जांच है। आपकी होम ट्यूशन क्लास 30 मिनट से चल रही है।<br>
+              <strong>अगर आप पूरी तरह सुरक्षित हैं तो 1 दबाएं। किसी भी सहायता या इमरजेंसी के लिए 2 दबाएं।</strong>"
+            </p>
+          </div>
+
+          <div class="d-grid gap-2">
+            <button class="btn btn-success py-2 fw-bold" onclick="respondHindiSafetyCall(1)">
+              <i class="bi bi-check2-circle me-1"></i> [1] Main Surakshit Hoon (Confirm All Safe)
+            </button>
+            <button class="btn btn-outline-danger py-2 fw-bold" onclick="respondHindiSafetyCall(2)">
+              <i class="bi bi-exclamation-triangle-fill me-1"></i> [2] Sahayata Chahiye (Trigger SOS Support)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Emergency SOS Alert -->
+  <div class="modal fade" id="emergencySosModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-1 border-danger">
+        <div class="modal-header bg-danger text-white py-3 px-4">
+          <h5 class="modal-title fw-bold text-white mb-0"><i class="bi bi-shield-fill-exclamation me-2"></i>EMERGENCY GUARDIAN &amp; PROCTOR ALERT</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4 text-center">
+          <div class="rounded-circle bg-danger text-white mx-auto d-flex align-items-center justify-content-center mb-3 animate-pulse" style="width: 76px; height: 76px; font-size: 2.2rem;">
+            <i class="bi bi-broadcast"></i>
+          </div>
+          <h4 class="fw-bold text-danger mb-2">Emergency Alert Broadcasted</h4>
+          <p class="small text-muted mb-3">Your real-time GPS location and session details have been automatically transmitted to:</p>
+          
+          <div class="p-3 bg-light border rounded-1 mb-3 text-start small">
+            <div class="d-flex justify-content-between mb-1">
+              <span class="text-muted">Emergency Contacts:</span>
+              <strong class="text-danger">Registered Parent / Local Guardian</strong>
+            </div>
+            <div class="d-flex justify-content-between mb-1">
+              <span class="text-muted">Campus Security Desk:</span>
+              <strong class="text-dark">Institute Proctor &amp; Security Office</strong>
+            </div>
+            <div class="d-flex justify-content-between mb-1">
+              <span class="text-muted">Live Geo-Coordinates:</span>
+              <strong class="text-dark font-monospace">28.6139° N, 77.2090° E</strong>
+            </div>
+            <div class="d-flex justify-content-between mb-1">
+              <span class="text-muted">Session Location:</span>
+              <strong class="text-dark">Mayur Vihar Ph-1, Delhi</strong>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span class="text-muted">Emergency Dispatch:</span>
+              <strong class="text-success">High Priority Alert Dispatched</strong>
+            </div>
+          </div>
+
+          <div class="alert alert-warning small py-2 text-start mb-3">
+            <i class="bi bi-info-circle-fill me-1"></i> Emergency notification sent to registered guardian phone <strong>(+91 98110-54321)</strong>.
+          </div>
+
+          <button class="btn btn-secondary w-100" data-bs-dismiss="modal">Close &amp; Keep Alert Active</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Unlock Emergency Contact -->
+  <div class="modal fade" id="unlockContactModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-1">
+        <div class="modal-header border-bottom py-3 px-4 bg-light">
+          <h5 class="modal-title fw-bold text-dark mb-0"><i class="bi bi-unlock-fill text-success me-2"></i>Emergency Contact Unlocked</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <div class="p-3 bg-success-subtle text-success border border-success-subtle rounded-1 mb-3 small">
+            <i class="bi bi-check-circle-fill me-1"></i> <strong>1-Hour Safety Protocol Verified:</strong> This session starts within 60 minutes. Direct contact numbers are now unlocked.
+          </div>
+          <div class="border rounded-1 p-3 bg-white mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="small text-muted">Student Name:</span>
+              <strong class="text-dark" id="unlockStudentName">Priya Sharma</strong>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="small text-muted">Direct Mobile Phone:</span>
+              <strong class="text-primary font-monospace" id="unlockDirectPhone">+91 98765-43210</strong>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="small text-muted">Parent Contact:</span>
+              <strong class="text-dark font-monospace">+91 98110-54321</strong>
+            </div>
+          </div>
+          <button class="btn btn-primary-custom w-100" data-bs-dismiss="modal">Got it, Return to Portal</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container text-center">
+      <p class="mb-1 text-light fw-semibold">Smart Tutor System — simple tools for tutors and students</p>
+      <p class="small text-muted mb-0">Connecting verified educators with students for online and in-person tutoring across India</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/api-config.js"></script>
+<script src="js/app.js"></script>
+  <script src="js/tutor.js"></script>
+  <script>
+    function switchTutorTab(tabId) {
+      const tabTrigger = document.getElementById(tabId);
+      if (tabTrigger) {
+        const tab = new bootstrap.Tab(tabTrigger);
+        tab.show();
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+/* Shared SmartTutor student-project theme */
+:root {
+  --theme-indigo: #1e3a8a;       /* Deep Navy Blue */
+  --theme-indigo-dark: #0f172a;  /* Midnight Slate */
+  --theme-indigo-light: #eff6ff; /* Ice Navy Tint */
+  --theme-ink: #0f172a;
+  --theme-text: #1e293b;
+  --theme-muted: #64748b;
+  --theme-border: #cbd5e1;
+  --theme-paper: #ffffff;
+  --theme-bg: #f8fafc;
+  --theme-yellow: #f59e0b;
+}
+
+body.site-theme {
+  background: var(--theme-bg) !important;
+  color: var(--theme-text);
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+.site-theme h1,
+.site-theme h2,
+.site-theme h3,
+.site-theme h4,
+.site-theme h5,
+.site-theme h6 {
+  color: var(--theme-ink);
+  font-family: 'Outfit', sans-serif !important;
+}
+
+.site-theme .navbar-custom,
+.site-theme .site-nav,
+.site-theme .institute-nav,
+.site-theme .pw-navbar {
+  background: #ffffff !important;
+  border-bottom: 1px solid var(--theme-border) !important;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.04) !important;
+}
+
+.site-theme .brand-icon,
+.site-theme .brand-logo-badge {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 2px !important;
+  background: var(--theme-indigo) !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 6px rgba(30, 58, 138, 0.25) !important;
+}
+
+.site-theme .brand-icon i,
+.site-theme .brand-logo-badge i {
+  color: #ffffff !important;
+}
+
+.site-theme .brand-title,
+.site-theme .brand-text,
+.site-theme .brand-name,
+.site-theme .brand-logo {
+  color: var(--theme-ink) !important;
+  font-family: 'Outfit', sans-serif !important;
+}
+
+.site-theme .brand-name span {
+  color: var(--theme-indigo) !important;
+}
+
+.site-theme .portal-hero,
+.site-theme .hero-section {
+  background: var(--theme-paper) !important;
+  border-bottom: 1px solid var(--theme-border) !important;
+  box-shadow: inset 0 -3px 0 var(--theme-yellow);
+}
+
+.site-theme .hero-gradient-text {
+  background: none !important;
+  color: var(--theme-indigo) !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+/* Sharp Boxes - Clean, Modern, Edgy Minimal Styling */
+.site-theme .card-spacious,
+.site-theme .dashboard-card,
+.site-theme .auth-card,
+.site-theme .academic-card,
+.site-theme .gateway-card,
+.site-theme .card {
+  border-color: var(--theme-border) !important;
+  border-radius: 2px !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06) !important;
+}
+
+.site-theme .card-spacious:hover,
+.site-theme .dashboard-card:hover,
+.site-theme .gateway-card:hover {
+  border-color: #94a3b8 !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.09) !important;
+}
+
+.site-theme .btn-primary-custom,
+.site-theme .btn-pw-primary,
+.site-theme .submit-btn,
+.site-theme .btn {
+  border-radius: 2px !important;
+}
+
+.site-theme .btn-primary-custom,
+.site-theme .btn-pw-primary,
+.site-theme .submit-btn {
+  background: var(--theme-indigo) !important;
+  border-color: var(--theme-indigo) !important;
+  box-shadow: 0 2px 5px rgba(30, 58, 138, 0.2) !important;
+}
+
+.site-theme .btn-primary-custom:hover,
+.site-theme .btn-pw-primary:hover,
+.site-theme .submit-btn:hover {
+  background: var(--theme-indigo-dark) !important;
+  border-color: var(--theme-indigo-dark) !important;
+}
+
+.site-theme .btn-outline-custom,
+.site-theme .nav-link-subtle,
+.site-theme .btn-pw-login {
+  border-radius: 2px !important;
+}
+
+.site-theme .form-control,
+.site-theme .form-select,
+.site-theme .clean-input,
+.site-theme .academic-input {
+  border-color: #cbd5e1;
+  border-radius: 2px !important;
+}
+
+.site-theme .form-control:focus,
+.site-theme .form-select:focus,
+.site-theme .clean-input:focus,
+.site-theme .academic-input:focus {
+  border-color: var(--theme-indigo) !important;
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.15) !important;
+}
+
+.site-theme .site-footer,
+.site-theme footer {
+  border-top: 3px solid var(--theme-yellow);
+}
+
+@media (max-width: 767.98px) {
+  .site-theme .portal-hero-title,
+  .site-theme .hero-title {
+    font-size: 1.9rem !important;
+  }
+}
+

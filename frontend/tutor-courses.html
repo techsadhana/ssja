@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Courses — SmartTutor</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <style>
+    .course-page-main { max-width: 1080px; }
+    .course-form-card { background: #fff; border: 1px solid var(--theme-border); padding: 1.5rem; }
+    .course-side-panel { background: #f0fdf4; border: 1px solid #bbf7d0; padding: 1.25rem; }
+    .course-list-item { border-top: 1px solid var(--theme-border); padding: 1.25rem 0; }
+    .course-list-item:first-child { border-top: 0; padding-top: 0; }
+    .course-description { white-space: pre-wrap; overflow-wrap: anywhere; }
+    @media (max-width: 575.98px) {
+      .course-form-card { padding: 1rem; }
+    }
+  </style>
+</head>
+<body class="site-theme">
+  <nav class="navbar navbar-custom sticky-top">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a class="navbar-brand brand-logo mb-0" href="tutor.html">
+        <span class="brand-icon"><i class="bi bi-mortarboard-fill"></i></span>
+        <span class="brand-name">Smart<span>Tutor</span><small class="text-muted fs-6 fw-normal ms-1">| Tutor Portal</small></span>
+      </a>
+      <a class="btn btn-sm btn-light border text-muted d-inline-flex align-items-center gap-1" href="tutor.html">
+        <i class="bi bi-arrow-left"></i><span class="d-none d-sm-inline">Back to portal</span>
+      </a>
+    </div>
+  </nav>
+
+  <main class="container course-page-main py-4 py-lg-5 flex-grow-1">
+    <header class="d-flex flex-wrap align-items-end justify-content-between gap-3 mb-4">
+      <div>
+        <span class="badge bg-success-subtle text-success border border-success-subtle mb-2">Tutor workspace</span>
+        <h1 class="h2 fw-bold mb-1">My Courses</h1>
+        <p class="text-muted mb-0">Create and manage the courses students can explore.</p>
+      </div>
+      <span class="small text-muted"><i class="bi bi-cloud-check me-1"></i>Saved on this device</span>
+    </header>
+
+    <div id="courseFormMessage" class="alert d-none" role="status" aria-live="polite"></div>
+
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-8">
+        <form class="course-form-card" id="addCourseForm">
+          <div class="d-flex align-items-center gap-2 mb-4">
+            <span class="d-inline-flex align-items-center justify-content-center bg-primary-subtle text-primary" style="width: 38px; height: 38px;">
+              <i class="bi bi-journal-plus fs-5"></i>
+            </span>
+            <div>
+              <h2 class="h5 fw-bold mb-0">Add a course</h2>
+              <span class="small text-muted">Fields marked with * are required</span>
+            </div>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label small fw-semibold" for="courseName">Course name *</label>
+              <input class="form-control" id="courseName" name="name" type="text" maxlength="120" placeholder="e.g. Java & Spring Boot Foundations" required>
+            </div>
+            <div class="col-12">
+              <label class="form-label small fw-semibold" for="courseDescription">Description *</label>
+              <textarea class="form-control" id="courseDescription" name="description" rows="4" maxlength="2000" placeholder="Describe what students will learn and what they will be able to do." required></textarea>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label small fw-semibold" for="courseTutorId">Tutor ID *</label>
+              <input class="form-control bg-light" id="courseTutorId" name="tutorId" type="text" readonly required aria-describedby="tutorIdHelp">
+              <small class="form-text" id="tutorIdHelp">Associated with your signed-in tutor account.</small>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label small fw-semibold" for="coursePrice">Price (INR) *</label>
+              <div class="input-group">
+                <span class="input-group-text">₹</span>
+                <input class="form-control" id="coursePrice" name="price" type="number" min="0" step="1" inputmode="decimal" placeholder="e.g. 4500" required>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label small fw-semibold" for="courseDuration">Duration *</label>
+              <div class="input-group">
+                <input class="form-control" id="courseDuration" name="duration" type="number" min="1" step="1" inputmode="numeric" placeholder="e.g. 12" required>
+                <span class="input-group-text">hours</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end mt-4">
+            <button class="btn btn-primary-custom px-4" type="submit">
+              <i class="bi bi-plus-lg me-1"></i> Add course
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <aside class="col-lg-4" aria-label="Tutor course summary">
+        <div class="course-side-panel">
+          <span class="small text-success fw-bold text-uppercase">Tutor account</span>
+          <div class="mt-2 mb-3">
+            <span class="small text-muted d-block">Your tutor ID</span>
+            <strong class="text-dark" id="tutorIdSummary">Loading...</strong>
+          </div>
+          <div class="border-top border-success-subtle pt-3">
+            <span class="small text-muted d-block">Courses added</span>
+            <strong class="fs-4 text-dark" id="courseCount">0</strong>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <section class="course-form-card mt-4" aria-labelledby="yourCoursesTitle">
+      <div class="d-flex align-items-center justify-content-between gap-3 mb-3">
+        <div>
+          <h2 class="h5 fw-bold mb-1" id="yourCoursesTitle">Your courses</h2>
+          <p class="small text-muted mb-0">Courses associated with your tutor ID.</p>
+        </div>
+      </div>
+      <div id="tutorCoursesList" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="py-3 mt-auto">
+    <div class="container text-center">
+      <span class="small text-muted">SmartTutor • Tutor Portal</span>
+    </div>
+  </footer>
+
+  <script src="js/api-config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/tutor-courses.js"></script>
+</body>
+</html>

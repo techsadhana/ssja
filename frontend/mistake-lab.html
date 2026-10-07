@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mistake Laboratory — Smart Tutor System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/theme.css">
+</head>
+<body class="site-theme">
+
+  <!-- Top Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+    <div class="container">
+      <a class="navbar-brand brand-logo" href="index.html">
+        <i class="bi bi-mortarboard-fill text-primary"></i>
+        <span>SmartTutor</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="student-dashboard.html">Student Portal</a></li>
+          <li class="nav-item"><a class="nav-link" href="tutor-dashboard.html">Tutor Page</a></li>
+          <li class="nav-item"><a class="nav-link" href="admin-dashboard.html">Admin Page</a></li>
+        </ul>
+        <div id="navbarUserArea" class="d-flex align-items-center"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Banner -->
+  <div class="bg-white border-bottom py-4 mb-4">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div>
+          <span class="badge bg-purple text-dark border mb-2"><i class="bi bi-flask-fill text-primary me-1"></i> Core Innovation Feature</span>
+          <h2 class="fw-bold text-dark mb-1">The Mistake Laboratory</h2>
+          <p class="text-muted small mb-0">Most learning platforms penalize errors. SmartTutor uses AI to turn your test mistakes into permanent mastery.</p>
+        </div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-outline-custom btn-sm" onclick="loadQuiz('Java')">
+            <i class="bi bi-file-code me-1"></i> Java Quiz
+          </button>
+          <button class="btn btn-outline-custom btn-sm" onclick="loadQuiz('Data Structures')">
+            <i class="bi bi-diagram-2 me-1"></i> DSA Quiz
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container py-2">
+    <div class="row g-4">
+      
+      <!-- Quiz Area -->
+      <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white">
+          <div id="quizContainer">
+            <!-- Rendered by mistake-lab.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Side Explainer Card -->
+      <div class="col-lg-4">
+        <div class="p-4 bg-white rounded-4 shadow-sm border mb-4">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="card-icon mb-0" style="width: 44px; height: 44px; font-size: 1.2rem;">
+              <i class="bi bi-lightbulb-fill"></i>
+            </div>
+            <div>
+              <h6 class="fw-bold text-dark mb-0">How Mistake Lab Works</h6>
+              <span class="text-muted small">AI-Powered Active Recall</span>
+            </div>
+          </div>
+          <ol class="small text-muted ps-3 mb-0" style="line-height: 1.8;">
+            <li>Answer the multiple-choice questions.</li>
+            <li>If you select an incorrect answer, our AI engine intercepts it immediately.</li>
+            <li><strong>Google Gemini AI</strong> diagnoses the exact root-cause misunderstanding.</li>
+            <li>You receive an intuitive mental model to never repeat that mistake in your exams!</li>
+          </ol>
+        </div>
+
+        <div class="p-4 bg-purple rounded-4 border">
+          <h6 class="fw-bold text-dark mb-2"><i class="bi bi-patch-check-fill text-primary me-1"></i> Viva Talking Point</h6>
+          <p class="small text-muted mb-0">
+            Tell Hiten Sir and Jayashree Madam: <em>"Unlike standard LMS quizzes that only give a percentage, our Mistake Lab uses Generative AI to provide remedial reasoning on every wrong selection."</em>
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Student Mistake History Table -->
+    <div class="card border-0 shadow-sm rounded-4 p-4 mt-5 bg-white">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <h5 class="fw-bold text-dark mb-1">
+            <i class="bi bi-journal-x text-danger me-2"></i>My Remedial Mistake History
+          </h5>
+          <p class="text-muted small mb-0">Saved questions for quick revision before viva and university examinations.</p>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Topic</th>
+              <th>Question</th>
+              <th>Your Error</th>
+              <th>Remediation Status</th>
+            </tr>
+          </thead>
+          <tbody id="mistakeHistoryTable">
+            <!-- Loaded by mistake-lab.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Mistake Lab Diagnosis Modal -->
+  <div class="modal fade" id="mistakeLabModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content rounded-4 border-0 shadow-lg">
+        <div class="modal-header border-0 pb-0 bg-danger-subtle rounded-top-4 p-4">
+          <div class="d-flex align-items-center gap-3">
+            <div class="card-icon mb-0 bg-danger text-white" style="width: 44px; height: 44px; font-size: 1.3rem;">
+              <i class="bi bi-exclamation-triangle"></i>
+            </div>
+            <div>
+              <h5 class="modal-title fw-bold text-dark mb-0">Mistake Laboratory: AI Error Diagnosis</h5>
+              <span class="text-muted small">Let's turn this wrong answer into a permanent learning win!</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-body p-4">
+          <!-- The Question -->
+          <div class="mb-3 p-3 bg-light rounded-3 border">
+            <span class="text-muted small fw-bold d-block mb-1">QUESTION:</span>
+            <strong id="modalMistakeQuestion" class="text-dark">Question text</strong>
+          </div>
+
+          <!-- Wrong vs Right Comparison -->
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <div class="p-3 bg-danger-subtle rounded-3 border border-danger">
+                <span class="text-danger small fw-bold d-block mb-1">❌ YOUR CHOICE:</span>
+                <span id="modalMistakeStudentAnswer" class="text-danger fw-semibold small">Wrong answer</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-3 bg-success-subtle rounded-3 border border-success">
+                <span class="text-success small fw-bold d-block mb-1">✅ CORRECT ANSWER:</span>
+                <span id="modalMistakeCorrectAnswer" class="text-success fw-semibold small">Correct answer</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI Explanation Container -->
+          <div class="p-3 bg-white rounded-3 border shadow-sm">
+            <span class="text-primary small fw-bold d-flex align-items-center gap-2 mb-2">
+              <i class="bi bi-robot"></i> GEMINI AI REMEDIAL ANALYSIS:
+            </span>
+            <div id="modalMistakeAiExplanation" class="text-dark small">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer border-0 pt-0 p-4">
+          <button type="button" class="btn btn-primary-custom px-4 py-2" onclick="continueAfterMistake()">
+            I Understand Now! Continue Quiz &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/api-config.js"></script>
+<script src="js/app.js"></script>
+  <script src="js/mistake-lab.js"></script>
+</body>
+</html>
